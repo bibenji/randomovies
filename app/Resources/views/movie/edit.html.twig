@@ -1,0 +1,43 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Admin - Movies List{% endblock %}
+
+{% block body %}
+	<div class="container">
+		
+	<span class="pull-right">
+		<br />
+		{{ form_start(delete_form) }}
+			<input class="btn btn-danger" type="submit" value="Delete">
+		{{ form_end(delete_form) }}
+	</span>
+    <h1>Movie Edit</h1>
+
+
+	<hr />
+	
+	{{ form_start(edit_form) }}
+		
+		<div class="row">
+			<div class="col-md-12">
+				
+				{% form_theme edit_form 'form/field.html.twig' %}
+				
+				{{ form_widget(edit_form) }} 
+				
+				<span class="pull-right">
+				<a class="btn btn-primary" href="{{ path('admin_movie_index') }}">Back to the list</a>
+				&nbsp;
+				<input class="btn btn-success" type="submit" value="Edit" />
+				</span>
+				
+			</div>			
+		</div>
+		
+		{{ form_end(edit_form) }}
+		
+
+	
+	
+	</div>
+{% endblock %}

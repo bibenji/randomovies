@@ -1,0 +1,41 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}RandoMovies - Home{% endblock %}
+
+{% block body %}
+	<div class="container">	
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-md-2">
+					<h3>YOU COULD LIKE TOO</h3>
+					<img class="img-thumbnail" src="{{ asset('images/fake-posters/inception-1.jpg') }}" />										
+					<img class="img-thumbnail" src="{{ asset('images/fake-posters/moonrise-kingdom.jpg') }}" />										
+					<img class="img-thumbnail" src="{{ asset('images/fake-posters/showgirls.jpg') }}" />										
+					<img class="img-thumbnail" src="{{ asset('images/fake-posters/the-rum-diary.jpg') }}" />															
+				</div>
+				<div class="col-md-10">
+					<div class="row">
+						<div class="col-md-12">
+							<h2 class="text-center">Recherche</h2>					
+							<hr />
+							<div class="row">
+								<div class="col-md-9">
+									Résultats de la recherche :
+									<p>
+										{{ dump(results) }}
+									</p>
+								</div>
+								<div class="col-md-3">
+									{{ form_start(movieSearchForm) }}
+									{{ form_widget(movieSearchForm) }}
+									{{ form_end(movieSearchForm) }}
+								</div>
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}

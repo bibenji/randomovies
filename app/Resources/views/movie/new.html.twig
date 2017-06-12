@@ -1,0 +1,34 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Admin - Movie Creation{% endblock %}
+
+{% block body %}
+	<div class="container">		
+		
+		<h1 class="text-center">Movie Creation</h1>
+		<hr/>
+		
+		{{ form_start(form) }}
+		
+		<div class="row">
+			<div class="col-md-12">
+				
+				{% form_theme form 'form/field.html.twig' %}
+				
+				{{ form_widget(form) }} 
+				
+				<span class="pull-right">
+				<a class="btn btn-primary" href="{{ path('admin_movie_index') }}">Back to the list</a>
+				&nbsp;
+				<input class="btn btn-success" type="submit" value="Create" />
+				</span>
+				
+			</div>			
+		</div>
+		
+		{{ form_end(form) }}
+		
+		
+		
+	</div>
+{% endblock %}

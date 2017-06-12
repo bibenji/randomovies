@@ -1,0 +1,70 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Admin - {{ movie.title }}{% endblock %}
+
+{% block body %}
+	<div class="container">
+	
+    <h1>Movie - {{ movie.title }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ movie.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ movie.title }}</td>
+            </tr>
+            <tr>
+                <th>Director</th>
+                <td>{{ movie.director }}</td>
+            </tr>
+            <tr>
+                <th>Actors</th>
+                <td>{{ movie.actors }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ movie.year }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ movie.duration }}</td>
+            </tr>
+            <tr>
+                <th>Synopsis</th>
+                <td>{{ movie.synopsis }}</td>
+            </tr>
+            <tr>
+                <th>Rating</th>
+                <td>{{ movie.rating }}</td>
+            </tr>
+            <tr>
+                <th>Review</th>
+                <td>{{ movie.review }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ movie.genre }}</td>
+            </tr>
+            <tr>
+                <th>Poster</th>
+                <td>{{ movie.poster }}</td>
+            </tr>
+        </tbody>
+    </table>
+		
+		<span class="pull-right">    
+            <a class="btn btn-primary" href="{{ path('admin_movie_index') }}">Back to the list</a>
+			&nbsp;
+            <a class="btn btn-info" href="{{ path('admin_movie_edit', { 'id': movie.id }) }}">Edit</a>
+		</span>
+            
+		{{ form_start(delete_form) }}
+			<input class="btn btn-danger" type="submit" value="Delete">
+		{{ form_end(delete_form) }}
+		
+	</div>	
+{% endblock %}

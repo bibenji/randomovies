@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}RandoMovies - Home{% endblock %}
+
+{% block body %}
+
+	<div class="container">			
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-md-2">
+					<h3>YOU COULD LIKE TOO</h3>
+					<img class="img-thumbnail" src="{{ asset('images/fake-posters/inception-1.jpg') }}" />										
+					<img class="img-thumbnail" src="{{ asset('images/fake-posters/moonrise-kingdom.jpg') }}" />										
+					<img class="img-thumbnail" src="{{ asset('images/fake-posters/showgirls.jpg') }}" />										
+					<img class="img-thumbnail" src="{{ asset('images/fake-posters/the-rum-diary.jpg') }}" />															
+				</div>
+				<div class="col-md-10">
+					<div class="row">
+						<div class="col-md-12">
+							<h2 class="text-center">{{ movie.title }}</h2>					
+							<hr />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<img src="{{ asset('images/posters/' ~ movie.poster.filename) }}" class="movie-poster" />					
+						</div>
+						<div class="col-md-6">
+							<p>{{ movie.synopsis }}</p>
+							<p>Genre : {{ movie.genre }}</p>
+							<p>Réalisateur : {{ movie.director }}</p>
+							<p>Actors : {{ movie.actors }}</p>
+							<p>Year : {{ movie.year }}</p>
+							<p>Durée : {{ movie.duration }} min</p>
+							<p>Rating : {{ movie.rating}} / 10</p>
+						</div>
+					</div>
+					<div class="row">			
+						<div class="col-md-12">
+							<br />
+							<p class="text-center">						
+								<a class="btn btn-lg btn-primary" href="{{ path('homepage') }}" role="button">See Another Movie</a>						
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}

@@ -1,0 +1,23 @@
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{{ path('homepage') }}">RandoMovies</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="{{ app.request.get('_route') == 'homepage' ? 'active' : '' }}"><a href="{{ path('homepage') }}">Au hasard</a></li>
+				<li class="{{ app.request.get('_route') == 'list' ? 'active' : '' }}"><a href="{{ path('list') }}">Tous les films</a></li>
+				<li class="{{ app.request.get('_route') == 'search' ? 'active' : '' }}"><a href="{{ path('search') }}">Recherche</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">				
+				<li><a href="{{ path('admin_movie_index') }}">Admin</a></li>
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div><!--/.container-fluid -->
+</nav>	
