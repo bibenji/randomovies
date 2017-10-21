@@ -1,6 +1,9 @@
 fos_elastica:
     clients:
-        default: { host: %elastic_host%, port: %elastic_port% }
+#        default: { host: %elastic_host%, port: %elastic_port% }
+#        default: { host: '%env(ELASTIC_HOST)%', port: '%env(ELASTIC_PORT)%' }
+#        default: { host: 172.18.0.16, port: '%env(ELASTIC_PORT)%' }
+        default: { url: '%env(ELASTIC_URL)%' }
     indexes:
         randomovies:
             client: default

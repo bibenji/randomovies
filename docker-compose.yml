@@ -1,0 +1,77 @@
+version: '3'
+
+services:
+    randomovies_nginx:
+        image: nginx:latest
+        env_file: ./.env
+        volumes:
+            - ./docker/nginx/config/default.conf:/etc/nginx/conf.d/default.conf
+#            - ./web/:/app/
+            - ./:/opt/project
+            - ./var/logs/nginx/:/var/log/nginx/
+        labels:
+           - "traefik.backend=randomovies_nginx"
+           - "traefik.frontend.rule=Host:${SITE_HOST}"
+           - "traefik.port=80"
+           - "traefik.frontend.passHostHeader=true"
+           - "traefik.backend.loadbalancer.method=drr"
+        depends_on:
+           - randomovies_php
+
+    randomovies_php:
+        build:
+            context: ./docker/php/
+        depends_on:
+            - randomovies_database
+        env_file: ./.env
+        volumes:
+            - ./:/opt/project/
+#            - ./docker/php/ini/:/usr/local/etc/php/
+        environment:
+            - SYMFONY_ENV=${SYMFONY_ENV}
+            - MYSQL_PORT=${MYSQL_PORT}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        labels:
+            - "traefik.enable=false"
+
+    randomovies_database:
+        image: mariadb:latest
+#        image: mariadb:10.1.21
+        env_file: ./.env
+        environment:
+            - MYSQL_PORT=${MYSQL_PORT}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+
+    randomovies_phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        env_file: ./.env
+        links:
+            - randomovies_database
+        environment:
+            - PMA_HOST=${MYSQL_HOST}
+        labels:
+            - "traefik.backend=randomovies_phpmyadmin"
+            - "traefik.frontend.rule=Host:pma.${SITE_HOST}"
+            - "traefik.backend.loadbalancer.method=drr"
+            - "traefik.frontend.passHostHeader=true"
+
+    randomovies_elasticsearch:
+          image: elasticsearch:5.1
+          restart: always
+          labels:
+              - "traefik.backend=fai_elasticsearch"
+              - "traefik.frontend.rule=Host:es.${SITE_HOST}"
+              - "traefik.port=9200"
+              - "traefik.frontend.passHostHeader=true"
+              - "traefik.backend.loadbalancer.method=drr"
+
+networks:
+  default:
+    external:
+      name: devtools

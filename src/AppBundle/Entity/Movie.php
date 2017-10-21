@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -91,6 +92,15 @@ class Movie
      */
     private $poster;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Role", mappedBy="movie")
+     */
+    private $roles;
+
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -340,6 +350,26 @@ class Movie
     public function getPoster()
     {
         return $this->poster;
+    }
+
+    /**
+     * @param Role $role
+     * @return $this
+     */
+    public function addRole(Role $role)
+    {
+        $this->roles[] = $role;
+        return $this;
+    }
+
+    public function removeRole(Role $role)
+    {
+        $this->roles->removeElement($role);
+    }
+
+    public function getRoles()
+    {
+        return $this->roles;
     }
 }
 
