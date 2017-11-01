@@ -3,32 +3,113 @@
 {% block title %}Admin - Movie Creation{% endblock %}
 
 {% block body %}
-	<div class="container">		
+	<div class="container">
+		<div class="jumbotron">
 		
-		<h1 class="text-center">Movie Creation</h1>
-		<hr/>
-		
-		{{ form_start(form) }}
-		
-		<div class="row">
-			<div class="col-md-12">
-				
-				{% form_theme form 'form/field.html.twig' %}
-				
-				{{ form_widget(form) }} 
-				
-				<span class="pull-right">
-				<a class="btn btn-primary" href="{{ path('admin_movie_index') }}">Back to the list</a>
-				&nbsp;
-				<input class="btn btn-success" type="submit" value="Create" />
-				</span>
-				
-			</div>			
+			<h1 class="text-center">Movie Creation</h1>
+			<hr/>
+
+			{{ form_start(form) }}
+
+			<div class="row">
+				<div class="col-md-12">
+
+					{% form_theme form 'form/field.html.twig' %}
+
+						{{ form_row(form.title) }}
+						{{ form_row(form.director) }}
+						{{ form_row(form.actors) }}
+
+						{#
+						{{ form_row(form.roles) }}
+						#}
+
+						{{ form_label(form.roles) }}
+						{{ form_errors(form.roles) }}
+
+						<ul class="roles" data-prototype="{{ form_row(form.roles.vars.prototype)|e }}">
+							{% for roleField in form.roles %}
+								<li>
+									{{ form_errors(roleField) }}
+									{{ form_widget(roleField) }}
+								</li>
+							{% endfor %}
+						</ul>
+
+						<button id="add_role_button" class="btn btn-primary pull-right">Add role</button>
+						<br/><br/><br/>
+
+                    	{{ form_row(form.year) }}
+                    	{{ form_row(form.duration) }}
+                    	{{ form_row(form.synopsis) }}
+                    	{{ form_row(form.rating) }}
+                    	{{ form_row(form.review) }}
+                    	{{ form_row(form.genre) }}
+                    	{{ form_row(form.poster) }}
+
+
+					<span class="pull-right">
+					<a class="btn btn-primary" href="{{ path('admin_movie_index') }}">Back to the list</a>
+					&nbsp;
+					<input class="btn btn-success" type="submit" value="Create" />
+					</span>
+
+				</div>
+			</div>
+
+			{{ form_end(form) }}
+
 		</div>
-		
-		{{ form_end(form) }}
-		
-		
-		
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+
+//        var $collectionHolder;
+
+        $(function(){
+
+            console.log("jQuery ready!");
+
+            $collectionHolder = $('ul.roles');
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+	        function addOneRole($collectionHolder) {
+	            console.log("addOneRole function...");
+
+            	var prototype = $collectionHolder.data('prototype');
+
+	            var index = $collectionHolder.data('index');
+
+	            var newForm = prototype;
+				// You need this only if you didn't set 'label' => false in your tags field in TaskType
+				// Replace '__name__label__' in the prototype's HTML to
+				// instead be a number based on how many items we have
+				// newForm = newForm.replace(/__name__label__/g, index);
+
+				// Replace '__name__' in the prototype's HTML to
+				// instead be a number based on how many items we have
+//				newForm = newForm.replace(/__name__/g, index);
+
+				// increase the index with one for the next item
+				$collectionHolder.data('index', index + 1);
+
+				// Display the form in the page in an li, before the "Add a tag" link li
+				var $newFormLi = $('<li></li>').append(newForm);
+                $collectionHolder.append($newFormLi);
+
+        	}
+
+            $addRoleButton = $('#add_role_button');
+
+            $addRoleButton.on('click', function(e) {
+                e.preventDefault();
+
+                addOneRole($collectionHolder);
+            });
+
+        });
+
+	</script>
 {% endblock %}

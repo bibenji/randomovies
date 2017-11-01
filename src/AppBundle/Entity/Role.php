@@ -102,9 +102,9 @@ class Role
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getRole(): string
+    public function getRole(): ?string
     {
         return $this->role;
     }
@@ -118,9 +118,9 @@ class Role
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getCharacter(): string
+    public function getCharacter(): ?string
     {
         return $this->character;
     }

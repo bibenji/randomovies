@@ -10,5 +10,17 @@ namespace AppBundle\Repository;
  */
 class PersonRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getPeopleList()
+    {
+//        $qB = $this->getEntityManager()->createQueryBuilder();
+//
+//        $qB
+//            ->select('p')
+//            ->from('AppBundle:Person', 'p')
+//            ->orderBy('p.lastname', 'DESC')
+//        ;
+//
+//        return $qB;
+    }
 
 }

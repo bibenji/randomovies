@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -18,6 +19,12 @@ class MovieType extends AbstractType
 			->add('title')
 			->add('director')
 			->add('actors')
+			->add('roles', CollectionType::class, [
+			    'entry_type' => RoleType::class,
+                'allow_add' => true,
+                'prototype' => true,
+                'allow_delete' => true,
+            ])
 			->add('year')
 			->add('duration')
 			->add('synopsis')

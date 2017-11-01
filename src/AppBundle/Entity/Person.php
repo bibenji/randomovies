@@ -159,5 +159,10 @@ class Person
     {
         return $this->roles;
     }
+
+    public function getFullname(): string
+    {
+        return $this->lastname . ' ' . $this->firstname;
+    }
 }
 

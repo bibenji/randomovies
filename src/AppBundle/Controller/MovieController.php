@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Movie;
+use AppBundle\Entity\Person;
+use AppBundle\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -40,6 +42,10 @@ class MovieController extends Controller
     public function newAction(Request $request)
     {
         $movie = new Movie();
+
+//        $role = new Role();
+//        $movie->addRole($role);
+
         $form = $this->createForm('AppBundle\Form\MovieType', $movie);
         $form->handleRequest($request);
 
