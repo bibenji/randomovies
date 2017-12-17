@@ -15,6 +15,8 @@ class MovieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $posterRequired = (null === $options['data']->getPoster()) ?? false;
+
         $builder
 			->add('title')
 			->add('director')
@@ -24,6 +26,7 @@ class MovieType extends AbstractType
                 'allow_add' => true,
                 'prototype' => true,
                 'allow_delete' => true,
+                'by_reference' => false,
             ])
 			->add('year')
 			->add('duration')
@@ -34,7 +37,8 @@ class MovieType extends AbstractType
 			// ->add('poster')
 			->add('poster', FileType::class, [
 				'label' => 'New Poster',
-				// 'mapped' => false,				
+				'required' => $posterRequired,
+				 'mapped' => $posterRequired,
 			])
 		;
     }

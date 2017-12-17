@@ -29,6 +29,7 @@ class Role
      * @var Movie
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Movie", inversedBy="roles")
+     * @ORM\JoinColumn(name="movie_id", referencedColumnName="id")
      */
     private $movie;
 
@@ -36,6 +37,7 @@ class Role
      * @var Person
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person", inversedBy="roles")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     private $person;
 
@@ -49,9 +51,9 @@ class Role
     /**
      * @var string
      *
-     * @ORM\Column(name="character", type="string", nullable=true)
+     * @ORM\Column(name="personnage", type="string", nullable=true)
      */
-    private $character;
+    private $personnage;
 
     /**
      * @return int
@@ -88,7 +90,7 @@ class Role
     /**
      * @return Person
      */
-    public function getPerson(): Person
+    public function getPerson(): ?Person
     {
         return $this->person;
     }
@@ -102,7 +104,7 @@ class Role
     }
 
     /**
-     * @return null|string
+     * @return string
      */
     public function getRole(): ?string
     {
@@ -118,19 +120,19 @@ class Role
     }
 
     /**
-     * @return null|string
+     * @return string
      */
-    public function getCharacter(): ?string
+    public function getPersonnage(): ?string
     {
-        return $this->character;
+        return $this->personnage;
     }
 
     /**
-     * @param string $character
+     * @param string $personnage
      */
-    public function setCharacter(string $character)
+    public function setPersonnage(string $personnage)
     {
-        $this->character = $character;
+        $this->personnage = $personnage;
     }
 }
 

@@ -2,8 +2,10 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Movie;
 use AppBundle\Entity\MovieSearch;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -17,23 +19,36 @@ class MovieSearchType extends AbstractType
             ->add('title', null, array(
                 'required' => false,
             ))
-			->add('director', null, array(
+            ->add('synopsis', null, array(
                 'required' => false,
             ))
-			->add('actors', null, array(
+            ->add('genre', null, array(
                 'required' => false,
             ))
-            // ->add('yearFrom', DateType::class, array(
-                // 'required' => false,
-                // 'widget' => 'single_text',
-            // ))
-            ->add('yearTo', DateType::class, array(
-                'required' => false,
-                'widget' => 'single_text',
-            ))
-			->add('genre', null, array(
-                'required' => false,
-            ))
+            ->add('genre', ChoiceType::class, [
+                'choices' => [
+                    "Tous genres confondus" => "",
+                    Movie::SCIENCE_FICTION => Movie::SCIENCE_FICTION,
+                    Movie::COMEDIE_DRAMATIQUE => Movie::COMEDIE_DRAMATIQUE,
+                    Movie::COMEDIE => Movie::COMEDIE,
+                    Movie::DRAME => Movie::DRAME
+                ],
+                'required' => false
+            ])
+//            ->add('yearFrom', DateType::class, array(
+//                 'required' => false,
+//                 'widget' => 'single_text',
+//             ))
+//            ->add('yearTo', DateType::class, array(
+//                'required' => false,
+//                'widget' => 'single_text',
+//            ))
+//			->add('actors', null, array(
+//                'required' => false,
+//            ))
+//			->add('director', null, array(
+//                'required' => false,
+//            ))
             ->add('search', SubmitType::class)
         ;
     }

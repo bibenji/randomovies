@@ -1,0 +1,33 @@
+<li>
+    <hr />
+    <div class="pull-right">
+        <button class="btn btn-warning delete-button">Delete</button>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_label(role_prototype.person) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(role_prototype.person) }}<br />
+            {{ form_errors(role_prototype.person) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_label(role_prototype.role) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(role_prototype.role) }}<br />
+            {{ form_errors(role_prototype.role) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{ form_label(role_prototype.personnage) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(role_prototype.personnage) }}<br />
+            {{ form_errors(role_prototype.personnage) }}
+        </div>
+    </div>
+</li>

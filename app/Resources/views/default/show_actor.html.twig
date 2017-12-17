@@ -1,9 +1,10 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}RandoMovies - Tous les films{% endblock %}
+{% block title %}RandoMovies - Home{% endblock %}
 
 {% block body %}
-	<div class="container">	
+
+	<div class="container">			
 		<div class="jumbotron">
 			<div class="row">
 				<div class="col-md-2">
@@ -16,18 +17,14 @@
 				<div class="col-md-10">
 					<div class="row">
 						<div class="col-md-12">
-							<h2 class="text-center">Tous les films</h2>					
+							<h2 class="text-center">{{ actor.getFullName() }}</h2>
 							<hr />
-							{% set lettre = '' %}
-							{% for movie in movies %}
-								{% if movie.title|slice(0,1) != lettre %}
-									{% set lettre = movie.title|slice(0,1) %}
-									<h4>{{ lettre }}</h4>
-								{% endif %}
-								<a href="{{ path('show', { 'id' : movie.id }) }}">{{ movie.title }}</a><br/>
-							{% endfor %}
 						</div>
-					</div>					
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

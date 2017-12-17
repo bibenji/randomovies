@@ -21,9 +21,16 @@
 							<div class="row">
 								<div class="col-md-9">
 									Résultats de la recherche :
-									<p>
-										{{ dump(results) }}
-									</p>
+									<div class="row">
+										{% for movie in results %}
+											<div class="col-md-6 text-center">
+												<a href="{{ path('show', { 'id' : movie.id }) }}">
+													<img width="100%" src="{{ asset('images/posters/' ~ movie.poster.filename) }}" />
+													{{ movie.title }}
+												</a>
+											</div>
+										{% endfor %}
+									</div>
 								</div>
 								<div class="col-md-3">
 									{{ form_start(movieSearchForm) }}

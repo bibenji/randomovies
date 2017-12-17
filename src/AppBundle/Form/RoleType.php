@@ -40,7 +40,7 @@ class RoleType extends AbstractType
                     Role::ROLE_REALISATOR => Role::ROLE_REALISATOR
                 ]
             ])
-            ->add('character')
+            ->add('personnage')
         ;
     }
     

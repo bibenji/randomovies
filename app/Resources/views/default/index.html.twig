@@ -31,7 +31,14 @@
 							<p>{{ movie.synopsis }}</p>
 							<p>Genre : {{ movie.genre }}</p>
 							<p>Réalisateur : {{ movie.director }}</p>
-							<p>Actors : {{ movie.actors }}</p>
+							{#<p>Actors : {{ movie.actors }}</p>#}
+							<p>Actors :
+                                {% for role in movie.roles %}
+                                    {% if role.role == "actor" %}
+                                        {{ role.person.fullname }},&nbsp
+                                    {% endif %}
+                                {% endfor %}
+							</p>
 							<p>Year : {{ movie.year }}</p>
 							<p>Durée : {{ movie.duration }} min</p>
 							<p>Rating : {{ movie.rating}} / 10</p>

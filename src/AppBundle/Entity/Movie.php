@@ -13,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Movie
 {
+    const SCIENCE_FICTION = "Science-fiction";
+    const COMEDIE_DRAMATIQUE = "Comédie dramatique";
+    const COMEDIE = "Comédie";
+    const ANTICIPATION = "Anticipation";
+    const DRAME = "Drame";
+
     /**
      * @var int
      *
@@ -93,7 +99,7 @@ class Movie
     private $poster;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Role", mappedBy="movie")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Role", mappedBy="movie", cascade={"all"})
      */
     private $roles;
 
@@ -358,18 +364,31 @@ class Movie
      */
     public function addRole(Role $role)
     {
-        $this->roles[] = $role;
+        $role->setMovie($this);
+//        $this->roles[] = $role;
+        $this->roles->add($role);
         return $this;
     }
 
+    /**
+     * @param Role $role
+     */
     public function removeRole(Role $role)
     {
         $this->roles->removeElement($role);
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    public function setRoles($roles)
+    {
+        dump("SET ROLES"); exit;
     }
 }
 

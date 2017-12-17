@@ -41,12 +41,19 @@ class MovieController extends Controller
      */
     public function newAction(Request $request)
     {
+
         $movie = new Movie();
 
 //        $role = new Role();
 //        $movie->addRole($role);
 
         $form = $this->createForm('AppBundle\Form\MovieType', $movie);
+
+        dump($form->isSubmitted());
+        dump($form->isValid());
+        dump($request);
+//        exit;
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

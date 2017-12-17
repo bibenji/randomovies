@@ -13,6 +13,7 @@
 			<ul class="nav navbar-nav">
 				<li class="{{ app.request.get('_route') == 'homepage' ? 'active' : '' }}"><a href="{{ path('homepage') }}">Au hasard</a></li>
 				<li class="{{ app.request.get('_route') == 'list' ? 'active' : '' }}"><a href="{{ path('list') }}">Tous les films</a></li>
+				<li class="{{ app.request.get('_route') == 'list_actors' ? 'active' : '' }}"><a href="{{ path('list_actors') }}">Tous les acteurs</a></li>
 				<li class="{{ app.request.get('_route') == 'search' ? 'active' : '' }}"><a href="{{ path('search') }}">Recherche</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">				
