@@ -4,57 +4,42 @@
 
 {% block body %}
 
-	<div class="container">			
-		<div class="jumbotron">
-			<div class="row">
-				<div class="col-md-2">
-					<h3>YOU COULD LIKE TOO</h3>
-					<img class="img-thumbnail" src="{{ asset('images/fake-posters/inception-1.jpg') }}" />										
-					<img class="img-thumbnail" src="{{ asset('images/fake-posters/moonrise-kingdom.jpg') }}" />										
-					<img class="img-thumbnail" src="{{ asset('images/fake-posters/showgirls.jpg') }}" />										
-					<img class="img-thumbnail" src="{{ asset('images/fake-posters/the-rum-diary.jpg') }}" />															
-				</div>
-				<div class="col-md-10">
-					<div class="row">
-						<div class="col-md-12">
-							<h2 class="text-center">{{ movie.title }}</h2>					
-							<hr />
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							{% if movie.poster != "" %}
-							<img src="{{ asset('images/posters/' ~ movie.poster.filename) }}" class="movie-poster" />
-							{% endif %}
-						</div>
-						<div class="col-md-6">
-							<p>{{ movie.synopsis }}</p>
-							<p>Genre : {{ movie.genre }}</p>
-							<p>Réalisateur : {{ movie.director }}</p>
-							{#<p>Actors : {{ movie.actors }}</p>#}
-							<p>Actors :
-                                {% for role in movie.roles %}
-                                    {% if role.role == "actor" %}
-                                        {{ role.person.fullname }},&nbsp
-                                    {% endif %}
-                                {% endfor %}
-							</p>
-							<p>Year : {{ movie.year }}</p>
-							<p>Durée : {{ movie.duration }} min</p>
-							<p>Rating : {{ movie.rating}} / 10</p>
-						</div>
-					</div>
-					<div class="row">			
-						<div class="col-md-12">
-							<br />
-							<p class="text-center">						
-								<a class="btn btn-lg btn-primary" href="{{ path('homepage') }}" role="button">See Another Movie</a>						
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="col-md-3 pl-3">
+        {% if movie.poster != "" %}
+			<img class="movie-cover" src="{{ asset('images/posters/' ~ movie.poster.filename) }}" />
+        {% endif %}
 	</div>
-	
+	<div class="col-md-5 pl-5 pr-5 movie-infos">
+		<div class="float-right">
+			{% for i in 1..movie.rating %}
+				<img src="/images/yellow-star.png" class="yellow-star" />
+			{% endfor %}
+		</div>
+
+		<h3>{{ movie.title }}</h3>
+
+		<ul class="movie-small-infos">
+			<li class="small-info-green">{{ movie.genre }}</li>
+			<li class="small-info-red text-center">{{ movie.year }}</li>
+			<li class="small-info-pink text-right"> {{ movie.duration }} min</li>
+		</ul>
+		<div class="movie-main-infos">
+			<p>Réalisateur : {{ movie.director }}</p>
+			<p>Acteurs :
+                {% for role in movie.roles %}
+					{% if role.role == "actor" %}
+						{{ role.person.fullname }},&nbsp
+					{% endif %}
+                {% endfor %}
+			<p>
+				Synopsis :<br /><br />
+                {{ movie.synopsis|raw }}
+			</p>
+		</div>
+		<h4 class="text-center">
+			<br />
+			<a href="{{ path('homepage') }}">Un Autre Film Au Hasard</a>
+		</h4>
+	</div>
+
 {% endblock %}

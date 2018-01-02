@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Person
 {
+    const MAN = 'M';
+    const WOMAN = 'W';
+
     /**
      * @var int
      *

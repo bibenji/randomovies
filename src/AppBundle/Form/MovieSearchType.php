@@ -20,10 +20,24 @@ class MovieSearchType extends AbstractType
                 'required' => false,
             ))
             ->add('synopsis', null, array(
+                'label' => 'Mots clés',
                 'required' => false,
             ))
-            ->add('genre', null, array(
+//            ->add('yearFrom', ChoiceType::class, [
+//                'choices' => [1920, 1921, 1922],
+//                'required' => false
+//            ])
+//            ->add('yearTo', ChoiceType::class, [
+//                'choices' => [2020, 2019, 2018],
+//                'required' => false
+//            ])
+            ->add('yearFrom', DateType::class, array(
+                 'required' => false,
+                 'widget' => 'single_text',
+             ))
+            ->add('yearTo', DateType::class, array(
                 'required' => false,
+                'widget' => 'single_text',
             ))
             ->add('genre', ChoiceType::class, [
                 'choices' => [
@@ -35,21 +49,13 @@ class MovieSearchType extends AbstractType
                 ],
                 'required' => false
             ])
-//            ->add('yearFrom', DateType::class, array(
-//                 'required' => false,
-//                 'widget' => 'single_text',
-//             ))
-//            ->add('yearTo', DateType::class, array(
-//                'required' => false,
-//                'widget' => 'single_text',
-//            ))
 //			->add('actors', null, array(
 //                'required' => false,
 //            ))
 //			->add('director', null, array(
 //                'required' => false,
 //            ))
-            ->add('search', SubmitType::class)
+//            ->add('search', SubmitType::class)
         ;
     }
 

@@ -1,10 +1,206 @@
-body {	
-	background-image: url("./../images/bg.jpg");
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
+body {
+	background-image: url('../images/bg.jpg');
 	background-repeat: no-repeat;
-	background-size: 100% 100%;
+	background-size: 100%;
 }
 
-.movie-poster {
-	max-width: 100%;
+#full-body {
+	background-color: #131a20;
+	background-color: rgba(19,26,32,0.90);
+	margin: 20px 40px;
+	padding: 10px 20px;
 }
 
+#site-title {
+	color: white;
+	font-size: 400%;
+	margin: 20px 0px 0px 20px;
+}
+
+.subtitle-1 {
+	color: #73797e;
+	font-size: 125%;
+	padding-bottom: 30px;
+}
+
+.movie-cover {
+	width: 100%;
+	box-shadow: 5px 5px 20px 5px #4d4d4d;
+}
+
+.suggestion-cover {
+	width: 80%;
+	display: block;
+	margin: 0px auto 40px auto;
+	border: solid 4px rgba(77,77,77,0.90);
+}
+.suggestion-cover:hover {
+	cursor: pointer;
+	border: solid 4px rgba(255,255,255,0.90);
+}
+
+.custom-form-inline input {
+	width: 100%;
+	border: grey;
+	border-radius: 5px;
+	padding: 10px 5px;
+	margin: 0px;
+	text-align: center;
+
+}
+.custom-form-inline button {
+	width: 100%;
+	margin: 10px 0px 40px 0px;
+	border-radius: 5px;
+	border: #31b667 1px solid;
+	background-color: rgba(0,0,0,0);
+	color: #31b667;
+	padding: 10px 5px;
+}
+.custom-form-inline button:hover {
+	background-color: #31b667;
+	color: white;
+	cursor: pointer;
+}
+
+.movie-infos h3 {
+	color: white;
+}
+
+.movie-main-infos {
+	color: #8995a2;
+}
+.movie-small-infos {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	margin: 20px 0px 20px 0px;
+	padding: 0px;
+}
+.movie-small-infos li {
+	display: inline;
+	flex: 1;
+}
+.small-info-green {
+	color: #31b667;
+}
+.small-info-red {
+	color: #fe3a22;
+}
+.small-info-pink {
+	color: #e74197;
+}
+
+.list-of-categories {
+	color: #8995a2;
+}
+
+.custom-navbar {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	margin: 40px 0px 0px 0px;
+	padding: 0px;
+}
+
+.custom-navbar li {
+	display: inline;
+	font-size: 125%;
+	color: #087fb7;
+	text-transform: uppercase;
+	flex: 1;
+	text-align: center;
+}
+
+.yellow-star {
+	width: 30px;
+}
+
+footer {
+	color: grey;
+	margin-left: 40px; /* same as #full-body */
+}
+
+.search-zone h3 {
+	color: white;
+	text-align: center;
+	font-size: 200%;
+}
+.search-zone form label {
+	color: #8995a2;
+	display: block;
+}
+.search-zone form input[type=text] {
+	color: white;
+	border: #8995a2 1px solid;
+	background-color: rgba(0,0,0,0);
+	border-radius: 5px;
+	padding: 5px 10px;
+	display: block;
+	width: 100%;
+}
+.search-zone form select {
+	color: white;
+	border: #8995a2 1px solid;
+	background-color: rgba(0,0,0,0);
+	border-radius: 5px;
+	padding: 5px 10px;
+	display: inline-block;
+}
+.search-zone form input[type=submit] {
+	color: #31b667;
+	border: #31b667 1px solid;
+	background-color: rgba(0,0,0,0);
+	border-radius: 5px;
+	padding: 5px 10px;
+	/*min-width: 25%;*/
+	margin-top: 10px;
+}
+.search-zone form input[type=submit]:hover {
+	background-color: #31b667;
+	color: white;
+	cursor: pointer;
+}
+.search-zone h5 {
+	border-top: solid 1px #8995a2;
+	border-bottom: solid 1px #8995a2;
+	margin: 30px 0px;
+	padding: 20px 10px;
+	color: white;
+	background-color: rgba(137,149,162,0.25);
+}
+.search-zone form div {
+	margin-bottom: 10px;
+}
+
+.simply-white {
+	color: white;
+}
+.search-result {
+	margin-bottom: 20px;
+}
+.search-result {
+	text-align: center;
+	color: white;
+}
+.search-result img {
+	width: 100%;
+}
+.grey-bg {
+	display: inline-block;
+	margin: 0px 0px 5px 0px;
+	padding: 0px;
+	width: 90%;
+}
+.search-result:hover {
+	cursor: pointer;
+	opacity: 0.50;
+}
+
+#list-all-movies h3, #list-all-movies h4,
+#list-all-actors h3, #list-all-actors h4 {
+	color: white;
+}
