@@ -3,46 +3,36 @@
 {% block title %}RandoMovies - Home{% endblock %}
 
 {% block body %}
-	<div class="container">	
-		<div class="jumbotron">
-			<div class="row">
-				<div class="col-md-2">
-					<h3>YOU COULD LIKE TOO</h3>
-					<img class="img-thumbnail" src="{{ asset('images/fake-posters/inception-1.jpg') }}" />										
-					<img class="img-thumbnail" src="{{ asset('images/fake-posters/moonrise-kingdom.jpg') }}" />										
-					<img class="img-thumbnail" src="{{ asset('images/fake-posters/showgirls.jpg') }}" />										
-					<img class="img-thumbnail" src="{{ asset('images/fake-posters/the-rum-diary.jpg') }}" />															
-				</div>
-				<div class="col-md-10">
-					<div class="row">
-						<div class="col-md-12">
-							<h2 class="text-center">Recherche</h2>					
-							<hr />
-							<div class="row">
-								<div class="col-md-9">
-									Résultats de la recherche :
-									<div class="row">
-										{% for movie in results %}
-											<div class="col-md-6 text-center">
-												<a href="{{ path('show', { 'id' : movie.id }) }}">
-													<img width="100%" src="{{ asset('images/posters/' ~ movie.poster.filename) }}" />
-													{{ movie.title }}
-												</a>
-											</div>
-										{% endfor %}
-									</div>
-								</div>
-								<div class="col-md-3">
-									{{ form_start(movieSearchForm) }}
-									{{ form_widget(movieSearchForm) }}
-									{{ form_end(movieSearchForm) }}
-								</div>
-							</div>
+	<div class="col-md-8">
+		<div class="row">
+			<div class="col-md-10 offset-md-1 search-zone">
+
+				<h3 class="mb-5">Outils De Recherche</h3>
+
+                {{ form_start(movieSearchForm) }}
+                {{ form_widget(movieSearchForm) }}
+				<input type="submit" value="Chercher" />
+                {{ form_end(movieSearchForm) }}
+
+				<h5>
+					Résultats
+					<div class="float-right">{{ results|length }} film(s) trouvé(s)</div>
+				</h5>
+				<div class="row">
+                    {% for movie in results %}
+						<div class="col-md-3 search-result">
+							<a href="{{ path('show', { 'id' : movie.id }) }}">
+								<div class="grey-bg">
+									<img class="" src="{{ asset('images/posters/' ~ movie.poster.filename) }}" />
+								</div><br />
+								{{ movie.title }}
+							</a>
 						</div>
-					</div>					
+                    {% endfor %}
 				</div>
+
 			</div>
 		</div>
 	</div>
-	
+
 {% endblock %}

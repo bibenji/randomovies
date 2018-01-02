@@ -1,26 +1,57 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
-		{% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>	
-		<br/>
-		<div class="container">
-			{% include 'default/menu.html.twig' %}
-		</div>
-		
-        {% block body %}{% endblock %}
-		<script
-			src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-			integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
-			crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Randomovies">
+		<meta name="author" content="CopierAndColler">
+		<!--<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />-->
+
+		<title>{% block title %}Welcome!{% endblock %}</title>
+
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
+        {% block stylesheets %}{% endblock %}
+	</head>
+
+	<body>
+		<main id ="full-body">
+            {% include 'default/menu.html.twig' %}
+
+			<div class="row mt-5 pb-3">
+				<div class="col-md-2">
+					<h2 class="subtitle-1 text-center">Vous Aimeriez Peut-Être Aussi</h2>
+					<img class="suggestion-cover" src="{{ asset('images/fake-posters/inception-1.jpg') }}" />
+					<img class="suggestion-cover" src="{{ asset('images/fake-posters/moonrise-kingdom.jpg') }}" />
+					<img class="suggestion-cover" src="{{ asset('images/fake-posters/showgirls.jpg') }}" />
+					<img class="suggestion-cover" src="{{ asset('images/fake-posters/the-rum-diary.jpg') }}" />
+				</div>
+
+                {% block body %}{% endblock %}
+
+				<div class="col-md-2">
+					<h2 class="subtitle-1">Recherche</h2>
+					<form class="custom-form-inline">
+						<input class="" type="text" placeholder="Titre de film" aria-label="Search">
+						<button class="" type="submit">Rechercher</button>
+					</form>
+
+					<h2 class="subtitle-1">Catégories</h2>
+
+					<ul class="list-of-categories">
+						<li>Action</li>
+						<li>Comédie</li>
+						<li>Drame</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+
+		<footer class="">
+			<p>&copy; Company 2017</p>
+		</footer>
+
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         {% block javascripts %}{% endblock %}
-    </body>
+	</body>
 </html>
