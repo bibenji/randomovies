@@ -1,0 +1,31 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Admin - Movies List{% endblock %}
+
+{% block body %}
+
+    <div class="col-md-8">
+
+        <div class="simply-white">
+
+            <h1>Page account de l'utilisateur {{ app.user.username }}</h1>
+            <table>
+                <tr>
+                    <td>Username</td>
+                    <td>{{ app.user.username }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ app.user.email }}</td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td></td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+{% endblock %}

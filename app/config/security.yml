@@ -4,29 +4,73 @@ security:
 
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
+        AppBundle\Entity\User:
+            algorithm: bcrypt
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
+        chain_provider:
+            chain:
+                providers: [in_memory, user_db]
         in_memory:
             memory:
                 users:
                     bibenji:
                         password: bibenji
                         roles: 'ROLE_ADMIN'
+        user_db:
+            entity:
+                class: AppBundle:User
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+#        admin_login:
+#            anonymous: ~
+#            form_login:
+#                login_path: login
+#                check_path: login
+#            logout:
+#                path: /logout
+#                target: /
+#            provider: in_memory
+
+#        user_login:
+#            anonymous: ~
+#            form_login:
+#                login_path: user-login
+#                check_path: user-login
+#            logout:
+#                path: /logout
+#                target: /
+#            http_basic: ~
+#            provider: user_db
+
         
-        # admin:
-            # pattern: ^/admin
-            # provider: in_memory
-            # logout:
-                # path: /logout
-                # target: /
-            
+#        admin:
+#            pattern: ^/admin
+#            form_login:
+#                login_path: login
+#                check_path: login
+#            logout:
+#                path: /logout
+#                target: /
+#            provider: in_memory
+
+#        user:
+#            pattern: ^/user
+#            form_login:
+#                login_path: user-login
+#                check_path: user-login
+#            logout:
+#                path: /logout
+#                target: /
+#            http_basic: ~
+#            provider: user_db
+
         main:
             anonymous: ~
             form_login:
@@ -35,6 +79,8 @@ security:
             logout:
                 path: /logout
                 target: /
-            
-    access_control:        
+#            provider: user_db
+
+    access_control:
+        - { path: ^/user, roles: [ ROLE_USER, ROLE_ADMIN ] }
         - { path: ^/admin, roles: ROLE_ADMIN }

@@ -35,11 +35,38 @@
 				Synopsis :<br /><br />
                 {{ movie.synopsis|raw }}
 			</p>
+			{% if movie.review is not null %}
+				<h5>Review</h5>
+				{{ movie.review }}
+			{% endif %}
 		</div>
 		<h4 class="text-center">
 			<br />
 			<a href="{{ path('homepage') }}">Voir Un Autre Film</a>
 		</h4>
+		<div class="card">
+			<div class="card-header">
+				<h5>Note total des commentaires</h5>
+			</div>
+			<div class="card-body">
+				<h5>Commentaires</h5>
+				Total des notes : TO DO
+				<hr />
+				Rate that movie:<br />
+                {{ form_start(comment_form) }}
+                {{ form_row(comment_form.comment) }}
+                {{ form_row(comment_form.note) }}
+				<input type="submit" class="btn btn-primary" value="Submit" />
+                {{ form_end(comment_form) }}
+				<hr />
+                {% for comment in movie.comments %}
+					<strong>{{ comment.user.username }} said:</strong><br />
+                    {{ comment.comment }}<br />
+                    {{ comment.note }} / 5<br />
+                {% endfor %}
+			</div>
+		</div>
+
 	</div>
 	
 {% endblock %}

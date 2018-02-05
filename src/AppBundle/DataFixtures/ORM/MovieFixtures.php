@@ -17,7 +17,7 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
             'director' => 'Christopher Nolan',
             'duration' => 148,
             'genre' => 'Science-fiction',
-            'poster' => 'inception-1.jpg',
+            'poster' => 'inception-2.jpg',
             'rating' => 5,
             'review' => '',
             'synopsis' => 'Dans un futur proche, les États-Unis ont développé ce qui est appelé le « rêve partagé », une méthode permettant d\'influencer l\'inconscient d\'une victime pendant qu\'elle rêve, donc à partir de son subconscient. Des « extracteurs » s\'immiscent alors dans ce rêve, qu\'ils ont préalablement modelé et qu\'ils peuvent contrôler, afin d\'y voler des informations sensibles stockées dans le subconscient de la cible. C\'est dans cette nouvelle technique que se sont lancés Dominic Cobb et sa femme, Mal. Ensemble, ils ont exploré les possibilités de cette technique et l\'ont améliorée, leur permettant d\'emboîter les rêves les uns dans les autres, accentuant la confusion et donc diminuant la méfiance de la victime. Mais l\'implication du couple dans ce projet a été telle que Mal a un jour perdu le sens de la réalité ; pensant être en train de rêver, elle s\'est suicidée, croyant ainsi revenir à sa vision de la réalité. Soupçonné de son meurtre, Cobb est contraint de fuir les États-Unis et d\'abandonner leurs enfants à ses beaux-parents. Il se spécialise dans l\'« extraction », en particulier dans le domaine de l\'espionnage industriel ; mercenaire et voleur, il est embauché par des multinationales pour obtenir des informations de leurs concurrents commerciaux.',

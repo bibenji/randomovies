@@ -21,4 +21,45 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
 			->getResult()			
 		;
 	}
+
+	public function getRandomMovies($nb = 4)
+    {
+        $results = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('m')
+            ->from('AppBundle:Movie', 'm')
+            ->orderBy('m.title', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $fourRandoNb = [];
+        while (count($fourRandoNb) !== 5) {
+            $randoNb = mt_rand(0, count($results)-1);
+            if (!(in_array($randoNb, $fourRandoNb))) {
+                $fourRandoNb[] = $randoNb;
+            }
+        }
+
+        $fourMovies = [];
+
+        foreach($fourRandoNb as $oneRandoNb) {
+            $fourMovies[] = $results[$oneRandoNb];
+        }
+
+        return $fourMovies;
+    }
+
+    public function getDistinctCategories()
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('m.genre')
+            ->from('AppBundle:Movie', 'm')
+            ->orderBy('m.genre', 'asc')
+            ->distinct()
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

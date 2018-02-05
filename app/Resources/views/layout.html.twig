@@ -21,27 +21,42 @@
 			<div class="row mt-5 pb-3">
 				<div class="col-md-2">
 					<h2 class="subtitle-1 text-center">Vous Aimeriez Peut-Être Aussi</h2>
-					<img class="suggestion-cover" src="{{ asset('images/fake-posters/inception-1.jpg') }}" />
-					<img class="suggestion-cover" src="{{ asset('images/fake-posters/moonrise-kingdom.jpg') }}" />
-					<img class="suggestion-cover" src="{{ asset('images/fake-posters/showgirls.jpg') }}" />
-					<img class="suggestion-cover" src="{{ asset('images/fake-posters/the-rum-diary.jpg') }}" />
+					{% for index, rando in fourRandoMovies %}
+						{% if index != 4 %}
+							{% if movie is defined %}
+								{%  if rando.id != movie.id %}
+									<a href="{{ path('show', { 'id' : rando.id }) }}">
+										<img class="suggestion-cover" src="{{ asset('images/posters/' ~ rando.poster.filename) }}" />
+									</a>
+								{% endif %}
+							{% else %}
+								<a href="{{ path('show', { 'id' : rando.id }) }}">
+									<img class="suggestion-cover" src="{{ asset('images/posters/' ~ rando.poster.filename) }}" />
+								</a>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
 				</div>
 
                 {% block body %}{% endblock %}
 
 				<div class="col-md-2">
 					<h2 class="subtitle-1">Recherche</h2>
-					<form class="custom-form-inline">
-						<input class="" type="text" placeholder="Titre de film" aria-label="Search">
-						<button class="" type="submit">Rechercher</button>
+					<form class="custom-form-inline" method="post" action="{{ path('search') }}">
+						<input name="title" class="" type="text" placeholder="Titre de film" aria-label="Search">
+						<input type="submit">Rechercher</input>
 					</form>
 
 					<h2 class="subtitle-1">Catégories</h2>
 
 					<ul class="list-of-categories">
-						<li>Action</li>
-						<li>Comédie</li>
-						<li>Drame</li>
+						{% for category in distinctCategories %}
+							<li>
+								<a href="{{ path('homepage') }}?category={{ category.genre|camelize }}">
+									{{ category.genre }}
+								</a>
+							</li>
+						{% endfor %}
 					</ul>
 				</div>
 			</div>

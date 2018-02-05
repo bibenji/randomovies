@@ -18,6 +18,13 @@
 				<a href="{{ path('search') }}">Outils De Recherche</a>
 			</li>
 			<li class="">
+				{% if app.user %}
+					<a class="" href="{{ path('user-account') }}">My Account</a>
+				{% else %}
+					<a class="" href="{{ path('login') }}">Login</a>
+				{% endif %}
+			</li>
+			<li class="">
 				<a class="" href="{{ path('admin_movie_index') }}">Admin</a>
 			</li>
 		</ul>

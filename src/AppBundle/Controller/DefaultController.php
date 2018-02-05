@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Person;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Filtered;
@@ -21,13 +22,37 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-		$movies = $this->getDoctrine()->getRepository('AppBundle:Movie')->findAll();
+        $category = $request->get('category');
+
+        $moviesRepository = $this->getDoctrine()->getRepository('AppBundle:Movie');
+
+		if ($category !== null) {
+            $movies = $moviesRepository->findBy([
+                'genre' => $this->categoryConverter($request->get('category'))
+            ]);
+        } else {
+		    $movies = $moviesRepository->findAll();
+        }
+
 		$randomNb = mt_rand(0, count($movies)-1);
-		
+
+		$comment = new Comment();
+		$comment->setMovie($movies[$randomNb]);
+		$comment->setUser($this->getUser());
+        $commentForm = $this->createForm('AppBundle\Form\CommentType', $comment);
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+        }
+
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-			'movie' => $movies[$randomNb]
+			'movie' => $movies[$randomNb],
+            'comment_form' => $commentForm->createView()
         ]);
     }
 	
@@ -58,10 +83,23 @@ class DefaultController extends Controller
 	/**
 	* @Route("/show/{id}", name="show")
 	*/
-	public function showAction(Movie $movie)
+	public function showAction(Request $request, Movie $movie)
 	{
+        $comment = new Comment();
+        $comment->setMovie($movie);
+        $comment->setUser($this->getUser());
+        $commentForm = $this->createForm('AppBundle\Form\CommentType', $comment);
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+        }
+
 		return $this->render('default/show.html.twig', [
-			'movie' => $movie
+			'movie' => $movie,
+            'comment_form' => $commentForm->createView()
 		]);
 	}
 
@@ -89,12 +127,17 @@ class DefaultController extends Controller
 				$movieSearch,
 				[
 					'action' => $this->generateUrl('search'),
-					'method' => 'GET'
+					'method' => 'POST'
 				]
 			);
+
+		dump($request);
+
 		
 		$movieSearchForm->handleRequest($request);
 		$movieSearch = $movieSearchForm->getData();
+
+		dump($movieSearchForm);
 
 		$results = [];
         /** var FOS\ElasticaBundle\Manager\RepositoryManager */
@@ -162,5 +205,19 @@ class DefaultController extends Controller
         dump("finir de lire : http://www.afsy.fr/avent/2013/20-elasticsearch-dans-votre-Symfony2");
 
         exit;
+    }
+
+    private function categoryConverter($category)
+    {
+        $categoriesConversion = [
+            'science-fiction' => 'Science-fiction',
+            'drame' => 'Drame',
+            'comedie-dramatique' => 'Comédie dramatique',
+            'comedie' => 'Comédie',
+            'anticipation' => 'Anticipation',
+            'thriller' => 'Thriller'
+        ];
+
+        return $categoriesConversion[$category];
     }
 }

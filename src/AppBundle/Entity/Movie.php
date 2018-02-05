@@ -103,9 +103,15 @@ class Movie
      */
     private $roles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="movie", cascade={"all"})
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -389,6 +395,39 @@ class Movie
     public function setRoles($roles)
     {
         dump("SET ROLES"); exit;
+    }
+
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
+    public function addComment(Comment $comment)
+    {
+        $comment->setMovie($this);
+//        $this->roles[] = $role;
+        $this->comments->add($comment);
+        return $this;
+    }
+
+    /**
+     * @param Comment $comment
+     */
+    public function removeComment(Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function setComments($comments)
+    {
+        dump("SET COMMENTS"); exit;
     }
 }
 
