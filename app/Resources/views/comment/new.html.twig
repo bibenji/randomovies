@@ -1,0 +1,15 @@
+Rate that movie:
+
+<br />
+
+{{ form_start(comment_form) }}
+
+    {{ form_errors(comment_form) }}
+
+    {{ form_row(comment_form.comment) }}
+
+    {{ form_row(comment_form.note) }}
+
+    <input type="submit" class="btn btn-primary" value="Submit" />
+
+{{ form_end(comment_form) }}

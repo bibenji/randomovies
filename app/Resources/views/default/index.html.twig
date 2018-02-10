@@ -6,7 +6,7 @@
 
 	<div class="col-md-3 pl-3">
         {% if movie.poster != "" %}
-			<img class="movie-cover" src="{{ asset('images/posters/' ~ movie.poster.filename) }}" />
+			<img class="movie-cover" src="{{ asset('images/posters/' ~ movie.poster) }}" />
         {% endif %}
 	</div>
 	<div class="col-md-5 pl-5 pr-5 movie-infos">
@@ -40,6 +40,11 @@
 			<br />
 			<a href="{{ path('homepage') }}">Un Autre Film Au Hasard</a>
 		</h4>
+
+		{% if app.user %}
+			{% include 'comment/module.html.twig' with {'comments': movie.comments, 'comment_form': comment_form} %}
+		{% endif %}
+
 	</div>
 
 {% endblock %}

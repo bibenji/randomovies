@@ -30,7 +30,7 @@ class Comment
     /**
      * @var Movie
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Movie", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Movie", inversedBy="comments", cascade={"detach"})
      * @ORM\JoinColumn(name="movie_id", referencedColumnName="id")
      */
     private $movie;

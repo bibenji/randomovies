@@ -24,7 +24,24 @@
                 </tr>
             </table>
 
+            <hr />
+
         </div>
+
+        <h2 class="simply-white">Comments posted:</h2>
+        <ul class="list-group">
+            {% for comment in app.user.comments %}
+                <li class="list-group-item">
+                    {{ comment.movie.title }} ({{ comment.note }} / 5): {{ comment.comment }}
+                    <div class="float-right">
+                        <a href="{{ path('comment-edit', { 'id': comment.id }) }}" class="btn btn-warning">Edit</a>
+                        <a href="{{ path('comment-delete', { 'id': comment.id }) }}" class="btn btn-danger">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+
 
     </div>
 

@@ -104,7 +104,7 @@ class Movie
     private $roles;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="movie", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="movie", cascade={"remove"})
      */
     private $comments;
 

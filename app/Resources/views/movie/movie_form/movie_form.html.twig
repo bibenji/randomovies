@@ -31,7 +31,12 @@
         {{ form_row(form.rating) }}
         {{ form_row(form.review) }}
         {{ form_row(form.genre) }}
-        {{ form_row(form.poster) }}
+
+        {% if app.request.attributes.get('_route') == 'admin_movie_edit' %}
+            {{ form_row(form.newPoster) }}
+        {% else %}
+            {{ form_row(form.poster) }}
+        {% endif %}
 
         {{ form_widget(form._token) }}
 

@@ -24,3 +24,5 @@
 .env
 /bin/composer
 composer-setup.php
+
+/docker/database/data/

@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Person;
+use AppBundle\Entity\User;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Filtered;
 use Elastica\Query\Match;
@@ -36,16 +37,24 @@ class DefaultController extends Controller
 
 		$randomNb = mt_rand(0, count($movies)-1);
 
-		$comment = new Comment();
-		$comment->setMovie($movies[$randomNb]);
-		$comment->setUser($this->getUser());
+
+
+        $comment = new Comment();
+        $comment->setMovie($movies[$randomNb]);
+
+        if ($user = $this->getUser()) {
+            if ($user instanceof User) {
+                $comment->setUser($user);
+            }
+        }
+
         $commentForm = $this->createForm('AppBundle\Form\CommentType', $comment);
         $commentForm->handleRequest($request);
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
-            $em->flush();
+            $em->flush($comment);
         }
 
         // replace this example code with whatever you need
@@ -87,14 +96,20 @@ class DefaultController extends Controller
 	{
         $comment = new Comment();
         $comment->setMovie($movie);
-        $comment->setUser($this->getUser());
+
+        if ($user = $this->getUser()) {
+            if ($user instanceof User) {
+                $comment->setUser($user);
+            }
+        }
+
         $commentForm = $this->createForm('AppBundle\Form\CommentType', $comment);
         $commentForm->handleRequest($request);
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
-            $em->flush();
+            $em->flush($comment);
         }
 
 		return $this->render('default/show.html.twig', [

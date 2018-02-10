@@ -2,10 +2,8 @@
 
 namespace AppBundle\EventListener;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use AppBundle\Entity\Movie;
 
 class PosterUploadListener

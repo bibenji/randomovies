@@ -36,7 +36,7 @@ class Role
     /**
      * @var Person
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person", inversedBy="roles")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person", inversedBy="roles", cascade={"persist"})
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     private $person;

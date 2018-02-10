@@ -6,7 +6,7 @@
 
 	<div class="col-md-3 pl-3">
         {% if movie.poster != "" %}
-			<img class="movie-cover" src="{{ asset('images/posters/' ~ movie.poster.filename) }}" />
+			<img class="movie-cover" src="{{ asset('images/posters/' ~ movie.poster) }}" />
         {% endif %}
 	</div>
 	<div class="col-md-5 pl-5 pr-5 movie-infos">
@@ -44,28 +44,10 @@
 			<br />
 			<a href="{{ path('homepage') }}">Voir Un Autre Film</a>
 		</h4>
-		<div class="card">
-			<div class="card-header">
-				<h5>Note total des commentaires</h5>
-			</div>
-			<div class="card-body">
-				<h5>Commentaires</h5>
-				Total des notes : TO DO
-				<hr />
-				Rate that movie:<br />
-                {{ form_start(comment_form) }}
-                {{ form_row(comment_form.comment) }}
-                {{ form_row(comment_form.note) }}
-				<input type="submit" class="btn btn-primary" value="Submit" />
-                {{ form_end(comment_form) }}
-				<hr />
-                {% for comment in movie.comments %}
-					<strong>{{ comment.user.username }} said:</strong><br />
-                    {{ comment.comment }}<br />
-                    {{ comment.note }} / 5<br />
-                {% endfor %}
-			</div>
-		</div>
+
+		{% if app.user %}
+        	{% include 'comment/module.html.twig' with {'comments': movie.comments, 'comment_form': comment_form} %}
+		{% endif %}
 
 	</div>
 	

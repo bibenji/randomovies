@@ -40,6 +40,8 @@ services:
     randomovies_database:
         image: mariadb:latest
 #        image: mariadb:10.1.21
+        volumes:
+            - ./docker/database/data:/var/lib/mysql
         env_file: ./.env
         environment:
             - MYSQL_PORT=${MYSQL_PORT}

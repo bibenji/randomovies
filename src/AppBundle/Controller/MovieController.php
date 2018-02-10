@@ -105,23 +105,26 @@ class MovieController extends Controller
     public function editAction(Request $request, Movie $movie)
     {
         $deleteForm = $this->createDeleteForm($movie);
-        $editForm = $this->createForm('AppBundle\Form\MovieType', $movie);
+        $editForm = $this->createForm('AppBundle\Form\MovieType', $movie, ['edit' => true]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-			
-			if ($file = $movie->getPoster()) {				
+            if ($file = $editForm->get('newPoster')->getData()) {
 				$fileName = md5(uniqid()).'.'.$file->guessExtension();
 				$file->move(
 					$this->getParameter('posters_directory'),
 					$fileName
 				);
 				$movie->setPoster($fileName);
-			}
-			
+            }
+
+//            dump($movie);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($movie);
             $em->flush();
+
+//            dump($movie); exit;
 
             return $this->redirectToRoute('admin_movie_edit', array('id' => $movie->getId()));
         }

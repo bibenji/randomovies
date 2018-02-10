@@ -15,7 +15,7 @@ class MovieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $posterRequired = (null === $options['data']->getPoster()) ?? false;
+//        $posterRequired = (null === $options['data']->getPoster()) ?? false;
 
         $builder
 			->add('title')
@@ -34,13 +34,26 @@ class MovieType extends AbstractType
 			->add('rating')
 			->add('review')
 			->add('genre')
-			// ->add('poster')
-			->add('poster', FileType::class, [
-				'label' => 'New Poster',
-				'required' => $posterRequired,
-				 'mapped' => $posterRequired,
-			])
+
+
 		;
+
+        if ($options['edit']) {
+            $builder
+                ->add('newPoster', FileType::class, [
+                    'label' => 'New Poster',
+                    'required' => false,
+                    'mapped' => false,
+                ])
+            ;
+        } else {
+            $builder
+                ->add('poster', FileType::class, [
+                    'label' => 'Poster',
+                    'required' => true,
+                ])
+            ;
+        }
     }
     
     /**
@@ -48,8 +61,13 @@ class MovieType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired(array(
+            'edit'
+        ));
+
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Movie'
+            'data_class' => 'AppBundle\Entity\Movie',
+            'edit' => false
         ));
     }
 

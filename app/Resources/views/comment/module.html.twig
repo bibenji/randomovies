@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-header">
+        <h5>Note total des commentaires</h5>
+    </div>
+    <div class="card-body">
+        <h5>Commentaires</h5>
+        Total des notes : {{ totalUsersNotes(comments) }} / 5
+        <hr />
+        {% include 'comment/new.html.twig' with {'comment_form': comment_form} %}
+        <hr />
+        {% for comment in comments %}
+            <strong>{{ comment.user.username }} said:</strong><br />
+            {{ comment.comment }}<br />
+            {{ comment.note }} / 5<br />
+        {% endfor %}
+    </div>
+</div>
