@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,8 +59,26 @@ class Person
      */
     private $roles;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="biography", type="string", length=255, nullable=true)
+     */
+    private $biography;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Media")
+     * @ORM\JoinTable(
+     *     name="person_medias",
+     *     joinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="media_id", referencedColumnName="id", unique=true)}
+     * )
+     */
+    private $medias;
+
     public function __construct()
     {
+        $this->medias = new ArrayCollection();
         $this->roles = new ArrayCollection();
     }
 
@@ -166,6 +185,49 @@ class Person
     public function getFullname(): string
     {
         return $this->lastname . ' ' . $this->firstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBiography()
+    {
+        return $this->biography;
+    }
+
+    /**
+     * @param string $biography
+     */
+    public function setBiography($biography)
+    {
+        $this->biography = $biography;
+    }
+
+    /**
+     * @param Media $media
+     */
+    public function addMedia(Media $media)
+    {
+        if (!($this->medias->contains($media))) {
+            $this->medias->add($media);
+        }
+
+    }
+
+    /**
+     * @param Media $media
+     */
+    public function removeMedia(Media $media)
+    {
+        $this->medias->removeElement($media);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getMedias()
+    {
+        return $this->medias;
     }
 }
 

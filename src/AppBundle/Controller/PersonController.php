@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Person;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Person controller.
@@ -82,11 +84,34 @@ class PersonController extends Controller
     public function editAction(Request $request, Person $person)
     {
         $deleteForm = $this->createDeleteForm($person);
-        $editForm = $this->createForm('AppBundle\Form\PersonType', $person);
+        $mediasDirectory = $this->getParameter('medias_directory');
+        $editForm = $this->createForm('AppBundle\Form\PersonType', $person, ['medias_directory' => $mediasDirectory]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $person = $editForm->getData();
+            foreach ($person->getMedias() as $media) {
+                if (null === $media->getPath()) {
+                    $person->removeMedia($media);
+                }
+                elseif ($media->getPath() instanceof File) {
+                    $file = $media->getPath();
+                    if (null === $media->getName() || $media->getName() === '') {
+                        $media->setName($file->getClientOriginalName());
+                    }
+
+                    $newPath = md5(uniqid()).'.'.$file->guessExtension();
+                    $file->move(
+                        $this->getParameter('medias_directory'),
+                        $newPath
+                    );
+                    $media->setPath($newPath);
+
+                    $entityManager->persist($media);
+                }
+            }
+            $entityManager->flush();
 
             return $this->redirectToRoute('admin_person_edit', array('id' => $person->getId()));
         }

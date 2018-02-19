@@ -24,9 +24,9 @@ class MovieType extends AbstractType
 			->add('roles', CollectionType::class, [
 			    'entry_type' => RoleType::class,
                 'allow_add' => true,
-                'prototype' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'prototype' => true,
             ])
 			->add('year')
 			->add('duration')
@@ -34,8 +34,6 @@ class MovieType extends AbstractType
 			->add('rating')
 			->add('review')
 			->add('genre')
-
-
 		;
 
         if ($options['edit']) {
@@ -78,6 +76,4 @@ class MovieType extends AbstractType
     {
         return 'appbundle_movie';
     }
-
-
 }

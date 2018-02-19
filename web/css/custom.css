@@ -205,3 +205,7 @@ footer {
 #list-all-actors h3, #list-all-actors h4 {
 	color: white;
 }
+
+.media-preview {
+	max-height: 200px;
+}

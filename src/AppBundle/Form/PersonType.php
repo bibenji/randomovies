@@ -2,10 +2,15 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Media;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PersonType extends AbstractType
@@ -27,7 +32,24 @@ class PersonType extends AbstractType
                     'female' => 'female'
                 ]
             ])
+            ->add('biography', TextType::class, [
+                'required' => false,
+            ])
+            ->add('medias', CollectionType::class, [
+                'entry_type' => MediaType::class,
+                'entry_options' => ['medias_directory' => $options['medias_directory']],
+                'allow_add' => true,
+//                'allow_delete' => true
+//                'mapped' => false,
+            ])
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
+            $person = $event->getData();
+
+            $newMedia = new Media();
+            $person->addMedia($newMedia);
+        });
     }
     
     /**
@@ -36,7 +58,8 @@ class PersonType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Person'
+            'data_class' => 'AppBundle\Entity\Person',
+            'medias_directory' => null,
         ));
     }
 

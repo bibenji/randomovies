@@ -9,6 +9,7 @@ imports:
 parameters:
     locale: en
     # posters_directory: '%kernel.root_dir%/../web/images/posters'
+    medias_directory: '%kernel.root_dir%/../web/images/medias'
     posters_directory: '%kernel.root_dir%/../web/images/posters'
     elastic_host: localhost
     elastic_port: 9200
