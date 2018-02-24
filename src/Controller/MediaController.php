@@ -6,6 +6,7 @@ use Randomovies\Entity\Media;
 use Randomovies\Entity\Person;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 
 class MediaController extends Controller
@@ -15,6 +16,10 @@ class MediaController extends Controller
      */
     public function deleteAction(Request $request, Person $person, Media $media)
     {
+//        Remove media from hard disk
+        $fs = new Filesystem();
+        $fs->remove($this->getParameter('medias_directory').'/'.$media->getPath());
+
         $person->removeMedia($media);
         $em = $this->getDoctrine()->getManager();
         $em->persist($person);

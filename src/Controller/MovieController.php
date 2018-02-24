@@ -7,7 +7,9 @@ use Randomovies\Entity\Person;
 use Randomovies\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Movie controller.
@@ -41,23 +43,12 @@ class MovieController extends Controller
      */
     public function newAction(Request $request)
     {
-
         $movie = new Movie();
 
-//        $role = new Role();
-//        $movie->addRole($role);
-
         $form = $this->createForm('Randomovies\Form\MovieType', $movie);
-
-        dump($form->isSubmitted());
-        dump($form->isValid());
-        dump($request);
-//        exit;
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-			
 			if ($file = $movie->getPoster()) {								
 				$fileName = md5(uniqid()).'.'.$file->guessExtension();
 				$file->move(
@@ -110,6 +101,11 @@ class MovieController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             if ($file = $editForm->get('newPoster')->getData()) {
+//                First, delete old poster
+                $fs = new Filesystem();
+                $fs->remove($this->getParameter('posters_directory').'/'.$movie->getPoster());
+
+//                Then, save new poster
 				$fileName = md5(uniqid()).'.'.$file->guessExtension();
 				$file->move(
 					$this->getParameter('posters_directory'),
@@ -118,13 +114,9 @@ class MovieController extends Controller
 				$movie->setPoster($fileName);
             }
 
-//            dump($movie);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($movie);
             $em->flush();
-
-//            dump($movie); exit;
 
             return $this->redirectToRoute('admin_movie_edit', array('id' => $movie->getId()));
         }
@@ -148,6 +140,10 @@ class MovieController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            Delete poster for that movie
+            $fs = new Filesystem();
+            $fs->remove($this->getParameter('posters_directory').'/'.$movie->getPoster());
+
             $em = $this->getDoctrine()->getManager();
             $em->remove($movie);
             $em->flush();
