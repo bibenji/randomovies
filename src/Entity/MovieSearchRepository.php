@@ -8,9 +8,7 @@ use Randomovies\Entity\MovieSearch;
 class MovieSearchRepository extends Repository
 {
     public function search(MovieSearch $movieSearch)
-    {	
-				
-		
+    {
 		/* test */
 		$query_part = new \Elastica\Query\Bool();
 		$query_part->addShould(

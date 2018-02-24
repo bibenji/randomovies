@@ -18,7 +18,7 @@
         "doctrine/doctrine-cache-bundle": "^1.2",
         "doctrine/doctrine-fixtures-bundle": "v2.4.1",
         "doctrine/orm": "^2.5",
-        "friendsofsymfony/elastica-bundle": "^4.0",
+        "friendsofsymfony/elastica-bundle": "^5.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "jms/serializer-bundle": "^2.3",
         "ramsey/uuid": "^3.7",
