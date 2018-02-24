@@ -26,3 +26,7 @@
 composer-setup.php
 
 /docker/database/data/
+
+/public/images/fake_posters/*.*
+/public/images/medias/*.*
+/public/images/posters/*.*
