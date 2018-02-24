@@ -10,14 +10,15 @@ class MovieSearch
 
     protected $yearFrom;
     protected $yearTo;
+
+	protected $durationFrom;
+	protected $durationTo;
+	
+	protected $ratedMin;
+	protected $ratedMax;
+
     protected $actors;
     protected $director;
-
-	// protected $durationFrom;
-	// protected $durationTo;
-	
-	// protected $ratedMin;
-	// protected $ratedMax;
 
     public function __construct()
     {			
@@ -82,26 +83,79 @@ class MovieSearch
         return $this;
     }
 
-    public function clearYears(){
-        $this->yearFrom = null;
-        $this->yearTo = null;
-    }
-
     public function getYearTo()
     {
         return $this->yearTo;
     }
 
-//    public function getIsPublished()
-//    {
-//        return $this->isPublished;
-//    }
-//
-//    public function setIsPublished($isPublished)
-//    {
-//        $this->isPublished = $isPublished;
-//        return $this;
-//    }
+    public function clearYears(){
+        $this->yearFrom = null;
+        $this->yearTo = null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDurationFrom()
+    {
+        return $this->durationFrom;
+    }
+
+    /**
+     * @param mixed $durationFrom
+     */
+    public function setDurationFrom($durationFrom)
+    {
+        $this->durationFrom = $durationFrom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDurationTo()
+    {
+        return $this->durationTo;
+    }
+
+    /**
+     * @param mixed $durationTo
+     */
+    public function setDurationTo($durationTo)
+    {
+        $this->durationTo = $durationTo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRatedMin()
+    {
+        return $this->ratedMin;
+    }
+
+    /**
+     * @param mixed $ratedMin
+     */
+    public function setRatedMin($ratedMin)
+    {
+        $this->ratedMin = $ratedMin;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRatedMax()
+    {
+        return $this->ratedMax;
+    }
+
+    /**
+     * @param mixed $ratedMax
+     */
+    public function setRatedMax($ratedMax)
+    {
+        $this->ratedMax = $ratedMax;
+    }
 
     public function getActors()
     {

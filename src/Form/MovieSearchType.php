@@ -6,6 +6,7 @@ use Randomovies\Entity\Movie;
 use Randomovies\Entity\MovieSearch;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -48,6 +49,20 @@ class MovieSearchType extends AbstractType
                     Movie::DRAME => Movie::DRAME
                 ],
                 'required' => false
+            ])
+            ->add('durationFrom', IntegerType::class, [
+                'required' => false,
+            ])
+            ->add('durationTo', IntegerType::class, [
+                'required' => false,
+            ])
+            ->add('ratedMin', ChoiceType::class, [
+                'required' => false,
+                'choices' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5],
+            ])
+            ->add('ratedMax', ChoiceType::class, [
+                'required' => false,
+                'choices' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5],
             ])
 //			->add('actors', null, array(
 //                'required' => false,
