@@ -1,15 +1,16 @@
-Rate that movie:
+<form class="comment-form">
 
-<br />
+    {{ form_start(comment_form) }}
 
-{{ form_start(comment_form) }}
+        {{ form_errors(comment_form) }}
 
-    {{ form_errors(comment_form) }}
+        {{ form_row(comment_form.comment) }}
 
-    {{ form_row(comment_form.comment) }}
+        {{ form_row(comment_form.note) }}
 
-    {{ form_row(comment_form.note) }}
+        <input class="btn randomovies-btn-reset mt-3" type="reset" Value="Remettre à zéro" />
+        <input type="submit" class="float-right btn randomovies-btn-confirm mt-3" value="Envoyer" />
 
-    <input type="submit" class="btn btn-primary" value="Submit" />
+    {{ form_end(comment_form) }}
 
-{{ form_end(comment_form) }}
+</form>

@@ -1,17 +1,27 @@
-<div class="card">
-    <div class="card-header">
-        <h5>Note total des commentaires</h5>
+<div id="comments" class="col-md-12">
+
+    <div class="comments-total-notes float-right text-center">
+        <div class="text-right">
+            Total des notes des utilisateurs pour ce film :
+        </div>
+        <strong>{{ totalUsersNotes(comments) }} / 5</strong>
     </div>
-    <div class="card-body">
-        <h5>Commentaires</h5>
-        Total des notes : {{ totalUsersNotes(comments) }} / 5
-        <hr />
-        {% include 'comment/new.html.twig' with {'comment_form': comment_form} %}
-        <hr />
-        {% for comment in comments %}
-            <strong>{{ comment.user.username }} said:</strong><br />
-            {{ comment.comment }}<br />
-            {{ comment.note }} / 5<br />
-        {% endfor %}
-    </div>
+
+    <h4>Commentaires</h4>
+
+    {% for comment in comments %}
+        <div class="comment">
+            <div class="float-right">Le 00/00/0000 à 00h00</div>
+            <p class="comment-pseudo">{{ comment.user.username }}</p>
+            <p class="comment-comment">{{ comment.comment }}</p>
+            {% if comment.note %}
+                <p class="comment-note">La note de {{ comment.user.username }} : {{ comment.note }} / 5</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <hr />
+
+    {% include 'comment/new.html.twig' with {'comment_form': comment_form} %}
+
 </div>

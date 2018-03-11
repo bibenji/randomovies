@@ -1,0 +1,35 @@
+@import 'colors';
+
+.randomovies-btn-one {	
+	color: $color5;
+	background-color: transparent;
+	background-image: none;
+	border-color: $color5;
+	
+	&:hover {
+		background-color: $color5;	
+		color: $grey8;		
+	}
+}
+
+.randomovies-btn-confirm {
+	background-color: $color5;
+	color: white;
+	border-color: $color5;
+	
+	&:hover {
+		background-color: transparent;
+		color: $color5;
+	}
+}
+
+.randomovies-btn-reset {	
+	border-color: $color7;
+	background-color: transparent;
+	color: $color7;
+	
+	&:hover {
+		background-color: $color7;
+		color: white;		
+	}
+}

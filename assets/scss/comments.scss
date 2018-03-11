@@ -1,0 +1,51 @@
+@import 'colors';
+
+#comments {
+	border: solid $grey1 1px;
+	color: black;
+	padding: 15px 20px;
+	border-radius: 10px;	
+	margin-bottom: 50px;
+	background-color: $color4;
+}
+
+#comments h4 {
+	margin-bottom: 50px;
+}
+
+.comments-total-notes {
+	color: $color5;
+}
+
+.comment {
+	margin: 20px 0px 30px;	
+}
+
+.comment-pseudo {
+	font-weight: bold;
+	margin: 0px;
+}
+
+.comment-comment {
+	margin: 5px 0px 10px 10px;
+}
+
+.comment-note {
+	text-align: center;
+}
+
+.comment-form {	
+	display: block;	
+	width: 98%;
+	margin: 0px auto;	
+	padding-top: 5px;
+}
+
+.comment-form textarea {
+	width: 100%;
+	background-color: rgba(0,0,0,0);
+	border: solid 1px $color7;
+	color: $color7;
+	padding: 10px;
+	border-radius: 10px;
+}

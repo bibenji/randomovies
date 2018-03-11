@@ -1,0 +1,142 @@
+@import 'colors';
+@import 'fonts';
+
+body {
+	font-family: Open Sans, Raleway, butlerregular;
+	color: $grey8;
+}
+
+a {
+	color: $color1;
+	
+	&:hover {
+		color: $color1;
+	}
+}
+
+#home-body {
+	.navbar-toggler {		
+		color: white;			
+	}		
+	
+	#site-title {	
+		color: white;
+		font-weight: bold;
+		font-family: Tahoma;
+	}
+}
+
+#home-body main {
+	background-color: $color3;	
+	padding: 100px 0px 0px 0px;
+}
+
+#home-body {
+	.navbar {
+		background-color: $color1;
+		font-size: 125%;	
+		
+		a {	
+			color: white;
+		}
+	}
+}
+
+#layout-subnav {	
+	background-color: $color2;
+	width: 100%;
+	position: absolute; top: 100%; left: 0;
+	line-height: 2.5;
+	color: $grey8;
+	text-align: center;
+	padding: 0px 0px;
+	font-size: 75%;
+	min-height: 5px;
+	border-top: solid 1px $color2;
+	border-bottom: solid 2px $color2;
+	
+	ul {
+		padding: 0px;
+		margin: 0px;
+		
+		li {
+			display: inline-block;
+			padding: 0px 20px;
+		}
+	}
+	
+	.layout-subnav-li-special {
+		 a {
+			background-color: #fffffd;
+			color: black;
+			padding: 10px 30px;
+			border-radius: 50px;
+			font-size: 75%;
+			
+			&:hover {
+				background-color: #eeeeec;
+				text-decoration: none;			
+			}
+		}
+	}
+}
+
+.another-random-movie-button {
+	font-size: 200%;
+	color: $color5;
+	display: block;
+	width: 100%;	
+	margin: 50px auto;
+	text-align: center;	
+	
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+@media screen and (min-width: 730px) and (max-width: 1280px) {
+	#home-body {		
+		
+		/* font-size: 100%; */
+		.navbar {
+			display: block;
+			flex-flow: wrap;
+				
+			.navbar-brand {
+				padding: 0px;				
+			}			
+		}
+	
+		#navbarCollapse {
+			align-items: unset;
+			
+			ul {				
+				display: list-item;
+				
+				li {
+					a {
+						padding: 0px;
+					}					
+				}
+			}
+			
+			form {
+				align-items: last baseline;				
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1280px) {	
+	#layout-subnav {
+		ul {
+			text-algin: left;
+			
+			li {
+				float: left;
+				width: 49%;							
+				text-algin: center;
+			}
+		}
+	}
+}

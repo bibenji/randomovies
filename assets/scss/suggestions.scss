@@ -1,0 +1,42 @@
+@import 'colors';
+
+#suggestions-bar {
+	padding-top: 30px;
+	border: solid 1px lighten($color1, 3%);
+}
+
+#suggestions-bar {
+	background-color: $color1;
+	color: $grey8;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.suggestion-cover {
+	max-width: 100%;
+	margin: 10px 0px;
+	border: solid $grey8 5px;
+}
+
+.suggestion-cover + p {
+	font-weight: bold;
+	margin-top: -10px;
+	margin-bottom: -5px;
+}
+
+.suggestion-cover + p + small {
+	color: $grey4;
+	display: block;
+	margin-bottom: 10px;
+}
+
+@media screen and (min-width: 730px) and (max-width: 1280px) {
+	#suggestions-bar {
+		padding-top: 125px !important;		
+	}
+}
+@media screen and (max-width: 729px) {	
+	#suggestions-bar {
+		padding-top: 125px !important;		
+	}
+}

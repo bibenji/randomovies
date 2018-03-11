@@ -1,0 +1,58 @@
+#search-form div {
+	margin-bottom: 10px;
+}
+
+#search-form label {
+	color: #8995a2;
+	display: block;
+}
+
+#search-form input[type=text] {
+	color: white;
+	border: #8995a2 1px solid;
+	background-color: rgba(0,0,0,0);
+	border-radius: 5px;
+	padding: 5px 10px;
+	display: block;
+	width: 100%;
+}
+
+#search-form select {
+	color: white;
+	border: #8995a2 1px solid;
+	background-color: rgba(0,0,0,0);
+	border-radius: 5px;
+	padding: 5px 10px;
+	display: inline-block;
+}
+
+.search-zone h5 {
+    border-top: solid 1px #8995a2;
+    border-bottom: solid 1px #8995a2;
+    margin: 30px 0px;
+    padding: 20px 10px;
+    color: white;
+    background-color: rgba(137,149,162,0.25);
+}
+
+.search-result {
+	margin-bottom: 20px;
+	text-align: center;
+	color: white;
+}
+
+.search-result img {
+	width: 100%;		
+}
+
+.search-result:hover {
+	cursor: pointer;
+	opacity: 0.50;
+}
+
+.grey-bg {
+	display: block;
+	margin: 0px auto 5px;
+	padding: 0px;	
+	width: 90%;	
+}

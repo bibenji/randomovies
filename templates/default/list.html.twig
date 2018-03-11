@@ -4,17 +4,41 @@
 
 {% block body %}
 
-	<div id="list-all-movies" class="col-md-8">
-		<h3 class="text-center">Tous Les Films</h3>
+	<div class="container">
+		<div id="all-movies" class="row">
+			<div class="col-md-12">
 
-		{% set lettre = '' %}
-		{% for movie in movies %}
-			{% if movie.title|slice(0,1) != lettre %}
-				{% set lettre = movie.title|slice(0,1) %}
-				<h4>{{ lettre }}</h4>
-			{% endif %}
-			<a href="{{ path('show', { 'id' : movie.id }) }}">{{ movie.title }}</a><br/>
-		{% endfor %}
+				<h2>Tous les films</h2>
+
+				<div class="row">
+                    {% for movie in movies %}
+						<div class="col-md-2 all-movies-one">
+							<a href="{{ path('show', { 'id' : movie.id }) }}">{{ movie.title }}
+								<img src="{{ asset('images/posters/' ~ movie.poster) }}" />
+								<div>
+									{{ movie.title }}<br />
+									{{ movie.year }}<br />
+									{{ movie.genre }}
+								</div>
+							</a>
+						</div>
+                    {% endfor %}
+				</div>
+
+				{#<div class="row">#}
+					{#<div class="col-md-12">#}
+						{#<ul class="custom-pagination">#}
+							{#<li>Précédent</li>#}
+							{#<li>1</li>#}
+							{#<li>2</li>#}
+							{#<li>3</li>#}
+							{#<li>Suivant</li>#}
+						{#</ul>#}
+					{#</div>#}
+				{#</div>#}
+
+			</div>
+		</div>
 	</div>
 	
 {% endblock %}

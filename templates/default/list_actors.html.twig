@@ -4,17 +4,34 @@
 
 {% block body %}
 
-	<div id="list-all-actors" class="col-md-8">
-		<h3 class="text-center">Tous les acteurs</h3>
+	<div class="container">
+		<div id="all-actors" class="row">
+			<div class="col-md-2 pt-3">
+				<img src="/images/jason.png" width="100%" class="mb-3" />
 
-		{% set lettre = '' %}
-		{% for actor in actors %}
-			{% if actor.lastname|slice(0,1) != lettre %}
-				{% set lettre = actor.lastname|slice(0,1) %}
-				<h4>{{ lettre }}</h4>
-			{% endif %}
-			<a href="{{ path('show_actor', { 'id' : actor.id }) }}">{{ actor.getFullName() }}</a><br/>
-		{% endfor %}
+			</div>
+			<div class="col-md-10">
+				<h2>Tous les acteurs</h2>
+
+				<div class="col-zone">
+
+					<ul>
+
+                    {% set lettre = '' %}
+                    {% for actor in actors %}
+                        {% if actor.lastname|slice(0,1) != lettre %}
+                            {% set lettre = actor.lastname|slice(0,1) %}
+							</ul><h3>{{ lettre }}</h3><ul>
+                        {% endif %}
+						<li>
+							<a href="{{ path('show_actor', { 'id' : actor.id }) }}">{{ actor.getFullName() }}</a><br/>
+						</li>
+                    {% endfor %}
+
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 
 {% endblock %}

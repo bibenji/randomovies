@@ -3,6 +3,48 @@
 {% block title %}Admin - Movies List{% endblock %}
 
 {% block body %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+
+				<div id="card-login" class="card mt-3 mb-5">
+					<img class="card-img-top" src="/images/login-header.jpg" alt="Card image cap">
+					<div class="card-body">
+						<h5 class="card-title">Login</h5>
+
+                        {% if error %}
+							<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+						<form action="{{ path('login') }}" method="post">
+							<input type="text"id="username" name="_username" value="{{ last_username }}" class="form-control mb-2" placeholder="Login" />
+							<input type="password" id="password" name="_password" class="form-control mb-2" placeholder="Mot de passe" />
+
+                            {#
+                                If you want to control the URL the user
+                                is redirected to on success (more details below)
+                                <input type="hidden" name="_target_path" value="/account" />
+                            #}
+
+							<div class="clearfix">
+								<input type="submit" class="btn randomovies-btn-confirm ml-2 float-right" />
+								<input type="reset" class="btn randomovies-btn-reset float-right" />
+							</div>
+						</form>
+
+						<hr class="" />
+						<div class="text-center">
+							<p>Pas encore inscrit ? Qu'est-ce que vous attendez !</p>
+							<a href="{{ path('user_registration') }}">S'enregistrer</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 	<div class="col-md-8">
 		<div class="row">
 			<div class="col-md-8 offset-2 jumbotron">
