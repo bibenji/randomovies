@@ -17,6 +17,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface, \Serializable
 {
+    const ROLE_USER = 'ROLE_USER';
+    const ROLE_REVIEWER = 'ROLE_REVIEWER';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+
     /**
      * @ORM\Column(type="string")
      * @ORM\Id
@@ -57,6 +61,12 @@ class User implements UserInterface, \Serializable
      */
     private $comments;
 
+    /**
+     * @var array
+     * @ORM\Column(type="json_array", nullable=false)
+     */
+    private $roles;
+
     public function __construct()
     {
         $this->id = Uuid::uuid4()->toString();
@@ -64,6 +74,9 @@ class User implements UserInterface, \Serializable
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
         $this->comments = new ArrayCollection();
+
+        $this->roles = [];
+        $this->addRole(self::ROLE_USER);
     }
 
     /**
@@ -175,9 +188,43 @@ class User implements UserInterface, \Serializable
         dump("SET COMMENTS"); exit;
     }
 
+    /**
+     * @param $newRole
+     * @return $this
+     */
+    public function addRole($newRole)
+    {
+        $roleAlreadyInRoles = false;
+        foreach ($this->roles as $role) {
+            if ($role === $newRole) {
+                $roleAlreadyInRoles = true;
+            }
+        }
+
+        if (!$roleAlreadyInRoles) {
+            $this->roles[] = $newRole;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     * @return $this
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getSalt()
