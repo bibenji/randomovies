@@ -42,7 +42,10 @@ class DefaultController extends Controller
             }
         }
 
-        $commentForm = $this->createForm('Randomovies\Form\CommentType', $comment);
+        $commentForm = $this->createForm('Randomovies\Form\CommentType', $comment, [
+            'method' => 'POST'
+        ]);
+
         $commentForm->handleRequest($request);
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
@@ -52,7 +55,7 @@ class DefaultController extends Controller
         }
 
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
+        return $this->render('default/show.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
 			'movie' => $movies[$randomNb],
             'comment_form' => $commentForm->createView()

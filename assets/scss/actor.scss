@@ -1,17 +1,25 @@
 @import 'colors';
 
-#actor-card {
-	.main-photo {
-		width: 100%;
-		margin-bottom: 10px;
-	}
-	
-	.other-photo {
-		height: 150px;
-		float: left;
-	}	
-	
-	a {
-		color: white;
-	}
+.col-zone {
+	column-count: 3;
 }
+
+.main-photo {
+	width: 99%;
+}
+
+ .other-photo {
+	width: 49%;
+	margin-top: 5px;
+	margin-left: 1px;
+ }
+ 
+ #actor-card {
+	h2, h4 {
+		color: $primaryColor;
+	}
+	
+	h4 {
+		margin-top: 20px;
+	}
+ }

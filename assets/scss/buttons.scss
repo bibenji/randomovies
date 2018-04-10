@@ -1,35 +1,23 @@
 @import 'colors';
 
-.randomovies-btn-one {	
-	color: $color5;
-	background-color: transparent;
-	background-image: none;
-	border-color: $color5;
+.randomovies-btn-reset {
+	background-color: $secondaryColor;
+	border: solid 1px $secondaryColor;
+	color: white;
 	
 	&:hover {
-		background-color: $color5;	
-		color: $grey8;		
+		background-color: rgba(0,0,0,0);
+		color: $secondaryColor;
 	}
 }
 
 .randomovies-btn-confirm {
-	background-color: $color5;
+	background-color: $primaryColor;
+	border: solid 1px $primaryColor;
 	color: white;
-	border-color: $color5;
 	
 	&:hover {
-		background-color: transparent;
-		color: $color5;
-	}
-}
-
-.randomovies-btn-reset {	
-	border-color: $color7;
-	background-color: transparent;
-	color: $color7;
-	
-	&:hover {
-		background-color: $color7;
-		color: white;		
+		background-color: rgba(0,0,0,0);
+		color: $primaryColor;
 	}
 }

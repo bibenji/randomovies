@@ -19,16 +19,36 @@
 
     	{% include 'default/menu.html.twig' %}
 
-		<main>
-			{% block body %}{% endblock %}
-		</main>
-
-		<footer>
-			<div class="container">
-				<p class="float-right"><a href="#">Back to top</a></p>
-				<p>© 2018 CopierAndColler, Inc.</p>
+		<main class="row">
+			<div id="submenu" class="col-md-2 col-sm-4">
+				<div class="row">
+					<div id="submenu-search" class="col-md-12">
+						<form method="post" action="{{ path('search') }}">
+							<input name="title" type="text" placeholder="Recherche rapide" /><i class="fas fa-search"></i>
+							<input type="submit" value="Go !"/>
+						</form>
+					</div>
+					<div id="submenu-categories" class="col-md-12">
+						Catégories
+						<ul>
+                            {% for category in distinctCategories %}
+								<li>
+									<a href="{{ path('homepage') }}?category={{ category.genre|camelize }}">
+                                        {{ category.genre }}
+									</a>
+								</li>
+                            {% endfor %}
+						</ul>
+					</div>
+				</div>
 			</div>
-		</footer>
+
+			<div id="main-container" class="col-md-10 col-sm-8">
+
+                {% block body %}{% endblock %}
+
+			</div>
+		</main>
 
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		{#<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/popper.min.js"></script>#}

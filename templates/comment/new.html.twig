@@ -1,6 +1,4 @@
-<form class="comment-form">
-
-    {{ form_start(comment_form) }}
+{{ form_start(comment_form, {'attr': {'class': 'comment-form'}}) }}
 
         {{ form_errors(comment_form) }}
 
@@ -9,8 +7,7 @@
         {{ form_row(comment_form.note) }}
 
         <input class="btn randomovies-btn-reset mt-3" type="reset" Value="Remettre à zéro" />
-        <input type="submit" class="float-right btn randomovies-btn-confirm mt-3" value="Envoyer" />
 
-    {{ form_end(comment_form) }}
+        <input class="float-right btn randomovies-btn-confirm mt-3" type="submit" value="Envoyer" />
 
-</form>
+{{ form_end(comment_form) }}

@@ -4,44 +4,35 @@
 
 {% block body %}
 
-    <div class="col-md-8">
+    <div id="my-account" class="row">
 
-        <div class="simply-white">
-
-            <h1>Page account de l'utilisateur {{ app.user.username }}</h1>
-            <table>
-                <tr>
-                    <td>Username</td>
-                    <td>{{ app.user.username }}</td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td>{{ app.user.email }}</td>
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td></td>
-                </tr>
-            </table>
-
-            <hr />
-
+        <div class="col-md-6">
+            <h2>Mon compte</h2>
+            <p>Nom d'utilisateur : {{ app.user.username }}</p>
+            <p>Email : {{ app.user.email }}</p>
+            <p>Nom : </p>
+            <p>Prénom : </p>
+            <p>Date de naissance : </p>
+            <a href="" class="btn randomovies-btn-confirm">Modifier mes informations</a>
         </div>
 
-        <h2 class="simply-white">Comments posted:</h2>
-        <ul class="list-group">
-            {% for comment in app.user.comments %}
-                <li class="list-group-item">
-                    {{ comment.movie.title }} ({{ comment.note }} / 5): {{ comment.comment }}
-                    <div class="float-right">
-                        <a href="{{ path('comment-edit', { 'id': comment.id }) }}" class="btn btn-warning">Edit</a>
-                        <a href="{{ path('comment-delete', { 'id': comment.id }) }}" class="btn btn-danger">Delete</a>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-
-
+        <div class="col-md-6">
+            <h2>Mes commentaires / Mes notes</h2>
+            <ul class="list-group">
+                {% for comment in app.user.comments %}
+                    <li class="list-group-item">
+                        {{ comment.movie.title }} (00/00/0000), ({{ comment.note }}/5): {{ comment.comment }}
+                        <div class="text-center">
+                            [&nbsp;
+                            <a href="{{ path('comment-edit', { 'id': comment.id }) }}" class="btn btn-warning">Edit</a>
+                            &nbsp;|&nbsp;
+                            <a href="{{ path('comment-delete', { 'id': comment.id }) }}" class="btn btn-danger">Delete</a>
+                            &nbsp;]
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
 
     </div>
 

@@ -7,52 +7,5 @@
 @import 'footer';
 @import 'search';
 @import 'actor';
-
-#all-movies h2,
-#all-actors h2 {	
-	margin: 10px 0px 20px; 	
-}
-
-.col-zone {
-	column-count: 3;
-	margin-bottom: 30px;
-	
-	ul {
-		margin: 0px 0px 30px;
-		padding: 0px;
-		
-		li {
-			display: block;
-		}
-	}
-}
-
-.all-movies-one {
-	text-align: left;
-	margin-bottom: 20px;
-	
-	img {
-		width: 90%;
-	}
-}
-
-.custom-pagination {
-	padding: 0px;
-	text-align: center;	
-	
-	li {
-		display: inline-block;
-		border: solid 1px grey;
-		padding: 10px 15px;
-		border-radius: 5px;
-		
-		&:hover {
-			background-color: rgba(255,255,255,0.25);
-			cursor: pointer;
-		}
-	}
-}
-
-#card-login {
-	color: black;
-}
+@import 'index';
+@import 'account';

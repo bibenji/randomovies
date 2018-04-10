@@ -1,49 +1,56 @@
-<header>
-	<nav class="navbar navbar-expand-md fixed-top">
-		<a id="site-title" class="navbar-brand" href="#">Randomovies</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-			<i class="fas fa-bars"></i>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarCollapse">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-link{{ app.request.get('_route') == 'homepage' ? ' active' : '' }}">
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('homepage') }}">Film au hasard <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item{{ app.request.get('_route') == 'list' ? ' active' : '' }}">
-					<a class="nav-link" href="{{ path('list') }}">Tous les films</a>
-				</li>
-				<li class="nav-item{{ app.request.get('_route') == 'list_actors' ? ' active' : '' }}">
-					<a class="nav-link" href="{{ path('list_actors') }}">Tous les acteurs</a>
-				</li>
-				<li class="nav-item{{ app.request.get('_route') == 'search' ? ' active' : '' }}">
-					<a class="nav-link" href="{{ path('search') }}">Outils de recherche</a>
-				</li>
-				<li class="nav-item{{ (app.request.get('_route') == 'user-account') or (app.request.get('_route') == 'login') ? ' active' : '' }}">
-				{% if app.user %}
-						<a class="nav-link" href="{{ path('user-account') }}">My Account</a>
-                    {% else %}
-						<a class="nav-link" href="{{ path('login') }}">Login</a>
-                    {% endif %}
-				</li>
-			</ul>
-			<form class="form-inline mt-2 mt-md-0" method="post" action="{{ path('search') }}">
-				<input name="title" class="form-control mr-sm-2" placeholder="Titre de film" aria-label="Search" type="text">
-				<button class="btn randomovies-btn-one my-2 my-sm-0" type="submit">Rechercher</button>
-			</form>
-		</div>
-
-		<div id="layout-subnav">
-			<ul>
-                {% for category in distinctCategories %}
-					<li>
-						<a href="{{ path('homepage') }}?category={{ category.genre|camelize }}">
-                            {{ category.genre }}
-						</a>
+<nav class="row">
+	<div id="site-title" class="col-md-2 col-sm-12">
+		<h1>Randomovies</h1>
+	</div>
+	<div id="menu" class="col-md-10 col-sm-12">
+		<div class="row">
+			<div class="col-md-10 col-sm-12">
+				<ul>
+					<li class="{{ app.request.get('_route') == 'homepage' ? 'active' : '' }}">
+						<a href="{{ path('homepage') }}">Film au hasard</a>
 					</li>
-                {% endfor %}
-			</ul>
-
+					<li class="{{ app.request.get('_route') == 'list' ? 'active' : '' }}">
+						<a href="{{ path('list') }}">Tous les films</a>
+					</li>
+					<li class="{{ app.request.get('_route') == 'list_actors' ? 'active' : '' }}">
+						<a href="{{ path('list_actors') }}">Tous les acteurs</a>
+					</li>
+					<li class="{{ app.request.get('_route') == 'search' ? 'active' : '' }}">
+						<a href="{{ path('search') }}">Recherche avancée</a>
+					</li>
+				</ul>
+			</div>
+			<div id="my-account-menu" class="col-md-2 col-sm-12">
+				{% if app.user %}
+					<a id="link-for-account-menu" href="">
+						<img src="/images/my-profile.jpg" /> &nbsp;Mon compte &nbsp;<i class="fas fa-chevron-circle-down"></i>
+					</a>
+					<div id="account-menu" class="">
+						<ul>
+							<li>
+								<a href="{{ path('user-account') }}"> Mes données</a>
+							</li>
+							<li>
+								<a href="{{ path('logout') }}">Logout</a>
+							</li>
+						</ul>
+					</div>
+				{% else %}
+					<a id="link-for-account-menu" href="">
+						<img src="/images/my-profile.jpg" /> &nbsp;Zone membre &nbsp;<i class="fas fa-chevron-circle-down"></i>
+					</a>
+					<div id="account-menu" class="">
+						<ul>
+							<li>
+								<a href="{{ path('login') }}">Login</a>
+							</li>
+							<li>
+								<a href="{{ path('user_registration') }}">Register</a>
+							</li>
+						</ul>
+					</div>
+				{% endif %}
+			</div>
 		</div>
-	</nav>
-</header>
+	</div>
+</nav>
