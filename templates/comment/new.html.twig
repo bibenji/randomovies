@@ -1,10 +1,23 @@
 {{ form_start(comment_form, {'attr': {'class': 'comment-form'}}) }}
 
-        {{ form_errors(comment_form) }}
+        <div class="row">
+                <div class="col-md-12">
+                    {{ form_errors(comment_form) }}
+                </div>
 
-        {{ form_row(comment_form.comment) }}
-
-        {{ form_row(comment_form.note) }}
+                <div class="col-md-1">
+                    {{ form_label(comment_form.comment) }}
+                </div>
+                <div class="col-md-8">
+                    {{ form_widget(comment_form.comment, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-1">
+                    {{ form_label(comment_form.note) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_widget(comment_form.note, {'attr': {'class': 'form-control'}}) }}
+                </div>
+        </div>
 
         <input class="btn randomovies-btn-reset mt-3" type="reset" Value="Remettre à zéro" />
 

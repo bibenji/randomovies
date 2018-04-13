@@ -6,7 +6,7 @@
 
     <div id="my-account" class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h2>Mon compte</h2>
             <p>Nom d'utilisateur : {{ app.user.username }}</p>
             <p>Email : {{ app.user.email }}</p>
@@ -16,19 +16,21 @@
             <a href="" class="btn randomovies-btn-confirm">Modifier mes informations</a>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-8">
             <h2>Mes commentaires / Mes notes</h2>
             <ul class="list-group">
                 {% for comment in app.user.comments %}
                     <li class="list-group-item">
-                        {{ comment.movie.title }} (00/00/0000), ({{ comment.note }}/5): {{ comment.comment }}
-                        <div class="text-center">
-                            [&nbsp;
+                        <div class="float-right">&nbsp;
                             <a href="{{ path('comment-edit', { 'id': comment.id }) }}" class="btn btn-warning">Edit</a>
-                            &nbsp;|&nbsp;
                             <a href="{{ path('comment-delete', { 'id': comment.id }) }}" class="btn btn-danger">Delete</a>
-                            &nbsp;]
                         </div>
+                        {{ comment.updatedAt|date('d/m/Y à H:m') }}<br />
+                        <a href="{{ path('show', {'id': comment.movie.id}) }}">
+                            <strong>{{ comment.movie.title }}</strong> ({{ comment.note }}/5)
+                        </a>
+                        <br />
+                        {{ comment.comment }}
                     </li>
                 {% endfor %}
             </ul>

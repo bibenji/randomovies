@@ -15,7 +15,7 @@
         <div class="clearfix"></div>
         {% for comment in comments %}
             <div class="comment">
-                <div class="float-right">Le 00/00/0000 à 00h00</div>
+                <div class="float-right">Le {{ comment.updatedAt|date('d/m/Y à H:m') }}</div>
                 <p class="comment-pseudo">{{ comment.user.username }}</p>
                 {% if comment.note %}
                     <p class="comment-note float-right">La note de {{ comment.user.username }} : {{ comment.note }} / 5</p>

@@ -22,14 +22,21 @@
 		
 		small {
 			color: white;
-			background-color: $secondaryColor;
-			border: solid 1px $secondaryColor;
+			background-color: lighten($secondaryColor, 10%);
+			border: solid 1px lighten($secondaryColor, 10%);
 			padding: 5px;
 		}
 		
 		img {
 			width: 90%;
 		}
+
+		a {
+			text-decoration: none;
+			color: white;
+			a:hover {
+				color: darken(white, 25%);
+			}
+		}
 	}
-	
 }

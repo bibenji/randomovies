@@ -196,11 +196,16 @@ a {
       font-size: 125%; }
     #suggestions-bar .one-suggestion small {
       color: white;
-      background-color: #e74c3c;
-      border: solid 1px #e74c3c;
+      background-color: #ed7669;
+      border: solid 1px #ed7669;
       padding: 5px; }
     #suggestions-bar .one-suggestion img {
       width: 90%; }
+    #suggestions-bar .one-suggestion a {
+      text-decoration: none;
+      color: white; }
+      #suggestions-bar .one-suggestion a a:hover {
+        color: #bfbfbf; }
 
 .randomovies-btn-reset {
   background-color: #e74c3c;
