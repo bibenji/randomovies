@@ -1,0 +1,19 @@
+{
+  "name": "randomovies",
+  "version": "1.0.0",
+  "description": "design pour randomovies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "buildCss": "gulp css",
+    "watchCss": "gulp css:watch",
+    "buildFonts": "gulp fonts"
+  },
+  "author": "bibenji",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-font": "^1.0.4",
+    "gulp-sass": "^3.1.0"
+  }
+}

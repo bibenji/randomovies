@@ -1,0 +1,61 @@
+<nav class="row">
+	<div id="site-title" class="col-md-2 col-sm-12">
+		<h1>Randomovies</h1>
+	</div>
+	<div id="menu" class="col-md-10 col-sm-12">
+		<div class="row">
+			<div class="col-md-10 col-sm-12">
+				<ul>
+					<li class="{{ app.request.get('_route') == 'homepage' ? 'active' : '' }}">
+						<a href="{{ path('homepage') }}">Film au hasard</a>
+					</li>
+					<li class="{{ app.request.get('_route') == 'list' ? 'active' : '' }}">
+						<a href="{{ path('list') }}">Tous les films</a>
+					</li>
+					<li class="{{ app.request.get('_route') == 'list_actors' ? 'active' : '' }}">
+						<a href="{{ path('list_actors') }}">Tous les acteurs</a>
+					</li>
+					<li class="{{ app.request.get('_route') == 'search' ? 'active' : '' }}">
+						<a href="{{ path('search') }}">Recherche avancée</a>
+					</li>
+					{% if is_granted('ROLE_ADMIN') %}
+						<li class="{{ app.request.get('_route') == 'admin_movie_index' ? 'active' : '' }}">
+							<a href="{{ path('admin_movie_index') }}">Admin</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+			<div id="my-account-menu" class="col-md-2 col-sm-12">
+				{% if app.user %}
+					<a id="link-for-account-menu" href="">
+						<img src="/images/my-profile.jpg" /> &nbsp;{{ app.user.username }} &nbsp;<i class="fas fa-chevron-circle-down"></i>
+					</a>
+					<div id="account-menu" class="">
+						<ul>
+							<li>
+								<a href="{{ path('user-account') }}"> Mes données</a>
+							</li>
+							<li>
+								<a href="{{ path('logout') }}">Logout</a>
+							</li>
+						</ul>
+					</div>
+				{% else %}
+					<a id="link-for-account-menu" href="">
+						<img src="/images/my-profile.jpg" /> &nbsp;Zone membre &nbsp;<i class="fas fa-chevron-circle-down"></i>
+					</a>
+					<div id="account-menu" class="">
+						<ul>
+							<li>
+								<a href="{{ path('login') }}">Login</a>
+							</li>
+							<li>
+								<a href="{{ path('user_registration') }}">Register</a>
+							</li>
+						</ul>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</nav>

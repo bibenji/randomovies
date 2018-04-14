@@ -1,0 +1,23 @@
+@import 'colors';
+
+.randomovies-btn-reset {
+	background-color: $secondaryColor;
+	border: solid 1px $secondaryColor;
+	color: white;
+	
+	&:hover {
+		background-color: rgba(0,0,0,0);
+		color: $secondaryColor;
+	}
+}
+
+.randomovies-btn-confirm {
+	background-color: $primaryColor;
+	border: solid 1px $primaryColor;
+	color: white;
+	
+	&:hover {
+		background-color: rgba(0,0,0,0);
+		color: $primaryColor;
+	}
+}

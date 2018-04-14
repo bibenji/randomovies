@@ -39,6 +39,8 @@ class CommentController extends Controller
         $commentForm->handleRequest($request);
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setUpdatedAt(new \DateTime());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush($comment);

@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}RandoMovies - Tous les acteurs{% endblock %}
+
+{% block body %}
+
+	<div id="all-movies">
+		<br />
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<div class="col-zone">
+
+					<ul>
+
+					{% set lettre = '' %}
+						{% for actor in actors %}
+							{% if actor.lastname|slice(0,1) != lettre %}
+								{% set lettre = actor.lastname|slice(0,1) %}
+									</ul><h3>{{ lettre }}</h3><ul>
+						{% endif %}
+						<li>
+							<a href="{{ path('show_actor', { 'id' : actor.id }) }}">{{ actor.getFullName() }}</a><br/>
+						</li>
+					{% endfor %}
+
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -20,7 +20,9 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('comment', TextType::class)
+            ->add('comment', TextType::class, [
+                'label' => 'Commentaire',
+            ])
             ->add('note', ChoiceType::class, [
                 'choices' => [
                     1 => 1,
@@ -28,7 +30,8 @@ class CommentType extends AbstractType
                     3 => 3,
                     4 => 4,
                     5 => 5
-                ]
+                ],
+                'label' => 'Note',
             ])
         ;
     }

@@ -3,21 +3,28 @@
 {% block title %}RandoMovies - Home{% endblock %}
 
 {% block body %}
-	<div class="col-md-8">
-		<div class="row">
-			<div class="col-md-10 offset-md-1 search-zone">
 
-				<h3 class="mb-5">Outils De Recherche</h3>
+	<br />
 
-                {{ form_start(movieSearchForm) }}
+	<div class="row">
 
-					{{ form_row(movieSearchForm.genre) }}
-					{{ form_row(movieSearchForm.title) }}
-					{{ form_row(movieSearchForm.synopsis) }}
+		<div class="col-md-11 search-zone">
+
+			<div class="row">
+
+				<div class="col-md-5">
+
+                    {{ form_start(movieSearchForm, {'attr': {'id': 'search-form'}}) }}
+
+                    {{ form_row(movieSearchForm.title) }}
+
+                    {{ form_row(movieSearchForm.genre) }}
+
+                    {{ form_row(movieSearchForm.synopsis) }}
 
 					<div class="row">
 						<div class="col-md-6">
-							{{ form_row(movieSearchForm.yearFrom) }}
+                            {{ form_row(movieSearchForm.yearFrom) }}
 						</div>
 						<div class="col-md-6">
                             {{ form_row(movieSearchForm.yearTo) }}
@@ -26,40 +33,48 @@
 
 					<div class="row">
 						<div class="col-md-6">
-							{{ form_row(movieSearchForm.durationFrom) }}
+                            {{ form_row(movieSearchForm.durationFrom) }}
 						</div>
 						<div class="col-md-6">
-							{{ form_row(movieSearchForm.durationTo) }}
+                            {{ form_row(movieSearchForm.durationTo) }}
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-6">
-							{{ form_row(movieSearchForm.ratedMin) }}
+                            {{ form_row(movieSearchForm.ratedMin) }}
 						</div>
 						<div class="col-md-6">
-							{{ form_row(movieSearchForm.ratedMax) }}
+                            {{ form_row(movieSearchForm.ratedMax) }}
 						</div>
 					</div>
 
-					<input type="submit" value="Chercher" />
-                {{ form_end(movieSearchForm) }}
+					<input class="btn randomovies-btn-confirm mt-2 mb-3" type="submit" value="Chercher" />
 
-				<h5>
-					Résultats
-					<div class="float-right">{{ results|length }} film(s) trouvé(s)</div>
-				</h5>
-				<div class="row">
-                    {% for movie in results %}
-						<div class="col-md-3 search-result">
-							<a href="{{ path('show', { 'id' : movie.id }) }}">
-								<div class="grey-bg">
-									<img class="" src="{{ asset('images/posters/' ~ movie.poster) }}" />
-								</div><br />
-								{{ movie.title }}
-							</a>
-						</div>
-                    {% endfor %}
+                    {{ form_end(movieSearchForm) }}
+
+				</div>
+
+				<div class="col-md-7">
+
+					<h5>
+						Résultats
+						<div class="float-right">{{ results|length }} film(s) trouvé(s)</div>
+					</h5>
+
+					<div class="row">
+                        {% for movie in results %}
+							<div class="col-md-3 search-result">
+								<a href="{{ path('show', { 'id' : movie.id }) }}">
+									<div class="grey-bg">
+										<img class="" src="{{ asset('images/posters/' ~ movie.poster) }}" />
+									</div>
+                                    {{ movie.title }}
+								</a>
+							</div>
+                        {% endfor %}
+					</div>
+
 				</div>
 
 			</div>

@@ -73,6 +73,13 @@ services:
               - "traefik.frontend.passHostHeader=true"
               - "traefik.backend.loadbalancer.method=drr"
 
+    node:
+        build:
+            context: .
+            dockerfile: ./docker/node/Dockerfile
+        volumes:
+           - ./:/usr/src/app/
+
 networks:
   default:
     external:

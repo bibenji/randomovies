@@ -1,0 +1,53 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Admin - Movies List{% endblock %}
+
+{% block body %}
+
+        <div class="jumbotron">
+	
+            <div class="float-right">
+                <a class="btn btn-success" href="{{ path('admin_person_index') }}">People list</a>
+                <a class="btn btn-success" href="{{ path('admin_movie_new') }}">Create a new movie</a>
+            </div>
+            <h1>Movies list</h1>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Director</th>
+                        <th>Actors</th>
+                        <th>Year</th>
+                        <th>Duration</th>
+                        <th>Rating</th>
+                        <th>Genre</th>
+                        <th>Poster</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for movie in movies %}
+                    <tr>
+                        <td><a href="{{ path('show', { 'id': movie.id }) }}">{{ movie.id }}</a></td>
+                        <td>{{ movie.title }}</td>
+                        <td>{{ movie.director }}</td>
+                        <td>{{ movie.actors }}</td>
+                        <td>{{ movie.year }}</td>
+                        <td>{{ movie.duration }}</td>
+                        <td>{{ movie.rating }}</td>
+                        <td>{{ movie.genre }}</td>
+                        <td>{{ movie.poster }}</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" href="{{ path('show', { 'id': movie.id }) }}">show</a>                            &nbsp;
+                            <a class="btn btn-sm btn-info" href="{{ path('admin_movie_edit', { 'id': movie.id }) }}">edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+{% endblock %}

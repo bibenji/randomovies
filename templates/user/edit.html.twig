@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Randomovies - Modifier mes informations personnelles{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    <div id="my-account" class="row">
+
+        <div class="col-md-6">
+
+            {{ form_start(form) }}
+
+                {{ form_row(form.email) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.plainPassword) }}
+                {{ form_row(form.firstname) }}
+                {{ form_row(form.lastname) }}
+                {{ form_row(form.birthdate) }}
+                {{ form_row(form.avatar) }}
+
+                <input type="submit" class="btn btn-outline-primary" value="Enregistrer les modifications" />
+                <a href="{{ path('user-account') }}" class="btn btn-outline-warning">Retour</a>
+
+            {{ form_end(form) }}
+
+        </div>
+
+        <div class="col-md-6">
+            <p>Photo liée à votre profil :</p>
+            {% if app.user.photo is not null %}
+                <img class="img-thumbnail" src="{{ asset('images/users/photos/' ~ app.user.photo) }}" />
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}

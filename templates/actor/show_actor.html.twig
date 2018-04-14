@@ -1,0 +1,52 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}RandoMovies - Home{% endblock %}
+
+{% block body %}
+
+	<br />
+
+	<div id="actor-card" class="row">
+		<div class="col-md-5">
+            {% for index, media in actor.medias %}
+				<img class="{{ index == 0 ? 'main-photo' : 'other-photo' }}" alt="{{ media.name }}" src="{{ asset('images/medias/' ~ media.path) }}" />
+            {% endfor %}
+		</div>
+		<div class="col-md-7">
+			<h2>
+				{{ actor.getFullName() }} {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-outline-primary" href="{{ path('admin_person_edit', { 'id': actor.id }) }}">edit</a>{% endif %}
+			</h2>
+
+			<h4>Infos</h4>
+			<p>Date de naissance : {{ actor.birthdate|date('d/m/Y') }}</p>
+			<p>Infos : Blablabla</p>
+			<p>Infos : Blablabla</p>
+			<p>Infos : Blablabla</p>
+
+			<h4>Biographie</h4>
+			<p>
+                {% if actor.biography is not null %}
+                    {{ actor.biography }}
+                {% else %}
+					Biography is coming...
+                {% endif %}
+			</p>
+
+			<h4>Filmographie</h4>
+			<ul>
+                {% for role in actor.roles %}
+					<li>
+                        {{ role.movie.year }}: <a href="{{ path('show', {'id':role.movie.id}) }}">{{ role.movie.title }}</a> ({{ role.personnage ?? role.role }})
+					</li>
+                {% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 text-center mb-3">
+			<br />
+			<a href="{{ path('list_actors') }}">Retour à la liste des acteurs</a>
+		</div>
+	</div>
+
+{% endblock %}

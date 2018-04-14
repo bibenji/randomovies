@@ -1,0 +1,57 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Admin - Movies List{% endblock %}
+
+{% block body %}
+
+    <div id="my-account" class="row">
+
+        <div class="col-md-8">
+
+            <div class="simply-white">
+                <h1>Edition d'un commentaire</h1>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <h2>{{ comment.movie.title }}</h2>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-md-2 text-right">
+                                    {{ form_label(form.comment) }}
+                                </div>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.comment, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-2 text-right">
+                                    {{ form_label(form.note) }}
+                                </div>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.note, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <input type="submit" value="Enregistrer" class="btn btn-primary" />
+                                </div>
+                            </div>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
