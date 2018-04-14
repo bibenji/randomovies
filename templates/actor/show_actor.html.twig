@@ -13,7 +13,9 @@
             {% endfor %}
 		</div>
 		<div class="col-md-7">
-			<h2>{{ actor.getFullName() }}</h2>
+			<h2>
+				{{ actor.getFullName() }} {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-outline-primary" href="{{ path('admin_person_edit', { 'id': actor.id }) }}">edit</a>{% endif %}
+			</h2>
 
 			<h4>Infos</h4>
 			<p>Date de naissance : {{ actor.birthdate|date('d/m/Y') }}</p>

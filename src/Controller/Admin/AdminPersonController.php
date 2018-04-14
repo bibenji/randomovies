@@ -1,6 +1,6 @@
 <?php
 
-namespace Randomovies\Controller;
+namespace Randomovies\Controller\Admin;
 
 use Randomovies\Entity\Person;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @Route("admin/person")
  */
-class PersonController extends Controller
+class AdminPersonController extends Controller
 {
     /**
      * Lists all person entities.
@@ -28,7 +28,7 @@ class PersonController extends Controller
 
         $people = $em->getRepository('Randomovies:Person')->findAll();
 
-        return $this->render('person/index.html.twig', array(
+        return $this->render('admin/person/index.html.twig', array(
             'people' => $people,
         ));
     }
@@ -53,25 +53,9 @@ class PersonController extends Controller
             return $this->redirectToRoute('admin_person_show', array('id' => $person->getId()));
         }
 
-        return $this->render('person/new.html.twig', array(
+        return $this->render('admin/person/new.html.twig', array(
             'person' => $person,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a person entity.
-     *
-     * @Route("/{id}", name="admin_person_show")
-     * @Method("GET")
-     */
-    public function showAction(Person $person)
-    {
-        $deleteForm = $this->createDeleteForm($person);
-
-        return $this->render('person/show.html.twig', array(
-            'person' => $person,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -116,7 +100,7 @@ class PersonController extends Controller
             return $this->redirectToRoute('admin_person_edit', array('id' => $person->getId()));
         }
 
-        return $this->render('person/edit.html.twig', array(
+        return $this->render('admin/person/edit.html.twig', array(
             'person' => $person,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

@@ -54,8 +54,7 @@ class User implements UserInterface, \Serializable
     private $photo;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
+
      */
     private $plainPassword;
 

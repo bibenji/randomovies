@@ -18,12 +18,17 @@
 					<li class="{{ app.request.get('_route') == 'search' ? 'active' : '' }}">
 						<a href="{{ path('search') }}">Recherche avancée</a>
 					</li>
+					{% if is_granted('ROLE_ADMIN') %}
+						<li class="{{ app.request.get('_route') == 'admin_movie_index' ? 'active' : '' }}">
+							<a href="{{ path('admin_movie_index') }}">Admin</a>
+						</li>
+					{% endif %}
 				</ul>
 			</div>
 			<div id="my-account-menu" class="col-md-2 col-sm-12">
 				{% if app.user %}
 					<a id="link-for-account-menu" href="">
-						<img src="/images/my-profile.jpg" /> &nbsp;Mon compte &nbsp;<i class="fas fa-chevron-circle-down"></i>
+						<img src="/images/my-profile.jpg" /> &nbsp;{{ app.user.username }} &nbsp;<i class="fas fa-chevron-circle-down"></i>
 					</a>
 					<div id="account-menu" class="">
 						<ul>

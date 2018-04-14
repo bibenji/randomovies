@@ -1,70 +1,138 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Admin - {{ movie.title }}{% endblock %}
+{% block title %}RandoMovies{% endblock %}
 
 {% block body %}
-	<div class="container">
-	
-    <h1>Movie - {{ movie.title }}</h1>
+	<div class="row">
+		<div class="col-md-5">
+			<br />
+            {% if movie.poster != "" %}
+				<img class="main-movie-cover" src="{{ asset('images/posters/' ~ movie.poster) }}" />
+            {% endif %}
+		</div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ movie.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ movie.title }}</td>
-            </tr>
-            <tr>
-                <th>Director</th>
-                <td>{{ movie.director }}</td>
-            </tr>
-            <tr>
-                <th>Actors</th>
-                <td>{{ movie.actors }}</td>
-            </tr>
-            <tr>
-                <th>Year</th>
-                <td>{{ movie.year }}</td>
-            </tr>
-            <tr>
-                <th>Duration</th>
-                <td>{{ movie.duration }}</td>
-            </tr>
-            <tr>
-                <th>Synopsis</th>
-                <td>{{ movie.synopsis }}</td>
-            </tr>
-            <tr>
-                <th>Rating</th>
-                <td>{{ movie.rating }}</td>
-            </tr>
-            <tr>
-                <th>Review</th>
-                <td>{{ movie.review }}</td>
-            </tr>
-            <tr>
-                <th>Genre</th>
-                <td>{{ movie.genre }}</td>
-            </tr>
-            <tr>
-                <th>Poster</th>
-                <td>{{ movie.poster }}</td>
-            </tr>
-        </tbody>
-    </table>
-		
-		<span class="pull-right">    
-            <a class="btn btn-primary" href="{{ path('admin_movie_index') }}">Back to the list</a>
-			&nbsp;
-            <a class="btn btn-info" href="{{ path('admin_movie_edit', { 'id': movie.id }) }}">Edit</a>
-		</span>
-            
-		{{ form_start(delete_form) }}
-			<input class="btn btn-danger" type="submit" value="Delete">
-		{{ form_end(delete_form) }}
-		
-	</div>	
+		<div class="col-md-6">
+			<br />
+			<div class="main-movie-infos">
+				<div class="main-movie-stars">
+                    {% for i in 1..movie.rating %}
+						<img src="/images/yellow-star.png" />
+                    {% endfor %}
+				</div>
+				<div class="main-movie-title">
+					<h2>
+						{{ movie.title }} {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-outline-secondary" href="{{ path('admin_movie_edit', { 'id': movie.id }) }}">edit</a>{% endif %}
+					</h2>
+				</div>
+				<div class="main-movie-synopsis">
+					<h4><i class="fas fa-play"></i> Synopsis</h4>
+					<p>
+                        {{ movie.synopsis|raw }}
+					</p>
+				</div>
+				<div class="main-movie-details">
+					<h4><i class="fas fa-play"></i> Infos</h4>
+					<p>Genre : {{ movie.genre }}</p>
+					<p>Durée : {{ movie.duration }} min</p>
+					<p>Réalisateur : {{ movie.director }}</p>
+					<p>
+						Acteurs :&nbsp;
+                        {% for role in movie.roles %}
+                            {% if role.role == "actor" %}
+                                {{ role.person.fullname }},&nbsp
+                            {% endif %}
+                        {% endfor %}
+				</div>
+
+				<div class="main-movie-critique">
+					<h4><i class="fas fa-play"></i> Critique</h4>
+					<p>
+                        {{ movie.review }}
+					</p>
+				</div>
+
+				<br />
+				<a href="{{ path('homepage') }}" class="another-random-movie-button">
+					Un Autre Film Au Hasard
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<br />
+	<br />
+
+	<div id="suggestions-bar" class="row">
+		<div class="col-md-12">
+			<h3 class="text-center">Vous Aimerez Peut-Être Aussi</h3>
+		</div>
+
+        {% for index, rando in fourRandoMovies %}
+            {% if index != 4 %}
+                {% if movie is defined %}
+                    {%  if rando.id != movie.id %}
+						<div class="col-md-3 col-sm-4 one-suggestion">
+							<a href="{{ path('show', { 'id' : rando.id }) }}">
+								<img class="suggestion-cover" src="{{ asset('images/posters/' ~ rando.poster) }}" />
+								<p>{{ rando.title }}</p>
+								<small>{{ rando.genre }}, {{ rando.year }}, {{ rando.duration }} min</small>
+							</a>
+						</div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+	</div>
+
+    {% if app.user %}
+        {% include 'comment/module.html.twig' with {'comments': movie.comments, 'comment_form': comment_form} %}
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+	<script>
+        $(function() {
+
+            var starsCollection = $('#note-stars-zone span');
+
+            function setPlainStars(untill) {
+				starsCollection.each(function(index, element) {
+				    if (index <= untill) {
+				        $(element).find('i').addClass('fas').removeClass('far');
+					} else {
+                        $(element).find('i').addClass('far').removeClass('fas');
+					}
+				})
+			}
+
+			function getWidgetValue() {
+                return $('#note-input-zone select').val();
+			}
+
+			function setWidgetValue(value) {
+                $('#note-input-zone select').val(value+1);
+			}
+
+            setPlainStars(getWidgetValue()-1); // init the thing
+			$('#note-input-zone').css('display', 'none');
+
+            starsCollection.each(function(index, element) {
+               $(element)
+				   .hover(function() {
+						setPlainStars(index);
+			   		}, function() {
+				       setPlainStars(getWidgetValue()-1);
+				   })
+				   .on('click', function() {
+				       setWidgetValue(index);
+                       setPlainStars(index);
+				   });
+			});
+        });
+	</script>
+
 {% endblock %}

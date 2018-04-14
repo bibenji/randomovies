@@ -3,15 +3,13 @@
 {% block title %}Admin - Movie Creation{% endblock %}
 
 {% block body %}
-	<div class="container">
-		<div class="jumbotron">
-		
-			<h1 class="text-center">Movie Creation</h1>
-			<hr/>
+	<div class="jumbotron">
 
-			{{ include('movie/movie_form/movie_form.html.twig', {'form': form}) }}
+		<h1 class="text-center">Movie Creation</h1>
+		<hr/>
 
-		</div>
+		{{ include('admin/movie/movie_form/movie_form.html.twig', {'form': form}) }}
+
 	</div>
 {% endblock %}
 

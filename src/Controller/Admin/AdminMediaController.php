@@ -1,6 +1,6 @@
 <?php
 
-namespace Randomovies\Controller;
+namespace Randomovies\Controller\Admin;
 
 use Randomovies\Entity\Media;
 use Randomovies\Entity\Person;
@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 
-class MediaController extends Controller
+class AdminMediaController extends Controller
 {
     /**
      * @Route("/admin/person/{person}/media/delete/{media}", name="media-delete")

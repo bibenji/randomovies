@@ -11,6 +11,7 @@ parameters:
     # posters_directory: '%kernel.root_dir%/../web/images/posters'
     medias_directory: '%kernel.project_dir%/public/images/medias'
     posters_directory: '%kernel.project_dir%/public/images/posters'
+    users_photos_directory: '%kernel.project_dir%/public/images/users/photos'
     elastic_host: localhost
     elastic_port: 9200
 

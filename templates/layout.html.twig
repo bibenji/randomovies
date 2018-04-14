@@ -17,7 +17,7 @@
 
 	<body id="home-body">
 
-    	{% include 'default/menu.html.twig' %}
+    	{% include 'menu.html.twig' %}
 
 		<main class="row">
 			<div id="submenu" class="col-md-2 col-sm-4">
@@ -39,6 +39,17 @@
 								</li>
                             {% endfor %}
 						</ul>
+						{% if is_granted('ROLE_ADMIN') %}
+							Admin
+							<ul>
+								<li>
+									<a href="{{ path('admin_movie_index') }}">Admin Movie Index</a>
+								</li>
+								<li>
+									<a href="{{ path('admin_person_index') }}">Admin Person Index</a>
+								</li>
+							</ul>
+						{% endif %}
 					</div>
 				</div>
 			</div>

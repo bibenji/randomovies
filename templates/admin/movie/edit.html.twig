@@ -3,23 +3,26 @@
 {% block title %}Admin - Movies List{% endblock %}
 
 {% block body %}
-	<div class="container">
-		<div class="jumbotron">
 
-			<span class="pull-right">
-				<br />
-				{{ form_start(delete_form) }}
-					<input class="btn btn-danger" type="submit" value="Delete">
-				{{ form_end(delete_form) }}
-			</span>
-			<h1>Movie Edit</h1>
+    <div class="jumbotron">
 
-			<hr />
+        <div class="float-right">
+            <a class="btn btn-primary" href="{{ path('admin_movie_index') }}">Back to the list</a>
+            <a class="btn btn-secondary" href="{{ path('show', {'id': movie.id}) }}">View movie</a>&nbsp;
+            <div class="float-right">
+                {{ form_start(delete_form) }}
+                <input class="btn btn-danger" type="submit" value="Delete">
+                {{ form_end(delete_form) }}
+            </div>
+        </div>
+        <h1>Movie Edit</h1>
 
-            {{ include('movie/movie_form/movie_form.html.twig', {'form': edit_form}) }}
+        <hr />
 
-		</div>
-	</div>
+        {{ include('admin/movie/movie_form/movie_form.html.twig', {'form': edit_form}) }}
+
+    </div>
+
 {% endblock %}
 
 {% block javascripts %}
