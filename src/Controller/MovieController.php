@@ -60,13 +60,26 @@ class MovieController extends Controller
     }
 
     /**
-     * @Route("/all", name="list")
+     * @Route("/all", name="list_movies")
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
-        $movies = $this->getDoctrine()->getRepository('Randomovies:Movie')->getOrderedMoviesByTitle();
+        $totalMovies = $this->getDoctrine()->getRepository('Randomovies:Movie')->getTotalMovies();
+        $totalPages = (int) round($totalMovies / 6);
+
+        $page = $request->query->has('page') ? $request->query->get('page') : 1;
+        if ($page > $totalPages)
+            $page = $totalPages;
+
+        $movies = $this->getDoctrine()->getRepository('Randomovies:Movie')
+            ->getOrderedMoviesByTitle(
+                ($page-1)*$this->getParameter('max_results_by_page'),
+                $this->getParameter('max_results_by_page')
+            );
 
         return $this->render('movie/list.html.twig', [
+            'totalPages' => $totalPages,
+            'page' => $page,
             'movies' => $movies
         ]);
     }

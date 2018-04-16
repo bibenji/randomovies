@@ -81,6 +81,18 @@ class User implements UserInterface, \Serializable
     private $comments;
 
     /**
+     * @var string
+     * @ORM\Column(name="token", type="string", nullable=true)
+     */
+    private $token;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="token_asked_at", type="datetime", nullable=true)
+     */
+    private $tokenAskedAt;
+
+    /**
      * @var array
      * @ORM\Column(type="json_array", nullable=false)
      */
@@ -269,6 +281,38 @@ class User implements UserInterface, \Serializable
     public function setPhoto($photo)
     {
         $this->photo = $photo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTokenAskedAt()
+    {
+        return $this->tokenAskedAt;
+    }
+
+    /**
+     * @param \DateTime $tokenAskedAt
+     */
+    public function setTokenAskedAt($tokenAskedAt)
+    {
+        $this->tokenAskedAt = $tokenAskedAt;
     }
 
     /**

@@ -10,13 +10,15 @@ namespace Randomovies\Repository;
  */
 class MovieRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getOrderedMoviesByTitle()
+	public function getOrderedMoviesByTitle($startAt = 0, $endAt = 6)
 	{
 		return $this->getEntityManager()
 			->createQueryBuilder()
 			->select('m')
 			->from('Randomovies:Movie', 'm')
 			->orderBy('m.title', 'ASC')
+            ->setFirstResult($startAt)
+            ->setMaxResults($endAt)
 			->getQuery()
 			->getResult()			
 		;
@@ -60,6 +62,17 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
             ->distinct()
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function getTotalMovies()
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('COUNT(m)')
+            ->from('Randomovies:Movie', 'm')
+            ->getQuery()
+            ->getSingleScalarResult()
         ;
     }
 }

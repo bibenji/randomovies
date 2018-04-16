@@ -81,8 +81,9 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
+    delivery_addresses: ['%email_for_testing%']
     transport: '%mailer_transport%'
-    host: '%mailer_host%'
-    username: '%mailer_user%'
+#    host: '%mailer_host%'
+    username: '%mailer_username%'
     password: '%mailer_password%'
-    spool: { type: memory }
+#    spool: { type: memory }
