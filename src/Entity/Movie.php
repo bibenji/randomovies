@@ -3,6 +3,7 @@
 namespace Randomovies\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -108,10 +109,17 @@ class Movie
      */
     private $comments;
 
+    /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="Randomovies\Entity\Tag", inversedBy="movies")
+     */
+    private $tags;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -429,5 +437,43 @@ class Movie
     {
         dump("SET COMMENTS"); exit;
     }
-}
 
+    /**
+     * @param Tag $tag
+     * @return $this
+     */
+    public function addTag(Tag $tag)
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return $this
+     */
+    public function removeTag(Tag $tag)
+    {
+        $this->tags->remove($tag);
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param Collection $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+}

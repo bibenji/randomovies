@@ -107,7 +107,7 @@ class SecurityController extends Controller
                 $user->setIsActive(false);
 
 //                $token = random_bytes(10);
-                $token = Uuid::uuid4();
+                $token = Uuid::uuid4()->toString();
                 $user->setToken($token);
 
                 $user->setTokenAskedAt(new \DateTime());

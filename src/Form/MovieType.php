@@ -22,10 +22,10 @@ class MovieType extends AbstractType
 			->add('director')
 			->add('actors')
 			->add('roles', CollectionType::class, [
-			    'entry_type' => RoleType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+			    'entry_type' => RoleType::class,
                 'prototype' => true,
             ])
 			->add('year')
@@ -34,6 +34,13 @@ class MovieType extends AbstractType
 			->add('rating')
 			->add('review')
 			->add('genre')
+            ->add('tags', CollectionType::class, [
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'entry_type' => TagType::class,
+                'prototype' => true,
+            ])
 		;
 
         if ($options['edit']) {

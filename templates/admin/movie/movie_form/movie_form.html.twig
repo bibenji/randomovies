@@ -32,6 +32,24 @@
         {{ form_row(form.review) }}
         {{ form_row(form.genre) }}
 
+        <div class="row">
+            <div class="col-md-6">
+                {#{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}#}
+                {{ form_widget(form.tags.vars.prototype)|raw }}
+                <ul class="tags" data-prototype="">
+                    {% for tag in form.tags %}
+                        <li>{{ form_row(tag.name) }}</li>
+                    {% endfor %}
+                </ul>
+
+
+            </div>
+            <div class="col-md-6">
+                Créer un nouveau tag : <input type="text" id="new-tag" /> <button id="new-tag-submit" class="btn btn-outline-primary">Ajouter</button>
+            </div>
+        </div>
+
+
         {% if app.request.attributes.get('_route') == 'admin_movie_edit' %}
             {{ form_row(form.newPoster) }}
         {% else %}
@@ -40,9 +58,9 @@
 
         {{ form_widget(form._token) }}
 
-        <span class="pull-right">                 &nbsp;
+        <div class="float-right">
             <input class="btn btn-success" type="submit" value="{{ app.request.attributes.get('_route') == "admin_movie_edit" ? "Edit" : "Create" }}"/>
-        </span>
+        </div>
 
     </div>
 </div>

@@ -2,7 +2,9 @@
 
 namespace Randomovies\Controller\Admin;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Randomovies\Entity\Movie;
+use Randomovies\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

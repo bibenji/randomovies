@@ -2,6 +2,8 @@
 /bin/config/parameters.yml
 /config/parameters.yml
 
+/public/bundles/*
+
 /build/
 /phpunit.xml
 
