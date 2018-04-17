@@ -1,4 +1,7 @@
 /app/config/parameters.yml
+/bin/config/parameters.yml
+/config/parameters.yml
+
 /build/
 /phpunit.xml
 

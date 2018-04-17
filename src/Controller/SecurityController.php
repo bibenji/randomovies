@@ -2,6 +2,10 @@
 
 namespace Randomovies\Controller;
 
+use Ramsey\Uuid\Uuid;
+use Randomovies\Entity\User;
+use Randomovies\Form\Security\PasswordForgottenType;
+use Randomovies\Form\Security\PasswordRecoverType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -80,5 +84,111 @@ class SecurityController extends Controller
             'last_username' => $lastUsername,
             'error'         => $error,
         ));
+    }
+
+    /**
+     * @Route("/password/forgotten", name="password_forgotten")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function passwordForgottenAction(Request $request)
+    {
+        $form = $this->createForm(PasswordForgottenType::class);
+
+        $form->handleRequest($request);
+
+        if ($request->getMethod() === Request::METHOD_POST && $form->isSubmitted() && $form->isValid()) {
+            $email = $form->getData()['email'];
+
+            $user = $this->getDoctrine()->getRepository('Randomovies:User')->findOneBy([
+                'email' => $email
+            ]);
+
+            if (null !== $user) {
+                $user->setIsActive(false);
+
+//                $token = random_bytes(10);
+                $token = Uuid::uuid4();
+                $user->setToken($token);
+
+                $user->setTokenAskedAt(new \DateTime());
+
+                $this->getDoctrine()->getManager()->persist($user);
+                $this->getDoctrine()->getManager()->flush();
+
+                $subject = 'Randomovies - Ré-initialisation du mot de passe';
+                $from = $this->getParameter('email_for_testing');
+                $to = $this->getParameter('email_for_testing');
+
+                // todo : send email
+                $message = (new \Swift_Message($subject))
+                    ->setFrom($from)
+                    ->setTo($to)
+                    ->setBody(
+                        $this->renderView(
+                        // templates/emails/registration.html.twig
+                            'emails/password_send_token.html.twig', [
+                            'token' => $token,
+                        ],
+                        'text/html'
+                    ))
+                    /*
+                     * If you also want to include a plaintext version of the message
+                    ->addPart(
+                        $this->renderView(
+                            'emails/registration.txt.twig',
+                            array('name' => $name)
+                        ),
+                        'text/plain'
+                    )
+                    */
+                ;
+
+                $mailer = $this->get('mailer');
+                $mailer->send($message);
+
+                return $this->redirectToRoute('homepage');
+            }
+        }
+
+        return $this->render('security/password_forgotten.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/password/recover/{token}", name="password_recover")
+     * @param Request $request
+     * @param string $token
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function passwordRecoverAction(Request $request, $token)
+    {
+        $user = $this->getDoctrine()->getRepository('Randomovies:User')->findOneBy(['token' => $token]);
+
+        if (!$user) {
+            return $this->redirectToRoute('homepage');
+        }
+
+        $form = $this->createForm(PasswordRecoverType::class);
+
+        $form->handleRequest($request);
+
+        if ($request->getMethod() === Request::METHOD_POST && $form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $form->getData()['plainPassword'];
+            $user->setPlainPassword($plainPassword);
+
+            $password = $this->get('security.password_encoder')->encodePassword($user, $plainPassword);
+            $user->setPassword($password);
+            $user->setToken(null);
+
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('login');
+        }
+
+        return $this->render('security/password_recover.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

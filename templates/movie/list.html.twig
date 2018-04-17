@@ -20,11 +20,19 @@
 		</div>
 
 		<ul class="custom-pagination">
-			<li>Précédent</li>
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li>Suivant</li>
+			<li>
+				<a href="{{ path('list_movies') }}?page={{ page > 1 ? page-1 : '1' }}">Précédent</a>
+			</li>
+
+			{% for pageNumber in 1..totalPages %}
+				<li>
+					<a href="{{ path('list_movies') }}?page={{ pageNumber }}">{{ pageNumber }}</a>
+				</li>
+			{% endfor %}
+
+			<li>
+				<a href="{{ path('list_movies') }}?page={{ page < totalPages ? page+1 : totalPages }}">Suivant</a>
+			</li>
 		</ul>
 	</div>
 
