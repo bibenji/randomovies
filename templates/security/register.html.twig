@@ -16,7 +16,26 @@
                     </div>
                     <div class="card-body">
                         <div class="row m-1">
-                            Profitez pleinement des fonctionnalités de Randomovies, zone membre, commentez les films que vous avez aimé, recommandations personnalisées...
+                            <div class="col">
+                                Profitez pleinement des fonctionnalités de Randomovies, zone membre, commentez les films que vous avez aimé, recommandations personnalisées...
+                            </div>
+                        </div>
+                        <div class="row m-1">
+                            <style>
+                                #register-form-errors {
+                                    color: #e74c3c;
+                                }
+                                #register-form-errors ul {
+                                    margin-bottom: 0px;
+                                }
+                                #register-form-errors ul:first-of-type {
+                                    margin-top: 10px;
+                                }
+                            </style>
+                            <div id="register-form-errors" class="col">
+                                {{ form_errors(form.username) }}
+                                {{ form_errors(form.username) }}
+                            </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-4 text-right">

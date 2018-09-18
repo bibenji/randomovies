@@ -6,6 +6,7 @@ use Ramsey\Uuid\Uuid;
 use Randomovies\Entity\User;
 use Randomovies\Form\Security\PasswordForgottenType;
 use Randomovies\Form\Security\PasswordRecoverType;
+use Randomovies\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -60,7 +61,7 @@ class SecurityController extends Controller
         }
 
         return $this->render(
-            'registration/register.html.twig',
+            'security/register.html.twig',
             array('form' => $form->createView())
         );
     }
