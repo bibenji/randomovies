@@ -162,4 +162,26 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
             ->getSingleScalarResult()
         ;
     }
+
+    public function getMoviesForETL($min, $max)
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.id BETWEEN :min AND :max')
+            ->setParameters([
+                'min' => $min,
+                'max' => $max
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getMaxMovieId()
+    {
+        return $this->createQueryBuilder('m')
+            ->select('MAX(m.id)')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }
