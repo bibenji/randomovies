@@ -19,7 +19,8 @@ class Kernel extends BaseKernel
             new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 			new \FOS\ElasticaBundle\FOSElasticaBundle(),
             new \JMS\SerializerBundle\JMSSerializerBundle(),
-            new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle()
+            new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

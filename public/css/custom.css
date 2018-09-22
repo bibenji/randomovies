@@ -391,3 +391,10 @@ a {
   padding: 40px; }
   #my-account h2 {
     color: #e74c3c; }
+
+#register-form-errors {
+  color: #e74c3c; }
+  #register-form-errors ul {
+    margin-bottom: 0px; }
+  #register-form-errors ul:first-of-type {
+    margin-top: 10px; }

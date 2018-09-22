@@ -1,0 +1,28 @@
+{% extends 'admin/layout/edit.html.twig' %}
+
+{% form_theme edit_form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Admin - Tag Edit{% endblock %}
+{% block edit_title %}Editer un tag{% endblock %}
+
+{% block edit_top_buttons %}
+    <div class="float-right">
+        <a class="btn btn-secondary" href="{{ path('admin_tag_index') }}">Retour à la liste</a>
+    </div>
+    <div class="float-right mr-1">
+        {{ form_start(delete_form) }}
+            <input class="btn btn-danger" type="submit" value="Supprimer le tag">
+        {{ form_end(delete_form) }}
+    </div>
+{% endblock %}
+
+{% block edit_content %}
+
+    {{ form_start(edit_form) }}
+    {{ form_widget(edit_form) }}
+    <div class="float-right">
+        <input class="btn btn-success" type="submit" value="Enregistrer" />
+    </div>
+    {{ form_end(edit_form) }}
+
+{% endblock %}

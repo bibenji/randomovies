@@ -1,24 +1,19 @@
-{% extends 'layout.html.twig' %}
+{% extends 'admin/layout/new.html.twig' %}
 
-{% block title %}Admin - Movies List{% endblock %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block body %}
+{% block title %}Admin - Person Create{% endblock %}
+{% block new_title %}Enregistrer une nouvelle personne{% endblock %}
 
-    <div class="jumbotron">
+{% block new_top_buttons %}<a class="btn btn-secondary" href="{{ path('admin_person_index') }}">Retour à la liste</a>{% endblock %}
 
-        <h1>Person creation</h1>
+{% block new_content %}
 
-        {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <input type="submit" value="Create" />
-        {{ form_end(form) }}
-
-        <ul>
-            <li>
-                <a href="{{ path('admin_person_index') }}">Back to the list</a>
-            </li>
-        </ul>
-
-    </div>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="float-right">
+            <input class="btn btn-success" type="submit" value="Enregistrer" />
+        </div>
+    {{ form_end(form) }}
 
 {% endblock %}

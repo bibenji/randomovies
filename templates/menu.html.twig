@@ -28,7 +28,7 @@
 			<div id="my-account-menu" class="col-md-2 col-sm-12">
 				{% if app.user %}
 					<a id="link-for-account-menu" href="">
-						<img src="{{ app.user.photo ? asset('images/users/photos/' ~ app.user.photo) : "/images/my-profile.jpg" }}" /> &nbsp;{{ app.user.username }} &nbsp;<i class="fas fa-chevron-circle-down"></i>
+						<img src="{{ app.user.photo ? asset('images/users/photos/' ~ app.user.photo) : "/images/my-profile.png" }}" /> &nbsp;{{ app.user.username }} &nbsp;<i class="fas fa-chevron-circle-down"></i>
 					</a>
 					<div id="account-menu" class="">
 						<ul>
@@ -42,7 +42,7 @@
 					</div>
 				{% else %}
 					<a id="link-for-account-menu" href="">
-						<img src="/images/my-profile.jpg" /> &nbsp;Zone membre &nbsp;<i class="fas fa-chevron-circle-down"></i>
+						<img src="/images/my-profile.png" /> &nbsp;Zone membre &nbsp;<i class="fas fa-chevron-circle-down"></i>
 					</a>
 					<div id="account-menu" class="">
 						<ul>

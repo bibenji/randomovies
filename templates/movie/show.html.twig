@@ -24,6 +24,13 @@
 						{{ movie.title }} {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-outline-secondary" href="{{ path('admin_movie_edit', { 'id': movie.id }) }}">edit</a>{% endif %}
 					</h2>
 				</div>
+				<div class="main-movie-tags">
+					{% set totalTags = movie.tags|length %}
+					{% for index, tag in movie.tags %}
+						{{ tag.name }}{% if index+1 < totalTags %}, {% endif %}
+					{% endfor %}
+					<br /><br />
+				</div>
 				<div class="main-movie-synopsis">
 					<h4><i class="fas fa-play"></i> Synopsis</h4>
 					<p>

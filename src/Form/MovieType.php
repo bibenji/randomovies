@@ -2,8 +2,10 @@
 
 namespace Randomovies\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -20,12 +22,14 @@ class MovieType extends AbstractType
         $builder
 			->add('title')
 			->add('director')
-			->add('actors')
+			->add('actors', TextType::class, [
+			    'required' => false,
+            ])
 			->add('roles', CollectionType::class, [
-			    'entry_type' => RoleType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+			    'entry_type' => RoleType::class,
                 'prototype' => true,
             ])
 			->add('year')
@@ -34,6 +38,20 @@ class MovieType extends AbstractType
 			->add('rating')
 			->add('review')
 			->add('genre')
+
+            ->add('tags', EntityType::class, [
+                'class' => 'Randomovies:Tag',
+                'choice_label' => 'name',
+                'expanded' => true,
+                'multiple' => true,
+            ])
+//            ->add('tags', CollectionType::class, [
+//                'allow_add' => true,
+//                'allow_delete' => true,
+//                'by_reference' => false,
+//                'entry_type' => TagType::class,
+//                'prototype' => true,
+//            ])
 		;
 
         if ($options['edit']) {

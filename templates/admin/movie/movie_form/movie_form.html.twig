@@ -14,13 +14,13 @@
                 {{ form_label(form.roles) }}
             </div>
             <div class="col-md-10">
-                <ul class="roles" data-prototype="{{ include('admin/movie/movie_form/role_prototype.html.twig', {'role_prototype': form.roles.vars.prototype})|e }}">
+                <ul class="form-collection" data-prototype="{{ include('admin/movie/movie_form/role_prototype.html.twig', {'role_prototype': form.roles.vars.prototype})|e }}">
                     {% for roleField in form.roles %}
                         {{ include('admin/movie/movie_form/role_prototype.html.twig', {'role_prototype': roleField})|raw }}
                     {% endfor %}
                 </ul>
 
-                <button id="add_role_button" class="btn btn-primary pull-right">Add role</button>
+                <button class="add_item_to_collection_btn btn btn-primary pull-right">Add role</button>
                 <br/><br/><br/>
             </div>
         </div>
@@ -32,6 +32,27 @@
         {{ form_row(form.review) }}
         {{ form_row(form.genre) }}
 
+        <div class="row">
+            <div id="movie-form-tags" class="col-md-6">
+                {{ form_row(form.tags) }}
+                {#{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}#}
+                {#{{ form_widget(form.tags.vars.prototype)|raw }}#}
+                {#<ul class="tags" data-prototype="">#}
+                    {#{% for tag in form.tags %}#}
+                        {#<li>{{ form_row(tag.name) }}</li>#}
+                    {#{% endfor %}#}
+                {#</ul>#}
+
+
+            </div>
+            <div class="col-md-6">
+                Créer un nouveau tag : <input type="text" id="new-tag" /> <button id="new-tag-submit" class="btn btn-outline-primary">Ajouter</button>
+            </div>
+        </div>
+
+
+
+
         {% if app.request.attributes.get('_route') == 'admin_movie_edit' %}
             {{ form_row(form.newPoster) }}
         {% else %}
@@ -40,12 +61,11 @@
 
         {{ form_widget(form._token) }}
 
-        <span class="pull-right">                 &nbsp;
-            <input class="btn btn-success" type="submit" value="{{ app.request.attributes.get('_route') == "admin_movie_edit" ? "Edit" : "Create" }}"/>
-        </span>
+        <div class="float-right">
+            <input class="btn btn-success" type="submit" value="{{ app.request.attributes.get('_route') == "admin_movie_edit" ? "Enregistrer" : "Créer" }}"/>
+        </div>
 
     </div>
 </div>
 
 {{ form_end(form, {'render_rest': false}) }}
-

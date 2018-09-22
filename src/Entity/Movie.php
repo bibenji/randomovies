@@ -3,6 +3,7 @@
 namespace Randomovies\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,7 +46,7 @@ class Movie
     /**
      * @var string
      *
-     * @ORM\Column(name="actors", type="string", length=255)
+     * @ORM\Column(name="actors", type="string", length=255, nullable=true)
      */
     private $actors;
 
@@ -99,7 +100,7 @@ class Movie
     private $poster;
 
     /**
-     * @ORM\OneToMany(targetEntity="Randomovies\Entity\Role", mappedBy="movie", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Randomovies\Entity\Role", mappedBy="movie", cascade={"all"}, orphanRemoval=true)
      */
     private $roles;
 
@@ -108,10 +109,17 @@ class Movie
      */
     private $comments;
 
+    /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="Randomovies\Entity\Tag", inversedBy="movies", cascade={"persist"})
+     */
+    private $tags;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -429,5 +437,44 @@ class Movie
     {
         dump("SET COMMENTS"); exit;
     }
-}
 
+    /**
+     * @param Tag $tag
+     * @return $this
+     */
+    public function addTag(Tag $tag)
+    {
+        if (!$this->tags->contains($tag)) {
+//            $tag->setMovies($this);
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return $this
+     */
+    public function removeTag(Tag $tag)
+    {
+        $this->tags->remove($tag);
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param Collection $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+}
