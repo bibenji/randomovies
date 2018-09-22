@@ -11,7 +11,7 @@ use Ramsey\Uuid\Uuid;
  * Tag
  *
  * @ORM\Table(name="tag")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Randomovies\Repository\TagRepository")
  */
 class Tag
 {
