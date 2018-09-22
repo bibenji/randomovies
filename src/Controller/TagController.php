@@ -14,6 +14,7 @@ class TagController extends Controller
     /**
      * @Route("/tag", name="tag_create", methods={"POST"}, options={"expose"=true})
      * @param Request $request
+     * @return JsonResponse
      */
     public function createTag(Request $request)
     {

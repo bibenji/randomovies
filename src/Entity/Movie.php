@@ -111,7 +111,7 @@ class Movie
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Randomovies\Entity\Tag", inversedBy="movies")
+     * @ORM\ManyToMany(targetEntity="Randomovies\Entity\Tag", inversedBy="movies", cascade={"persist"})
      */
     private $tags;
 
@@ -445,6 +445,7 @@ class Movie
     public function addTag(Tag $tag)
     {
         if (!$this->tags->contains($tag)) {
+//            $tag->setMovies($this);
             $this->tags->add($tag);
         }
 

@@ -17,6 +17,10 @@ class TagType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+//            ->add('name', ChoiceType::class, [
+//
+//            ])
+
             ->add('name', EntityType::class, [
                 'class' => 'Randomovies:Tag',
                 'choice_label' => 'name',
@@ -38,7 +42,7 @@ class TagType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Randomovies\Entity\Tag'
+            'data_class' => null,
         ));
     }
 
