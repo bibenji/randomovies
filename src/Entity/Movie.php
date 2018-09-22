@@ -46,7 +46,7 @@ class Movie
     /**
      * @var string
      *
-     * @ORM\Column(name="actors", type="string", length=255)
+     * @ORM\Column(name="actors", type="string", length=255, nullable=true)
      */
     private $actors;
 
@@ -100,7 +100,7 @@ class Movie
     private $poster;
 
     /**
-     * @ORM\OneToMany(targetEntity="Randomovies\Entity\Role", mappedBy="movie", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Randomovies\Entity\Role", mappedBy="movie", cascade={"all"}, orphanRemoval=true)
      */
     private $roles;
 

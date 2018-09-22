@@ -62,7 +62,7 @@ class AdminMovieController extends Controller
             $em->persist($movie);
             $em->flush();
 
-            return $this->redirectToRoute('admin_movie_show', array('id' => $movie->getId()));
+            return $this->redirectToRoute('admin_movie_index', array('id' => $movie->getId()));
         }
 
         return $this->render('admin/movie/new.html.twig', array(

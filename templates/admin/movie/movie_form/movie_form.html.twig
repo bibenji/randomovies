@@ -14,13 +14,13 @@
                 {{ form_label(form.roles) }}
             </div>
             <div class="col-md-10">
-                <ul class="roles" data-prototype="{{ include('admin/movie/movie_form/role_prototype.html.twig', {'role_prototype': form.roles.vars.prototype})|e }}">
+                <ul class="form-collection" data-prototype="{{ include('admin/movie/movie_form/role_prototype.html.twig', {'role_prototype': form.roles.vars.prototype})|e }}">
                     {% for roleField in form.roles %}
                         {{ include('admin/movie/movie_form/role_prototype.html.twig', {'role_prototype': roleField})|raw }}
                     {% endfor %}
                 </ul>
 
-                <button id="add_role_button" class="btn btn-primary pull-right">Add role</button>
+                <button class="add_item_to_collection_btn btn btn-primary pull-right">Add role</button>
                 <br/><br/><br/>
             </div>
         </div>
@@ -62,7 +62,7 @@
         {{ form_widget(form._token) }}
 
         <div class="float-right">
-            <input class="btn btn-success" type="submit" value="{{ app.request.attributes.get('_route') == "admin_movie_edit" ? "Edit" : "Create" }}"/>
+            <input class="btn btn-success" type="submit" value="{{ app.request.attributes.get('_route') == "admin_movie_edit" ? "Enregistrer" : "Créer" }}"/>
         </div>
 
     </div>

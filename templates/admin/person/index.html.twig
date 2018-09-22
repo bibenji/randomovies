@@ -1,51 +1,38 @@
-{% extends 'layout.html.twig' %}
+{% extends 'admin/layout/list.html.twig' %}
 
-{% block title %}Admin - Movies List{% endblock %}
+{% block title %}Admin - People List{% endblock %}
+{% block list_title %}Liste des personnes{% endblock %}
 
-{% block body %}
+{% block list_top_buttons %}
+    <a class="btn btn-success" href="{{ path('admin_person_new') }}">Enregistrer une nouvelle personne</a>
+{% endblock %}
 
-    <div class="jumbotron">
-
-         <div class="float-right">
-            <a class="btn btn-success" href="{{ path('admin_movie_index') }}">Movies list</a>
-            <a class="btn btn-success" href="{{ path('admin_person_new') }}">Create a new person</a>
-        </div>
-        <h1>People list</h1>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Birthdate</th>
-                    <th>Gender</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for person in people %}
-                <tr>
-                    <td><a href="{{ path('show_actor', { 'id': person.id }) }}">{{ person.id }}</a></td>
-                    <td>{{ person.firstname }}</td>
-                    <td>{{ person.lastname }}</td>
-                    <td>{% if person.birthdate %}{{ person.birthdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                    <td>{{ person.gender }}</td>
-                    <td>
-                        <a class="btn btn-sm btn-primary" href="{{ path('show_actor', { 'id': person.id }) }}">show</a>
-                        <a class="btn btn-sm btn-info" href="{{ path('admin_person_edit', { 'id': person.id }) }}">edit</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <ul>
-            <li>
-                <a href="{{ path('admin_person_new') }}">Create a new person</a>
-            </li>
-        </ul>
-
-    </div>
-
+{% block list_content %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Birthdate</th>
+            <th>Gender</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for person in people %}
+            <tr>
+                <td><a href="{{ path('show_actor', { 'id': person.id }) }}">{{ person.id }}</a></td>
+                <td>{{ person.firstname }}</td>
+                <td>{{ person.lastname }}</td>
+                <td>{% if person.birthdate %}{{ person.birthdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ person.gender }}</td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" href="{{ path('show_actor', { 'id': person.id }) }}">Voir</a>
+                    <a class="btn btn-sm btn-warning" href="{{ path('admin_person_edit', { 'id': person.id }) }}">Editer</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
