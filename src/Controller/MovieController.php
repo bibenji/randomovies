@@ -40,12 +40,15 @@ class MovieController extends Controller
         }
 
         $commentForm = $this->createForm('Randomovies\Form\CommentType', $comment, [
-            'method' => 'POST'
+            'method' => 'POST',
+            'movie_id' => $movies[$randomNb]->getId(),
         ]);
 
         $commentForm->handleRequest($request);
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $movieOfPreviousForm = $moviesRepository->find($commentForm->get('movie_id')->getData());
+            $comment->setMovie($movieOfPreviousForm);
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush($comment);
@@ -57,6 +60,8 @@ class MovieController extends Controller
                     'movie_id' => $movies[$randomNb]->getId()
                 ]
             );
+
+            return $this->redirectToRoute('show', ['id' => $movieOfPreviousForm->getId()]);
         }
 
         // replace this example code with whatever you need

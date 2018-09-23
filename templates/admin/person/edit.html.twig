@@ -57,14 +57,16 @@
 
     <br />
     {% for media in edit_form.medias %}
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-md-6">
                 {{ form_row(media) }}
             </div>
             <div class="col-md-6">
                 {% if media.vars.data.path is not null %}
                     <img class="media-preview" src="{{ asset('images/medias/' ~ media.vars.data.path) }}" />
-                    <a href="{{ path('media-delete', {'person':person.id, 'media':media.vars.data.id}) }}" class="btn btn-sm btn-danger">Supprimer l'image</a>
+                    <div class="media-delete-btn">
+                        <a href="{{ path('media-delete', {'person':person.id, 'media':media.vars.data.id}) }}" class="btn btn-sm btn-danger">Supprimer l'image</a>
+                    </div>
                 {% endif %}
             </div>
         </div>

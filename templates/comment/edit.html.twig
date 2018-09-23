@@ -1,0 +1,58 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Randomovies - Modifier mes informations personnelles{% endblock %}
+
+{% form_theme comment_form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-11 mt-3">
+
+            <h2>Editer un commentaire</h2>
+
+            {{ form_start(comment_form, {'attr': {'class': 'comment-form'}}) }}
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_errors(comment_form) }}
+                </div>
+
+                <div class="col-md-12">
+                    {{ form_row(comment_form.comment) }}
+                </div>
+                {#<div class="col-md-8">#}
+                    {#{{ form_widget(comment_form.comment, {'attr': {'class': 'form-control'}}) }}#}
+                {#</div>#}
+                <div class="col-md-1">
+                    {{ form_label(comment_form.note) }}
+                </div>
+                <div class="col-md-2">
+                    <div id="note-input-zone">
+                        {{ form_widget(comment_form.note, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div id="note-stars-zone">
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="fas fa-star"></i></span>
+                        <span><i class="far fa-star"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <a href="{{ path('user-account') }}" class="btn btn-warning">Retour</a>
+
+            <input class="btn btn-success" type="submit" value="Enregistrer"/>
+
+            {{ form_end(comment_form) }}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/stars_widget.js') }}"></script>
+{% endblock %}

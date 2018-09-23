@@ -1,35 +1,35 @@
 {{ form_start(comment_form, {'attr': {'class': 'comment-form'}}) }}
 
-        <div class="row">
-                <div class="col-md-12">
-                    {{ form_errors(comment_form) }}
-                </div>
+<div class="row">
+    <div class="col-md-12">
+        {{ form_errors(comment_form) }}
+    </div>
 
-                <div class="col-md-1">
-                    {{ form_label(comment_form.comment) }}
-                </div>
-                <div class="col-md-8">
-                    {{ form_widget(comment_form.comment, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="col-md-1">
-                    {{ form_label(comment_form.note) }}
-                </div>
-                <div class="col-md-2">
-                        <div id="note-input-zone">
-                                {{ form_widget(comment_form.note, {'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div id="note-stars-zone">
-                                <span><i class="fas fa-star"></i></span>
-                                <span><i class="fas fa-star"></i></span>
-                                <span><i class="fas fa-star"></i></span>
-                                <span><i class="fas fa-star"></i></span>
-                                <span><i class="far fa-star"></i></span>
-                        </div>
-                </div>
+    <div class="col-md-1">
+        {{ form_label(comment_form.comment) }}
+    </div>
+    <div class="col-md-8">
+        {{ form_widget(comment_form.comment, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-1">
+        {{ form_label(comment_form.note) }}
+    </div>
+    <div class="col-md-2">
+        <div id="note-input-zone">
+            {{ form_widget(comment_form.note, {'attr': {'class': 'form-control'}}) }}
         </div>
+        <div id="note-stars-zone">
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="fas fa-star"></i></span>
+            <span><i class="far fa-star"></i></span>
+        </div>
+    </div>
+</div>
 
-        <input class="btn randomovies-btn-reset mt-3" type="reset" Value="Remettre à zéro" />
+<input class="btn randomovies-btn-reset mt-3" type="reset" Value="Remettre à zéro"/>
 
-        <input class="float-right btn randomovies-btn-confirm mt-3" type="submit" value="Envoyer" />
+<input class="float-right btn randomovies-btn-confirm mt-3" type="submit" value="Envoyer"/>
 
 {{ form_end(comment_form) }}

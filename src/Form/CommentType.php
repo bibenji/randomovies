@@ -2,12 +2,14 @@
 
 namespace Randomovies\Form;
 
+use Randomovies\Entity\Movie;
 use Randomovies\Entity\Person;
 use Randomovies\Entity\Role;
 use Randomovies\Repository\PersonRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,6 +22,10 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('movie_id', HiddenType::class, [
+                'empty_data' => $options['movie_id'],
+                'mapped' => false,
+            ])
             ->add('comment', TextType::class, [
                 'label' => 'Commentaire',
             ])
@@ -42,7 +48,8 @@ class CommentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Randomovies\Entity\Comment'
+            'data_class' => 'Randomovies\Entity\Comment',
+            'movie_id' => null,
         ));
     }
 
@@ -53,6 +60,4 @@ class CommentType extends AbstractType
     {
         return 'randomovies_comment';
     }
-
-
 }
