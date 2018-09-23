@@ -72,8 +72,27 @@ class MovieController extends Controller
      */
     public function listAction(Request $request)
     {
-        $totalMovies = $this->getDoctrine()->getRepository('Randomovies:Movie')->getTotalMovies();
+        $moviesQueryParams = [];
+        if ($request->get('filter') && in_array($request->get('filter'), ['rating', 'users_rating', 'tag'])) {
+            if ('tag' === $request->get('filter')) {
+                $moviesQueryParams[] = [
+                    'andWhere' => 't.id = :tag_id',
+                    'value' => [
+                        'tag_id',
+                        $request->get('tag_id'),
+                    ],
+                ];
+            } else {
+                // @todo
+            }
+        }
+
+        $tags = $this->getDoctrine()->getRepository('Randomovies:Tag')->getDistinctTags();
+
+        $totalMovies = $this->getDoctrine()->getRepository('Randomovies:Movie')->getTotalMovies($moviesQueryParams);
+
         $totalPages = (int) round($totalMovies / 6);
+        $totalPages = $totalPages !== 0 ? $totalPages : 1;
 
         $page = $request->query->has('page') ? $request->query->get('page') : 1;
         if ($page > $totalPages)
@@ -82,10 +101,12 @@ class MovieController extends Controller
         $movies = $this->getDoctrine()->getRepository('Randomovies:Movie')
             ->getOrderedMoviesByTitle(
                 ($page-1)*$this->getParameter('max_results_by_page'),
-                $this->getParameter('max_results_by_page')
+                $this->getParameter('max_results_by_page'),
+                $moviesQueryParams
             );
 
         return $this->render('movie/list.html.twig', [
+            'tags' => $tags,
             'totalPages' => $totalPages,
             'page' => $page,
             'movies' => $movies
@@ -132,6 +153,7 @@ class MovieController extends Controller
     private function categoryConverter($category)
     {
         $categoriesConversion = [
+            'action' => 'Action',
             'science-fiction' => 'Science-fiction',
             'drame' => 'Drame',
             'comedie-dramatique' => 'Comédie dramatique',

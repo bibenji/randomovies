@@ -7,6 +7,35 @@
 	<div id="all-movies">
 		<br />
 		<div class="row">
+			<div class="col-md-3">
+				Note
+				<ul>
+					<li><a href="{{ path('list_movies') }}?filter=rating&rating=5">5 étoiles</a></li>
+					<li><a href="{{ path('list_movies') }}?filter=rating&rating=4">4 étoiles</a></li>
+					<li><a href="{{ path('list_movies') }}?filter=rating&rating=3">3 étoiles</a></li>
+					<li><a href="{{ path('list_movies') }}?filter=rating&rating=2">2 étoiles</a></li>
+					<li><a href="{{ path('list_movies') }}?filter=rating&rating=1">1 étoile</a></li>
+				</ul>
+			</div>
+			<div class="col-md-3">
+				Note des utilisateurs
+				<ul>
+					<li><a href="{{ path('list_movies') }}?filter=users_rating&rating=5">5 étoiles</a></li>
+					<li><a href="{{ path('list_movies') }}?filter=users_rating&rating=4">4 étoiles</a></li>
+					<li><a href="{{ path('list_movies') }}?filter=users_rating&rating=3">3 étoiles</a></li>
+					<li><a href="{{ path('list_movies') }}?filter=users_rating&rating=2">2 étoiles</a></li>
+					<li><a href="{{ path('list_movies') }}?filter=users_rating&rating=1">1 étoile</a></li>
+				</ul>
+			</div>
+			<div class="col-md-6">
+				Tags<br />
+				{% for index, tag in tags %}
+					<a href="{{ path('list_movies') }}?filter=tag&tag_id={{ tag.id }}">{{ tag.name }}</a>{% if index+1 < tags|length %}, {% endif %}
+				{% endfor %}
+			</div>
+		</div>
+		<br />
+		<div class="row">
             {% for movie in movies %}
 				<div class="col-md-2 all-movies-one">
 					<a href="{{ path('show', { 'id' : movie.id }) }}">

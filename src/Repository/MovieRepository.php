@@ -10,15 +10,27 @@ namespace Randomovies\Repository;
  */
 class MovieRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getOrderedMoviesByTitle($startAt = 0, $endAt = 6)
+	public function getOrderedMoviesByTitle($startAt = 0, $endAt = 6, $params = [])
 	{
-		return $this->getEntityManager()
+		$queryBuilder = $this->getEntityManager()
 			->createQueryBuilder()
 			->select('m')
 			->from('Randomovies:Movie', 'm')
+            ->leftJoin('m.tags', 't')
+            ->where('m.title != \'\'')
 			->orderBy('m.title', 'ASC')
             ->setFirstResult($startAt)
             ->setMaxResults($endAt)
+        ;
+
+        foreach ($params as $param) {
+            $queryBuilder
+                ->andWhere($param['andWhere'])
+                ->setParameter($param['value'][0], $param['value'][1])
+            ;
+        }
+
+		return $queryBuilder
 			->getQuery()
 			->getResult()			
 		;
@@ -65,12 +77,24 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
         ;
     }
 
-    public function getTotalMovies()
+    public function getTotalMovies($params = [])
     {
-        return $this->getEntityManager()
+        $queryBuilder = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('COUNT(m)')
             ->from('Randomovies:Movie', 'm')
+            ->leftJoin('m.tags', 't')
+            ->where('m.title != \'\'')
+        ;
+
+        foreach ($params as $param) {
+            $queryBuilder
+                ->andWhere($param['andWhere'])
+                ->setParameter($param['value'][0], $param['value'][1])
+            ;
+        }
+
+        return $queryBuilder
             ->getQuery()
             ->getSingleScalarResult()
         ;
