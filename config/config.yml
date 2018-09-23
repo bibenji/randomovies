@@ -83,7 +83,7 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    delivery_addresses: ['%email_for_testing%']
+    delivery_addresses: ['benjamin.billette@hotmail.fr%']
     transport: '%mailer_transport%'
 #    host: '%mailer_host%'
     username: '%mailer_username%'
