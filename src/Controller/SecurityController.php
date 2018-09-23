@@ -158,6 +158,7 @@ class SecurityController extends Controller
 
             $password = $this->get('security.password_encoder')->encodePassword($user, $plainPassword);
             $user->setPassword($password);
+            $user->setIsActive(true);
             $user->setToken(null);
 
             $this->getDoctrine()->getManager()->persist($user);

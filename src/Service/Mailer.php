@@ -12,7 +12,6 @@ class Mailer
 
     public function __construct(\Swift_Mailer $swiftMailer, $mailerSender, TwigEngine $twig)
     {
-//        dump(get_class($twig)); exit;
         $this->swiftMailer = $swiftMailer;
         $this->mailerSender = $mailerSender;
         $this->twig = $twig;
@@ -20,8 +19,9 @@ class Mailer
 
     public function sendRegistrationMail($to, $params = [])
     {
+        $params['title'] = 'Randomovies - Création de votre compte';
         $this->createAndSendMessage(
-            'Randomovies - Création de votre compte',
+            $params['title'],
             $to,
             $this->twig->render(
                 'emails/registration.html.twig',
@@ -33,8 +33,9 @@ class Mailer
 
     public function sendPasswordRecoverMail($to, $params = [])
     {
+        $params['title'] = 'Randomovies - Ré-initialisation de votre mot de passe';
         $this->createAndSendMessage(
-            'Randomovies - Ré-initialisation de votre mot de passe',
+            $params['title'],
             $to,
             $this->twig->render(
                 'emails/password_send_token.html.twig',
@@ -45,8 +46,9 @@ class Mailer
 
     public function sendConfirmationPasswordRecoverMail($to, $params = [])
     {
+        $params['title'] = 'Randomovies - Ré-initialisation de votre mot de passe (suite)';
         $this->createAndSendMessage(
-            'Randomovies - Ré-initialisation de votre mot de passe (suite)',
+            $params['title'],
             $to,
             $this->twig->render(
                 'emails/password_recover_ok.html.twig',
@@ -57,8 +59,9 @@ class Mailer
 
     public function sendConfirmationCommentMail($to, $params = [])
     {
+        $params['title'] = 'Randomovies - Commentaire enregistré';
         $this->createAndSendMessage(
-            'Randomovies - Commentaire enregistré',
+            $params['title'],
             $to,
             $this->twig->render(
                 'emails/comment_ok.html.twig',

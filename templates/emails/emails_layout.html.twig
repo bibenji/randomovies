@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{{ title }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        body {
+            background-color: #409ad5;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .global-container {
+            width: 80%;
+            margin: 0px auto;
+        }
+        .title {
+            color: white;
+            margin-left: 20px;
+        }
+        .content-container {
+            background-color: white;
+            padding: 10px 20px 10px;
+        }
+        .signature {
+            text-align: right;
+        }
+        .footer {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="global-container">
+    <h1 class="title">Randomovies</h1>
+
+    <div class="content-container">
+        <h2>Bonjour,</h2>
+
+        {% block email_content %}
+
+        {% endblock %}
+
+        <p class="signature">
+            L'équipe Randomovies.
+        </p>
+
+        <hr />
+
+        <p class="footer">
+            www.randomovies.fr
+        </p>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
