@@ -54,6 +54,10 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $this->get('app.randomovies_mailer')->sendRegistrationMail(
+                $user->getEmail()
+            );
+
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 
@@ -116,36 +120,10 @@ class SecurityController extends Controller
                 $this->getDoctrine()->getManager()->persist($user);
                 $this->getDoctrine()->getManager()->flush();
 
-                $subject = 'Randomovies - Ré-initialisation du mot de passe';
-                $from = $this->getParameter('email_for_testing');
-                $to = $this->getParameter('email_for_testing');
-
-                // todo : send email
-                $message = (new \Swift_Message($subject))
-                    ->setFrom($from)
-                    ->setTo($to)
-                    ->setBody(
-                        $this->renderView(
-                        // templates/emails/registration.html.twig
-                            'emails/password_send_token.html.twig', [
-                            'token' => $token,
-                        ],
-                        'text/html'
-                    ))
-                    /*
-                     * If you also want to include a plaintext version of the message
-                    ->addPart(
-                        $this->renderView(
-                            'emails/registration.txt.twig',
-                            array('name' => $name)
-                        ),
-                        'text/plain'
-                    )
-                    */
-                ;
-
-                $mailer = $this->get('mailer');
-                $mailer->send($message);
+                $this->get('app.randomovies_mailer')->sendPasswordRecoverMail(
+                    $user->getEmail(),
+                    ['token' => $token]
+                );
 
                 return $this->redirectToRoute('homepage');
             }
@@ -180,10 +158,15 @@ class SecurityController extends Controller
 
             $password = $this->get('security.password_encoder')->encodePassword($user, $plainPassword);
             $user->setPassword($password);
+            $user->setIsActive(true);
             $user->setToken(null);
 
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
+
+            $this->get('app.randomovies_mailer')->sendConfirmationPasswordRecoverMail(
+                $user->getEmail()
+            );
 
             return $this->redirectToRoute('login');
         }

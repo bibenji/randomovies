@@ -1,5 +1,5 @@
 imports:
-    - { resource: parameters.yml }
+#    - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: fos_elastica.yml }
@@ -12,8 +12,25 @@ parameters:
     medias_directory: '%kernel.project_dir%/public/images/medias'
     posters_directory: '%kernel.project_dir%/public/images/posters'
     users_photos_directory: '%kernel.project_dir%/public/images/users/photos'
+    max_results_by_page: 6
+
     elastic_host: localhost
     elastic_port: 9200
+
+    database_host: randomovies_database
+    database_port: 3306
+    database_name: randomovies
+    database_user: randomovies
+    database_password: azerty123
+
+#    mailer_transport: smtp
+    mailer_transport: gmail
+    mailer_host: 127.0.0.1
+    mailer_username: benjamin.billette@gmail.com
+    mailer_password: 1987arqfwv
+    mailer_sender: contact@randomovies.fr
+
+    secret: ThisTokenIsNotSoSecretChangeIt
 
 framework:
     #esi: ~
@@ -83,7 +100,7 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    delivery_addresses: ['%email_for_testing%']
+    delivery_addresses: ['benjamin.billette@hotmail.fr%']
     transport: '%mailer_transport%'
 #    host: '%mailer_host%'
     username: '%mailer_username%'

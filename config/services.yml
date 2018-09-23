@@ -29,3 +29,10 @@ services:
         class: Randomovies\Twig\Extension\TotalUsersNotesExtension
         tags:
             - { name: twig.extension }
+
+    app.randomovies_mailer:
+        class: Randomovies\Service\Mailer
+        arguments:
+            - "@mailer"
+            - "%mailer_sender%"
+            - "@templating"

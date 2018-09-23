@@ -49,6 +49,14 @@ class MovieController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush($comment);
+
+            $this->get('app.randomovies_mailer')->sendConfirmationCommentMail(
+                $user->getEmail(),
+                [
+                    'comment' => $comment->getComment(),
+                    'movie_id' => $movies[$randomNb]->getId()
+                ]
+            );
         }
 
         // replace this example code with whatever you need
@@ -105,6 +113,14 @@ class MovieController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush($comment);
+
+            $this->get('app.randomovies_mailer')->sendConfirmationCommentMail(
+                $user->getEmail(),
+                [
+                    'comment' => $comment->getComment(),
+                    'movie_id' => $movie->getId()
+                ]
+            );
         }
 
         return $this->render('movie/show.html.twig', [
