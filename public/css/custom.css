@@ -401,3 +401,11 @@ a {
 
 #login-form-errors {
   color: #e74c3c; }
+
+.media-preview {
+  width: 100%; }
+
+.media-delete-btn {
+  position: absolute;
+  bottom: 0px;
+  right: 15px; }

@@ -39,8 +39,7 @@ class PersonType extends AbstractType
                 'entry_type' => MediaType::class,
                 'entry_options' => ['medias_directory' => $options['medias_directory']],
                 'allow_add' => true,
-//                'allow_delete' => true
-//                'mapped' => false,
+                'allow_delete' => true
             ])
         ;
 

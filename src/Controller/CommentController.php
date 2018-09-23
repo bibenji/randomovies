@@ -48,7 +48,7 @@ class CommentController extends Controller
             return $this->redirectToRoute('user-account');
         }
 
-        return $this->render('comment/new.html.twig', [
+        return $this->render('comment/edit.html.twig', [
             'comment' => $comment,
             'comment_form' => $commentForm->createView()
         ]);
