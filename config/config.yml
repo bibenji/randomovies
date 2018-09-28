@@ -99,10 +99,18 @@ doctrine:
 #    namespace: Randomovies\Migrations
 
 # Swiftmailer Configuration
+#swiftmailer:
+#    delivery_addresses: ['benjamin.billette@hotmail.fr%']
+#    transport: '%mailer_transport%'
+##    host: '%mailer_host%'
+#    username: '%mailer_username%'
+#    password: '%mailer_password%'
+##    spool: { type: memory }
+
 swiftmailer:
     delivery_addresses: ['benjamin.billette@hotmail.fr%']
-    transport: '%mailer_transport%'
-#    host: '%mailer_host%'
-    username: '%mailer_username%'
-    password: '%mailer_password%'
-#    spool: { type: memory }
+    transport: smtp
+    host: 'mailcatcher'
+    port: 1025
+    username: null
+    password: null
