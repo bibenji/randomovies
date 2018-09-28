@@ -80,6 +80,17 @@ services:
         volumes:
            - ./:/usr/src/app/
 
+    mailcatcher:
+        image: schickling/mailcatcher
+        ports:
+            - "1025:1025"
+        labels:
+          - "traefik.backend=mailcatcher"
+          - "traefik.frontend.rule=Host:randomovies.mailcatcher.localhost"
+          - "traefik.port=1080"
+          - "traefik.frontend.passHostHeader=true"
+          - "traefik.backend.loadbalancer.method=drr"
+
 networks:
   default:
     external:
