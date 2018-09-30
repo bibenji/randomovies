@@ -402,7 +402,7 @@ class Movie
 
     public function setRoles($roles)
     {
-        dump("SET ROLES"); exit;
+        $this->roles = $roles;
     }
 
     /**
@@ -435,7 +435,7 @@ class Movie
 
     public function setComments($comments)
     {
-        dump("SET COMMENTS"); exit;
+        $this->comments = $comments;
     }
 
     /**

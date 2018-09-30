@@ -36,3 +36,8 @@ services:
             - "@mailer"
             - "%mailer_sender%"
             - "@templating"
+
+    app.extractor.movie:
+        class: Randomovies\Extractor\MovieExtractor
+        arguments:
+            - "@validator"
