@@ -17,6 +17,7 @@ class TagRepository extends \Doctrine\ORM\EntityRepository
 			->select('t')
 			->from('Randomovies:Tag', 't')
 			->orderBy('t.name', 'ASC')
+            ->indexBy('t', 't.id')
             ->distinct()
 			->getQuery()
 			->getResult()			

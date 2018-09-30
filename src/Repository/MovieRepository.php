@@ -12,28 +12,57 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
 {
 	public function getOrderedMoviesByTitle($startAt = 0, $endAt = 6, $params = [])
 	{
-		$queryBuilder = $this->getEntityManager()
-			->createQueryBuilder()
-			->select('m')
-			->from('Randomovies:Movie', 'm')
-            ->leftJoin('m.tags', 't')
+        $select = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('m')
+            ->from('Randomovies:Movie', 'm')
             ->where('m.title != \'\'')
-			->orderBy('m.title', 'ASC')
+            ->orderBy('m.title', 'ASC')
             ->setFirstResult($startAt)
             ->setMaxResults($endAt)
         ;
 
-        foreach ($params as $param) {
-            $queryBuilder
-                ->andWhere($param['andWhere'])
-                ->setParameter($param['value'][0], $param['value'][1])
+        if (isset($params['tag'])) {
+            $select
+                ->leftJoin('m.tags', 't')
+                ->andWhere('t.id = :tag_id')
+                ->setParameter('tag_id', $params['tag'])
             ;
         }
 
-		return $queryBuilder
-			->getQuery()
-			->getResult()			
-		;
+        if (isset($params['users_rating'])) {
+
+            $qb = $this->createQueryBuilder('movie');
+
+            $subSelect = $qb
+                ->select('movie')
+                ->groupBy('movie')
+                ->leftJoin('movie.comments', 'comment')
+                ->where('movie.title != \'\'')
+                ->having('AVG(comment.note) >= :users_rating_sup AND AVG(comment.note) < :users_rating_inf')
+                ->setParameter('users_rating_sup', (int) $params['users_rating'] - 0.5)
+                ->setParameter('users_rating_inf', (int) $params['users_rating'] + 0.5)
+                ->getQuery()
+            ;
+
+            $select
+                ->andWhere($qb->expr()->in('m', $subSelect->getDQL()))
+                ->setParameter('users_rating_sup', (int) $params['users_rating'] - 0.5)
+                ->setParameter('users_rating_inf', (int) $params['users_rating'] + 0.5)
+            ;
+        }
+
+        if (isset($params['rating'])) {
+            $select
+                ->andWhere('m.rating = :rating')
+                ->setParameter('rating', $params['rating'])
+            ;
+        }
+
+        return $select
+            ->getQuery()
+            ->getResult()
+        ;
 	}
 
 	public function getRandomMovies($nb = 4)
@@ -79,22 +108,51 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
 
     public function getTotalMovies($params = [])
     {
-        $queryBuilder = $this->getEntityManager()
+        $select = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('COUNT(m)')
             ->from('Randomovies:Movie', 'm')
-            ->leftJoin('m.tags', 't')
             ->where('m.title != \'\'')
         ;
 
-        foreach ($params as $param) {
-            $queryBuilder
-                ->andWhere($param['andWhere'])
-                ->setParameter($param['value'][0], $param['value'][1])
+        if (isset($params['tag'])) {
+            $select
+                ->leftJoin('m.tags', 't')
+                ->andWhere('t.id = :tag_id')
+                ->setParameter('tag_id', $params['tag'])
             ;
         }
 
-        return $queryBuilder
+        if (isset($params['users_rating'])) {
+
+            $qb = $this->createQueryBuilder('movie');
+
+            $subSelect = $qb
+                ->select('movie')
+                ->groupBy('movie')
+                ->leftJoin('movie.comments', 'comment')
+                ->where('movie.title != \'\'')
+                ->having('AVG(comment.note) >= :users_rating_sup AND AVG(comment.note) < :users_rating_inf')
+                ->setParameter('users_rating_sup', (int) $params['users_rating'] - 0.5)
+                ->setParameter('users_rating_inf', (int) $params['users_rating'] + 0.5)
+                ->getQuery()
+            ;
+
+            $select
+                ->andWhere($qb->expr()->in('m', $subSelect->getDQL()))
+                ->setParameter('users_rating_sup', (int) $params['users_rating'] - 0.5)
+                ->setParameter('users_rating_inf', (int) $params['users_rating'] + 0.5)
+            ;
+        }
+
+        if (isset($params['rating'])) {
+            $select
+                ->andWhere('m.rating = :rating')
+                ->setParameter('rating', $params['rating'])
+            ;
+        }
+
+        return $select
             ->getQuery()
             ->getSingleScalarResult()
         ;

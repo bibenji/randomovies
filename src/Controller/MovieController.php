@@ -78,18 +78,14 @@ class MovieController extends Controller
     public function listAction(Request $request)
     {
         $moviesQueryParams = [];
-        if ($request->get('filter') && in_array($request->get('filter'), ['rating', 'users_rating', 'tag'])) {
-            if ('tag' === $request->get('filter')) {
-                $moviesQueryParams[] = [
-                    'andWhere' => 't.id = :tag_id',
-                    'value' => [
-                        'tag_id',
-                        $request->get('tag_id'),
-                    ],
-                ];
-            } else {
-                // @todo
-            }
+        if ($request->get('tag')) {
+            $moviesQueryParams['tag'] = $request->get('tag');
+        }
+        if ($request->get('users_rating')) {
+            $moviesQueryParams['users_rating'] = $request->get('users_rating');
+        }
+        if ($request->get('rating')) {
+            $moviesQueryParams['rating'] = $request->get('rating');
         }
 
         $tags = $this->getDoctrine()->getRepository('Randomovies:Tag')->getDistinctTags();

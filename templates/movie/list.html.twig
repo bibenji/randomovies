@@ -1,3 +1,25 @@
+{% macro rating(name, queryWithParams	) %}
+	<ul>
+        {% if app.request.query.all[name] is defined %}
+            {% set queryWithoutThatParam = path('list_movies')~'?' %}
+            {% for filter_name, filter_value in app.request.query.all %}
+                {% if filter_name != name and filter_name != 'page' %}
+                    {% set queryWithoutThatParam = queryWithoutThatParam~filter_name~'='~filter_value~'&' %}
+                {% endif %}
+            {% endfor %}
+			<li>{{ app.request.query.all[name] }} étoile{% if app.request.query.all[name] > 1 %}s{% endif %} (<a href="{{ queryWithoutThatParam }}">retirer ce filtre</a>)</li>
+        {% else %}
+			<li><a href="{{ queryWithParams~name }}=5">5 étoiles</a></li>
+			<li><a href="{{ queryWithParams~name }}=4">4 étoiles</a></li>
+			<li><a href="{{ queryWithParams~name }}=3">3 étoiles</a></li>
+			<li><a href="{{ queryWithParams~name }}=2">2 étoiles</a></li>
+			<li><a href="{{ queryWithParams~name }}=1">1 étoile</a></li>
+        {% endif %}
+	</ul>
+{% endmacro %}
+
+{% import _self as filter %}
+
 {% extends 'layout.html.twig' %}
 
 {% block title %}RandoMovies - Tous les films{% endblock %}
@@ -7,31 +29,42 @@
 	<div id="all-movies">
 		<br />
 		<div class="row">
+
+            {% set queryWithParams = path('list_movies')~'?' %}
+            {% for filter_name, filter_value in app.request.query.all %}
+				{% if filter_name != 'page' %}
+                	{% set queryWithParams = queryWithParams~filter_name~'='~filter_value~'&' %}
+				{% endif %}
+            {% endfor %}
+
 			<div class="col-md-3">
 				Note
-				<ul>
-					<li><a href="{{ path('list_movies') }}?filter=rating&rating=5">5 étoiles</a></li>
-					<li><a href="{{ path('list_movies') }}?filter=rating&rating=4">4 étoiles</a></li>
-					<li><a href="{{ path('list_movies') }}?filter=rating&rating=3">3 étoiles</a></li>
-					<li><a href="{{ path('list_movies') }}?filter=rating&rating=2">2 étoiles</a></li>
-					<li><a href="{{ path('list_movies') }}?filter=rating&rating=1">1 étoile</a></li>
-				</ul>
+				{{ filter.rating('rating', queryWithParams) }}
 			</div>
 			<div class="col-md-3">
 				Note des utilisateurs
-				<ul>
-					<li><a href="{{ path('list_movies') }}?filter=users_rating&rating=5">5 étoiles</a></li>
-					<li><a href="{{ path('list_movies') }}?filter=users_rating&rating=4">4 étoiles</a></li>
-					<li><a href="{{ path('list_movies') }}?filter=users_rating&rating=3">3 étoiles</a></li>
-					<li><a href="{{ path('list_movies') }}?filter=users_rating&rating=2">2 étoiles</a></li>
-					<li><a href="{{ path('list_movies') }}?filter=users_rating&rating=1">1 étoile</a></li>
-				</ul>
+                {{ filter.rating('users_rating', queryWithParams) }}
 			</div>
 			<div class="col-md-6">
 				Tags<br />
-				{% for index, tag in tags %}
-					<a href="{{ path('list_movies') }}?filter=tag&tag_id={{ tag.id }}">{{ tag.name }}</a>{% if index+1 < tags|length %}, {% endif %}
-				{% endfor %}
+                {% if app.request.query.all['tag'] is defined %}
+					{% set queryWithoutThatParam = path('list_movies')~'?' %}
+					{% for filter_name, filter_value in app.request.query.all %}
+						{% if filter_name != 'tag' and filter_name != 'page' %}
+							{% set queryWithoutThatParam = queryWithoutThatParam~filter_name~'='~filter_value~'&' %}
+						{% endif %}
+					{% endfor %}
+					<ul>
+						<li>{{ tags[app.request.query.all['tag']].name }} (<a href="{{ queryWithoutThatParam }}">retirer ce filtre</a>)</li>
+					</ul>
+                {% else %}
+					{% set index = 1 %}
+					{% set max_index = tags|length %}
+					{% for uuid, tag in tags %}
+						{% set index = index+1 %}
+						<a href="{{ queryWithParams }}tag={{ tag.id }}">{{ tag.name }}</a>{% if index < max_index %}, {% endif %}
+					{% endfor %}
+				{% endif %}
 			</div>
 		</div>
 		<br />
@@ -48,19 +81,26 @@
             {% endfor %}
 		</div>
 
+        {% set queryWithParamsWithCurrentPage = path('list_movies')~'?' %}
+        {% for filter_name, filter_value in app.request.query.all %}
+			{% if filter_name != 'page' %}
+				{% set queryWithParamsWithCurrentPage = queryWithParamsWithCurrentPage~filter_name~'='~filter_value~'&' %}
+			{% endif %}
+        {% endfor %}
+
 		<ul class="custom-pagination">
 			<li>
-				<a href="{{ path('list_movies') }}?page={{ page > 1 ? page-1 : '1' }}">Précédent</a>
+				<a href="{{ queryWithParamsWithCurrentPage }}page={{ page > 1 ? page-1 : '1' }}">Précédent</a>
 			</li>
 
 			{% for pageNumber in 1..totalPages %}
 				<li>
-					<a href="{{ path('list_movies') }}?page={{ pageNumber }}">{{ pageNumber }}</a>
+					<a href="{{ queryWithParamsWithCurrentPage }}page={{ pageNumber }}">{{ pageNumber }}</a>
 				</li>
 			{% endfor %}
 
 			<li>
-				<a href="{{ path('list_movies') }}?page={{ page < totalPages ? page+1 : totalPages }}">Suivant</a>
+				<a href="{{ queryWithParamsWithCurrentPage }}page={{ page < totalPages ? page+1 : totalPages }}">Suivant</a>
 			</li>
 		</ul>
 	</div>
