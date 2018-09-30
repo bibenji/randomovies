@@ -77,14 +77,14 @@ class MovieType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(array(
+        $resolver->setRequired([
             'edit'
-        ));
+        ]);
 
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Randomovies\Entity\Movie',
             'edit' => false
-        ));
+        ]);
     }
 
     /**
