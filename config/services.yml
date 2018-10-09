@@ -4,20 +4,13 @@ parameters:
     #parameter_name: value
 
 services:
-#    app.doctrine_poster_listener:
-#        class: Randomovies\EventListener\PosterUploadListener
-#        arguments: ['%posters_directory%']
-#        tags:
-##            - { name: doctrine.event_listener, event: prePersist }
-##            - { name: doctrine.event_listener, event: preUpdate }
-#            - { name: doctrine.event_listener, event: postLoad }
-
-    app.movie_persist_listener:
-        class: Randomovies\EventListener\MoviePersistListener
+    app.doctrine_poster_listener:
+        class: Randomovies\EventListener\PosterUploadListener
+        arguments: ['%posters_directory%']
         tags:
-            - { name: doctrine.event_listener, event: prePersist }
-            - { name: doctrine.event_listener, event: preUpdate }
-#            - { name: doctrine.event_listener, event: postFlush }
+#            - { name: doctrine.event_listener, event: prePersist }
+#            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postLoad }
 
     app.twig.random_movies_extension:
         class: Randomovies\Twig\Extension\RandomMoviesExtension

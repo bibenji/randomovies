@@ -1,27 +1,21 @@
-# This file is a "template" of what your parameters.yml file should look like
-# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
-# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    database_host: 127.0.0.1
-    database_port: ~
-    database_name: symfony
-    database_user: root
-    database_password: ~
-    # You should uncomment this if you want to use pdo_sqlite
-    #database_path: '%kernel.project_dir%/var/data/data.sqlite'
+    database_driver: '%env(DATABASE_DRIVER)%'
+    database_host: '%env(DATABASE_HOST)%'
+    database_port: '%env(DATABASE_PORT)%'
+    database_name: '%env(DATABASE_NAME)%'
+    database_user: '%env(DATABASE_USER)%'
+    database_password: '%env(DATABASE_PASSWORD)%'
+    
+    mailer_transport: '%env(MAILER_TRANSPORT)%'
+    mailer_port: '%env(MAILER_PORT)%'
+    mailer_host: '%env(MAILER_HOST)%'
+    mailer_user: '%env(MAILER_USER)%'
+    mailer_password: '%env(MAILER_PASSWORD)%'
+    mailer_delivery: '%env(MAILER_DELIVERY)%'	
+	mailer_sender: '%env(MAILER_SENDER)%'
 
-//    mailer_transport: smtp
-    mailer_transport: gmail
-    mailer_host: 127.0.0.1
-    mailer_user: ~
-    mailer_username: ~
-    mailer_password: ~
-#    mailer_transport: smtp
-
-# A secret key that's used to generate certain security-related tokens
-    secret: ThisTokenIsNotSoSecretChangeIt
-
-    max_results_by_page: 6
-
-    email_for_testing: your@email.fr
+    elastic_host: '%env(ELASTIC_URL)%'
+    elastic_port: '%env(ELASTIC_PORT)%'
+    
+    secret: '%env(SECRET)%'
 
