@@ -86,6 +86,7 @@ class MovieDto
         $this->duration = $row[4];
         $this->synopsis = $row[5];
         $this->rating = $row[6];
-        $this->genre = $row[8];
+        $this->genre = $row[8];		
+		$this->poster = $row[10];
     }
 }
