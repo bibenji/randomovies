@@ -18,6 +18,7 @@
         "doctrine/doctrine-cache-bundle": "^1.2",
         "doctrine/doctrine-fixtures-bundle": "v2.4.1",
         "doctrine/orm": "^2.5",
+        "easycorp/easyadmin-bundle": "^1.17",
         "friendsofsymfony/elastica-bundle": "^5.0",
         "friendsofsymfony/jsrouting-bundle": "^2.2",
         "incenteev/composer-parameter-handler": "^2.0",

@@ -74,7 +74,57 @@ security:
                 path: /logout
                 target: /
 #            provider: user_db
-
+    
+    role_hierarchy:
+        ROLE_USER: ~
+        ROLE_MOVIE_CREATE: ~
+        ROLE_MOVIE_EDIT: ~
+        ROLE_MOVIE_DELETE: ~
+        ROLE_MOVIE_FULL:
+            - ROLE_MOVIE_CREATE
+            - ROLE_MOVIE_EDIT
+            - ROLE_MOVIE_DELETE
+        ROLE_PERSON_CREATE: ~
+        ROLE_PERSON_EDIT: ~
+        ROLE_PERSON_DELETE: ~
+        ROLE_PERSON_FULL:
+            - ROLE_PERSON_CREATE
+            - ROLE_PERSON_EDIT
+            - ROLE_PERSON_DELETE
+        ROLE_TAG_CREATE: ~
+        ROLE_TAG_EDIT: ~
+        ROLE_TAG_DELETE: ~
+        ROLE_TAG_FULL:
+            - ROLE_TAG_CREATE
+            - ROLE_TAG_EDIT
+            - ROLE_TAG_DELETE
+        ROLE_USER_CREATE: ~
+        ROLE_USER_EDIT: ~
+        ROLE_USER_DELETE: ~
+        ROLE_USER_FULL:
+            - ROLE_USER_CREATE
+            - ROLE_USER_EDIT
+            - ROLE_USER_DELETE
+        ROLE_COMMENT_CREATE: ~
+        ROLE_COMMENT_EDIT: ~
+        ROLE_COMMENT_DELETE: ~
+        ROLE_COMMENT_FULL:
+            - ROLE_COMMENT_CREATE
+            - ROLE_COMMENT_EDIT
+            - ROLE_COMMENT_DELETE
+        ROLE_CONTRIBUTOR:
+            - ROLE_USER
+            - ROLE_MOVIE_FULL           
+            - ROLE_PERSON_FULL           
+            - ROLE_TAG_FULL           
+        ROLE_ADMIN:
+            - ROLE_USER
+            - ROLE_MOVIE_FULL
+            - ROLE_PERSON_FULL            
+            - ROLE_TAG_FULL
+            - ROLE_USER_FULL
+            - ROLE_COMMENT_FULL            
+        
     access_control:
         - { path: ^/user, roles: [ ROLE_USER, ROLE_ADMIN ] }
         - { path: ^/admin, roles: ROLE_ADMIN }
