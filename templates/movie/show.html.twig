@@ -7,7 +7,9 @@
 		<div class="col-md-5">
 			<br />
             {% if movie.poster != "" %}
-				<img class="main-movie-cover" src="{{ asset('images/posters/' ~ movie.poster) }}" />
+				<a href="/images/posters/{{ movie.poster }}" target="_blank">
+					<img class="main-movie-cover" src="{{ asset('images/posters/medium/' ~ movie.poster) }}" />
+				</a>
             {% endif %}
 		</div>
 

@@ -118,7 +118,7 @@ class MovieController extends Controller
      * @Route("/show/{id}", name="show")
      */
     public function showAction(Request $request, Movie $movie)
-    {
+    {	
         $comment = new Comment();
         $comment->setMovie($movie);
 

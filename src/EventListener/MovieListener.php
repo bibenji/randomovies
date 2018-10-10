@@ -7,28 +7,47 @@ use Randomovies\Entity\Role;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Randomovies\Entity\Movie;
 use Doctrine\ORM\Event\PostFlushEventArgs;
+use Randomovies\Tool\ImageResizer;
 
-class MoviePersistListener
+class MovieListener
 {
     /**
      * @var Movie
      */
     private $entity;
+	
+	/**
+	 * @var string
+	 */
+	private $postersDirectory;
 
-    public function __construct()
+    public function __construct(string $postersDirectory)
     {
-
+		$this->postersDirectory = $postersDirectory;
     }
-
 
     public function prePersist(LifecycleEventArgs $args)
     {
         $this->createDirectorAndActors($args);
     }
-
+	
+	public function postPersist(LifecycleEventArgs $args)
+    {
+		$this->createThumbnails($args);        
+    }
+	
     public function preUpdate(LifecycleEventArgs $args)
     {
-        $this->createDirectorAndActors($args);
+        $this->createDirectorAndActors($args);		
+    }
+	
+	public function postUpdate(LifecycleEventArgs $args)
+    {		
+		$changeArray = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($args->getObject());
+		
+		if (isset($changeArray['poster'])) {			
+			$this->createThumbnails($args);
+		}		
     }
 
     public function postFlush(PostFlushEventArgs $args)
@@ -107,4 +126,16 @@ class MoviePersistListener
 
         $this->entity = $entity;
     }
+	
+	private function createThumbnails($args)
+	{
+		$entity = $args->getEntity();
+		
+        if (!$entity instanceof Movie) {
+            return;
+        }
+		
+		$imageResizer = new ImageResizer();
+		$imageResizer->makeSmallAndMediumThumbnails($this->postersDirectory, $entity->getPoster());		
+	}
 }
