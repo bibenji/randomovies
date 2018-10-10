@@ -29,12 +29,12 @@ class ImportType extends AbstractType
                     }),
                 ],
             ])
-            ->add('verification', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary',
-                ],
-                'label' => 'Vérifier le fichier',
-            ])
+            // ->add('verification', SubmitType::class, [
+                // 'attr' => [
+                    // 'class' => 'btn btn-primary',
+                // ],
+                // 'label' => 'Vérifier le fichier',
+            // ])
             ->add('importer', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary',

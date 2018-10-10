@@ -4,6 +4,7 @@ namespace Randomovies\Dto;
 
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class MovieDto
 {
@@ -76,9 +77,16 @@ class MovieDto
      * @var Collection
      */
     public $tags;
+	
+	/**
+	 * @var string
+	 */
+	public $tagsAsString;
 
     public function __construct(array $row = [])
     {
+		$this->tags = new ArrayCollection();
+		
         $this->title = $row[0];
         $this->director = $row[2];
         $this->actors = $row[1];
@@ -86,7 +94,9 @@ class MovieDto
         $this->duration = $row[4];
         $this->synopsis = $row[5];
         $this->rating = $row[6];
-        $this->genre = $row[8];		
+        $this->critique = $row[7];
+        $this->genre = $row[8];				
+        $this->tagsAsString = $row[9];		
 		$this->poster = $row[10];
-    }
+    }	
 }
