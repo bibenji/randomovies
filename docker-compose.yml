@@ -6,17 +6,19 @@ services:
         env_file: ./.env
         volumes:
             - ./docker/nginx/config/default.conf:/etc/nginx/conf.d/default.conf
-#            - ./web/:/app/
+            # - ./web/:/app/
             - ./:/opt/project/
             - ./var/logs/nginx/:/var/log/nginx/
         labels:
-           - "traefik.backend=randomovies_nginx"
-           - "traefik.frontend.rule=Host:${SITE_HOST}"
-           - "traefik.port=80"
-           - "traefik.frontend.passHostHeader=true"
-           - "traefik.backend.loadbalancer.method=drr"
+            - "traefik.backend=randomovies_nginx"
+            - "traefik.frontend.rule=Host:${SITE_HOST}"
+            - "traefik.port=80"
+            - "traefik.frontend.passHostHeader=true"
+            - "traefik.backend.loadbalancer.method=drr"
         depends_on:
-           - randomovies_php
+            - randomovies_php
+        ports:
+            - 8002:80
 
     randomovies_php:
         build:
@@ -26,29 +28,30 @@ services:
         env_file: ./.env
         volumes:
             - ./:/opt/project/
-#            - ./docker/php/ini/:/usr/local/etc/php/
+            # - ./docker/php/ini/:/usr/local/etc/php/
         environment:
             - SYMFONY_ENV=${SYMFONY_ENV}
-            - MYSQL_PORT=${MYSQL_PORT}
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-            - MYSQL_USER=${MYSQL_USER}
-            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_PORT=${DATABASE_PORT}
+            - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${DATABASE_NAME}
+            - MYSQL_USER=${DATABASE_USER}
+            - MYSQL_PASSWORD=${DATABASE_PASSWORD}
         labels:
             - "traefik.enable=false"
 
     randomovies_database:
         image: mariadb:latest
-#        image: mariadb:10.1.21
+        # image: mariadb:10.1.21
         volumes:
             - ./docker/database/data:/var/lib/mysql
+            # marche pas sous windows en NTFS
         env_file: ./.env
         environment:
-            - MYSQL_PORT=${MYSQL_PORT}
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-            - MYSQL_USER=${MYSQL_USER}
-            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_PORT=${DATABASE_PORT}
+            - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${DATABASE_NAME}
+            - MYSQL_USER=${DATABASE_USER}
+            - MYSQL_PASSWORD=${DATABASE_PASSWORD}
 
     randomovies_phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -56,7 +59,7 @@ services:
         links:
             - randomovies_database
         environment:
-            - PMA_HOST=${MYSQL_HOST}
+            - PMA_HOST=${DATABASE_HOST}
         labels:
             - "traefik.backend=randomovies_phpmyadmin"
             - "traefik.frontend.rule=Host:pma.${SITE_HOST}"
@@ -64,34 +67,34 @@ services:
             - "traefik.frontend.passHostHeader=true"
 
     randomovies_elasticsearch:
-          image: elasticsearch:5.3
-          restart: always
-          labels:
-              - "traefik.backend=fai_elasticsearch"
-              - "traefik.frontend.rule=Host:es.${SITE_HOST}"
-              - "traefik.port=9200"
-              - "traefik.frontend.passHostHeader=true"
-              - "traefik.backend.loadbalancer.method=drr"
+        image: elasticsearch:5.3
+        restart: always
+        labels:
+            - "traefik.backend=randomovies_elasticsearch"
+            - "traefik.frontend.rule=Host:es.${SITE_HOST}"
+            - "traefik.port=${ELASTIC_PORT}"
+            - "traefik.frontend.passHostHeader=true"
+            - "traefik.backend.loadbalancer.method=drr"
 
-    node:
+    randomovies_node:
         build:
             context: .
             dockerfile: ./docker/node/Dockerfile
         volumes:
-           - ./:/usr/src/app/
+            - ./:/usr/src/app/
 
-    mailcatcher:
+    randomovies_mailcatcher:
         image: schickling/mailcatcher
         ports:
             - "1025:1025"
         labels:
-          - "traefik.backend=mailcatcher"
-          - "traefik.frontend.rule=Host:randomovies.mailcatcher.localhost"
-          - "traefik.port=1080"
-          - "traefik.frontend.passHostHeader=true"
-          - "traefik.backend.loadbalancer.method=drr"
+            - "traefik.backend=mailcatcher"
+            - "traefik.frontend.rule=Host:mailcatcher.${SITE_HOST}"
+            - "traefik.port=1080"
+            - "traefik.frontend.passHostHeader=true"
+            - "traefik.backend.loadbalancer.method=drr"
 
 networks:
-  default:
-    external:
-      name: devtools
+    default:
+        external:
+            name: devtools

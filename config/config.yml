@@ -1,8 +1,8 @@
 imports:
-#    - { resource: parameters.yml }
+    - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: fos_elastica.yml }
+    # - { resource: fos_elastica.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -14,28 +14,10 @@ parameters:
     users_photos_directory: '%kernel.project_dir%/public/images/users/photos'
     max_results_by_page: 6
 
-    elastic_host: localhost
-    elastic_port: 9200
-
-    database_host: randomovies_database
-    database_port: 3306
-    database_name: randomovies
-    database_user: randomovies
-    database_password: azerty123
-
-#    mailer_transport: smtp
-    mailer_transport: gmail
-    mailer_host: 127.0.0.1
-    mailer_username: benjamin.billette@gmail.com
-    mailer_password: 1987arqfwv
-    mailer_sender: contact@randomovies.fr
-
-    secret: ThisTokenIsNotSoSecretChangeIt
-
 framework:
     #esi: ~
     #translator: { fallbacks: ['%locale%'] }
-    secret: '%env(SECRET)%'
+    secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/config/routing.yml'
         strict_requirements: ~
@@ -68,12 +50,12 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver: '%env(DATABASE_DRIVER)%'
-        host: '%env(MYSQL_HOST)%'
-        port: '%env(MYSQL_PORT)%'
-        dbname: '%env(MYSQL_DATABASE)%'
-        user: '%env(MYSQL_USER)%'
-        password: '%env(MYSQL_PASSWORD)%'
+        driver: '%database_driver%'
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
         charset: UTF8
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
@@ -108,9 +90,9 @@ doctrine:
 ##    spool: { type: memory }
 
 swiftmailer:
-    delivery_addresses: ['benjamin.billette@hotmail.fr%']
-    transport: smtp
-    host: 'mailcatcher'
-    port: 1025
-    username: null
-    password: null
+    delivery_addresses: ['%mailer_delivery%']
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    port: '%mailer_port%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
