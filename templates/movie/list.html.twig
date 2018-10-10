@@ -72,7 +72,7 @@
             {% for movie in movies %}
 				<div class="col-md-2 all-movies-one">
 					<a href="{{ path('show', { 'id' : movie.id }) }}">
-						<img src="{{ asset('images/posters/' ~ movie.poster) }}" />
+						<img src="{{ asset('images/posters/small/' ~ movie.poster) }}" />
 						<div>
 							{{ movie.title }}<br />{{ movie.year }}<br />{{ movie.genre }}
 						</div>

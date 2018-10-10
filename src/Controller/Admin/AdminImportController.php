@@ -13,8 +13,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-use Randomovies\Dto\MovieDto;
-
 class AdminImportController extends Controller
 {
     /**
