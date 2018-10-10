@@ -30,9 +30,9 @@ class AdminImportController extends Controller
 
             /** @var MovieExtractor $movieExtractor */
             $movieExtractor = $this->get('app.extractor.movie');
-
+						
             try {
-                $spreadsheet = IOFactory::load($file->getPathName());
+                $spreadsheet = IOFactory::load($file->getPathName());				
                 $movies = $movieExtractor->handle($spreadsheet);
 
                 /** @var Movie $movie */

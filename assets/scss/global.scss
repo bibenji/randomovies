@@ -18,6 +18,10 @@ nav {
 	}	
 }
 
+#menu-list-container {
+	padding-left: 0px;	
+}
+
 #menu {
 	ul {
 		margin: 0px;
@@ -26,6 +30,7 @@ nav {
 			display: inline-block;
 			line-height: 75px;			
 			padding: 0px 30px;
+			margin-right: -5px;
 			&:hover {
 				background-color: lighten($primaryColor, 10%);
 				cursor: pointer;

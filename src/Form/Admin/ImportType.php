@@ -61,9 +61,10 @@ class ImportType extends AbstractType
      * @return bool
      */
     private function isDocType(string $mimeType): bool
-    {
+    {		
         return in_array($mimeType, [
             'application/octet-stream',
+			'application/vnd.ms-excel',
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'application/vnd.oasis.opendocument.spreadsheet',
         ]);
