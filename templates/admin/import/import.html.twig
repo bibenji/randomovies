@@ -6,8 +6,17 @@
         <div class="col-md-12">
 
             <h2>Importer des films</h2>
+			
+			<br />
+			
+			{{ form_start(form) }}
+			
+			<div class="row">
+				<div class="col-md-6">{{ form_row(form.file) }}</div>
+				<div class="col-md-6">{{ form_row(form.importer) }}</div>
 
-            {{ form_start(form) }}
+			</div>
+			
             {{ form_end(form) }}
 
         </div>

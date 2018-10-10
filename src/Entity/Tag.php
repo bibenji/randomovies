@@ -6,12 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Tag
  *
  * @ORM\Table(name="tag")
  * @ORM\Entity(repositoryClass="Randomovies\Repository\TagRepository")
+ * @UniqueEntity(fields="name", message="Un tag portant le même nom est déjà enregistré.")
  */
 class Tag
 {
@@ -62,7 +64,7 @@ class Tag
      */
     public function setName(string $name)
     {
-        $this->name = $name;
+        $this->name = ucfirst(strtolower(trim($name)));
     }
 
     /**

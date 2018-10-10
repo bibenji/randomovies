@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+use Randomovies\Dto\MovieDto;
+
 class AdminImportController extends Controller
 {
     /**
@@ -34,11 +36,14 @@ class AdminImportController extends Controller
             try {
                 $spreadsheet = IOFactory::load($file->getPathName());				
                 $movies = $movieExtractor->handle($spreadsheet);
-
+								
+				$tags = $this->getDoctrine()->getRepository('Randomovies:Tag')->findAll();		
+				$movieMapper = new MovieMapper($tags);
+				
                 /** @var Movie $movie */
                 foreach ($movies as $movieDto) {
                     $movie = new Movie();
-                    (new MovieMapper())->map($movieDto, $movie);
+                    $movieMapper->map($movieDto, $movie);
                     $this->getDoctrine()->getManager()->persist($movie);
                 }
 
