@@ -52,8 +52,6 @@ class SearchController extends Controller
 
     private function getResultsForSearch(MovieSearch $movieSearch)
     {
-        dump($movieSearch);
-
         $finder = $this->container->get('fos_elastica.finder.randomovies.movie');
 
         $boolQuery = new BoolQuery();

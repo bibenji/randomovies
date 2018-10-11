@@ -6,34 +6,49 @@
 
 {% block body %}
 
-    <div id="my-account" class="row">
+	{{ form_start(form) }}
+	
+		<div id="my-account" class="row">
 
-        <div class="col-md-6">
-
-            {{ form_start(form) }}
-
-                {{ form_row(form.email) }}
-                {{ form_row(form.username) }}
-                {{ form_row(form.plainPassword) }}
-                {{ form_row(form.firstname) }}
+			<div class="col-md-6">
+				
+				<h3>Paramètres du compte</h3>
+				<hr />
+				{{ form_row(form.username) }}
+                {{ form_row(form.email) }}                
+                {{ form_row(form.plainPassword) }}						
+				
+				<h3>Informations personnelles</h3>
+				<hr />
+				
+				{{ form_row(form.firstname) }}
                 {{ form_row(form.lastname) }}
                 {{ form_row(form.birthdate) }}
-                {{ form_row(form.avatar) }}
 
-                <input type="submit" class="btn btn-outline-primary" value="Enregistrer les modifications" />
-                <a href="{{ path('user-account') }}" class="btn btn-outline-warning">Retour</a>
+			</div>
 
-            {{ form_end(form) }}
+			<div class="col-md-6">			
+				<h3>Avatar</h3>
+				<hr />
+				<p>Photo actuellement liée à votre profil :</p>				
+				{% if app.user.photo is not null %}
+					<img class="img-thumbnail" src="{{ asset('images/users/photos/medium/' ~ app.user.photo) }}" />
+				{% else %}
+					<br /><br /><br />
+				{% endif %}
+				
+				<p>Changer la photo de votre profil :</p>
+				{{ form_widget(form.avatar) }}
+				<br />
+			</div>
+			
+			<div class="col-md-12 text-center">
+                <a href="{{ path('user-account') }}" class="btn btn-outline-secondary">Retour</a>
+				<input type="submit" class="btn btn-outline-primary" value="Enregistrer les modifications" />				
+			</div>
 
-        </div>
-
-        <div class="col-md-6">
-            <p>Photo liée à votre profil :</p>
-            {% if app.user.photo is not null %}
-                <img class="img-thumbnail" src="{{ asset('images/users/photos/' ~ app.user.photo) }}" />
-            {% endif %}
-        </div>
-
-    </div>
+		</div>
+			
+	{{ form_end(form) }}
 
 {% endblock %}

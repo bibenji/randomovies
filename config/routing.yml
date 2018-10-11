@@ -9,6 +9,6 @@ fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 easy_admin_bundle:
-    resource: "@EasyAdminBundle/Controller/AdminController.php"
+    resource: 'Randomovies\Controller\EasyAdmin\AdminController'
     type:     annotation
     prefix:   /easyadmin

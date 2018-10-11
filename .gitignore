@@ -34,8 +34,11 @@ composer-setup.php
 
 /public/images/fake_posters/*.*
 /public/images/medias/*.*
-/public/images/posters/*.jp*
-/public/images/posters/medium/*.jp*
-/public/images/posters/small/*.jp*
+/public/images/posters/*.*
+/public/images/posters/medium/*.*
+/public/images/posters/small/*.*
+/public/images/users/photos/*.*
+/public/images/users/photos/medium/*.*
+/public/images/users/photos/small/*.*
 
 /node_modules/

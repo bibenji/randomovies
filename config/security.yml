@@ -119,6 +119,7 @@ security:
             - ROLE_TAG_FULL           
         ROLE_ADMIN:
             - ROLE_USER
+            - ROLE_CONTRIBUTOR
             - ROLE_MOVIE_FULL
             - ROLE_PERSON_FULL            
             - ROLE_TAG_FULL
@@ -126,5 +127,7 @@ security:
             - ROLE_COMMENT_FULL            
         
     access_control:
-        - { path: ^/user, roles: [ ROLE_USER, ROLE_ADMIN ] }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/user, roles: [ ROLE_USER ] }
+        - { path: ^/admin/import, roles: [ ROLE_ADMIN ] }
+        - { path: ^/admin/easyadmin, roles: [ ROLE_ADMIN ] }
+        - { path: ^/admin, roles: [ ROLE_CONTRIBUTOR ] }

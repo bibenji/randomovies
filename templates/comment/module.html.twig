@@ -11,13 +11,13 @@
             <br /><br />
         </div>
 
-        <h4>Commentaires</h4>
+        <h3>Commentaires</h3>
         <div class="clearfix"></div>
         {% for comment in comments %}
             <div class="comment">
                 <div class="float-right">Le {{ comment.updatedAt|date('d/m/Y à H:m') }}</div>
                 <p class="comment-pseudo">
-                    <img src="{{ comment.user.photo ? asset('images/users/photos/' ~ app.user.photo) : "/images/my-profile.png" }}" />{{ comment.user.username }}
+                    <img src="{{ comment.user.photo ? asset('images/users/photos/small/' ~ app.user.photo) : "/images/my-profile.png" }}" />{{ comment.user.username }}
                 </p>
                 {% if comment.note %}
                     <p class="comment-note float-right">La note de {{ comment.user.username }} : {{ comment.note }} / 5</p>
@@ -28,8 +28,11 @@
                 {% endif %}
             </div>
         {% endfor %}
-
-        <hr />
+		
+		<br />
+		<h3>Ecrire un nouveau commentaire</h3>
+        <br />
+		
         {% include 'comment/new.html.twig' with {'comment_form': comment_form} %}
 
         <br />
