@@ -7,3 +7,8 @@ logout:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+easy_admin_bundle:
+    resource: 'Randomovies\Controller\EasyAdmin\AdminController'
+    type:     annotation
+    prefix:   /easyadmin

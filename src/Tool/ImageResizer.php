@@ -9,30 +9,38 @@ class ImageResizer
 	const MEDIUM_THUMBNAIL_WIDTH = 600;
 	const MEDIUM_THUMBNAIL_HEIGHT = 800;
 	
-	public function makeSmallAndMediumThumbnails($postersDirectory, $posterName)
+	public function makeSmallAndMediumThumbnails($path, $imageName)
 	{
-		$this->makeSmallThumbnail($postersDirectory, $posterName);
-		$this->makeMediumThumbnail($postersDirectory, $posterName);
+		$this->makeSmallThumbnail($path, $imageName);
+		$this->makeMediumThumbnail($path, $imageName);
 	}
 	
-	public function makeSmallThumbnail($postersDirectory, $posterName)
+	public function makeSmallThumbnail($path, $imageName, $width = self::SMALL_THUMBNAIL_WIDTH, $height = self::SMALL_THUMBNAIL_HEIGHT)
 	{
-		if (file_exists($postersDirectory.'/'.$posterName)) {
-			$this->makeThumbnail($postersDirectory, $posterName, self::SMALL_THUMBNAIL_WIDTH, self::SMALL_THUMBNAIL_HEIGHT, 'small');
+		if (file_exists($path.'/'.$imageName)) {
+			$this->makeThumbnail($path, $imageName, $width, $height, 'small');
 		}		
 	}
 	
-	public function makeMediumThumbnail($postersDirectory, $posterName)
+	public function makeMediumThumbnail($path, $imageName, $width = self::MEDIUM_THUMBNAIL_WIDTH, $height = self::MEDIUM_THUMBNAIL_HEIGHT)
 	{
-		if (file_exists($postersDirectory.'/'.$posterName)) {
-			$this->makeThumbnail($postersDirectory, $posterName, self::MEDIUM_THUMBNAIL_WIDTH, self::MEDIUM_THUMBNAIL_HEIGHT, 'medium');			
+		if (file_exists($path.'/'.$imageName)) {
+			$this->makeThumbnail($path, $imageName, $width, $height, 'medium');			
 		}
 	}
 	
-	private function makeThumbnail($postersDirectory, $posterName, $destWidth = 200, $destHeight = 300, $subfolder = 'small')
-	{
-		$source = imagecreatefromjpeg($postersDirectory.'/'.$posterName); // La photo est la source
-
+	private function makeThumbnail($path, $imageName, $destWidth = self::SMALL_THUMBNAIL_WIDTH, $destHeight = self::SMALL_THUMBNAIL_HEIGHT, $subfolder = 'small')
+	{	
+		$infos = getimagesize($path.'/'.$imageName);
+		
+		switch ($infos['mime']) {
+			case 'image/png' :
+				$source = imagecreatefrompng($path.'/'.$imageName);
+			break;
+			default:
+				$source = imagecreatefromjpeg($path.'/'.$imageName); // La photo est la source				
+		}
+		
 		$destination = imagecreatetruecolor($destWidth, $destHeight); // On crée la miniature vide
 
 		// infos utiles
@@ -71,10 +79,7 @@ class ImageResizer
 		imagecopyresampled($destination, $source, $destination_x, $destination_y, $source_x, $source_y, $largeur_destination, $hauteur_destination, $largeur_source, $hauteur_source);
 
 		// imagejpeg($destination);
-		
-		// $newPosterName = str_replace('.jpgeg', '', $posterName);
-		// $newPosterName = str_replace('.jpg', '', $posterName);		
-		
-		imagejpeg($destination, $postersDirectory.'/'.$subfolder.'/'.$posterName);		
+				
+		imagejpeg($destination, $path.'/'.$subfolder.'/'.$imageName);		
 	}
 }

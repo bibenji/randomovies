@@ -80,9 +80,9 @@
             {% if index != 4 %}
                 {% if movie is defined %}
                     {%  if rando.id != movie.id %}
-						<div class="col-md-3 col-sm-4 one-suggestion">
+						<div class="col one-suggestion">
 							<a href="{{ path('show', { 'id' : rando.id }) }}">
-								<img class="suggestion-cover" src="{{ asset('images/posters/' ~ rando.poster) }}" />
+								<img class="suggestion-cover" src="{{ asset('images/posters/small/' ~ rando.poster) }}" />
 								<p>{{ rando.title }}</p>
 								<small>{{ rando.genre }}, {{ rando.year }}, {{ rando.duration }} min</small>
 							</a>

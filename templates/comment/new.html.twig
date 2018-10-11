@@ -4,17 +4,21 @@
     <div class="col-md-12">
         {{ form_errors(comment_form) }}
     </div>
-
-    <div class="col-md-1">
+</div>
+<div class="row" id="new-comment-form">
+    <div class="col-md-2 text-right">
         {{ form_label(comment_form.comment) }}
     </div>
-    <div class="col-md-8">
+    <div class="col-md-10">
         {{ form_widget(comment_form.comment, {'attr': {'class': 'form-control'}}) }}
     </div>
-    <div class="col-md-1">
+</div>
+<br />
+<div class="row">
+    <div class="col-md-2 text-right">
         {{ form_label(comment_form.note) }}
     </div>
-    <div class="col-md-2">
+    <div class="col-md-10">
         <div id="note-input-zone">
             {{ form_widget(comment_form.note, {'attr': {'class': 'form-control'}}) }}
         </div>
@@ -28,8 +32,11 @@
     </div>
 </div>
 
-<input class="btn randomovies-btn-reset mt-3" type="reset" Value="Remettre à zéro"/>
+<div class="float-right">
+	<input class="btn randomovies-btn-reset mt-3" type="reset" Value="Remettre à zéro"/>
+	<input class="btn randomovies-btn-confirm mt-3" type="submit" value="Envoyer"/>
+</div>
 
-<input class="float-right btn randomovies-btn-confirm mt-3" type="submit" value="Envoyer"/>
+<div class="clearfix"></div>
 
 {{ form_end(comment_form) }}

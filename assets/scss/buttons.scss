@@ -1,13 +1,13 @@
 @import 'colors';
 
 .randomovies-btn-reset {
-	background-color: $secondaryColor;
-	border: solid 1px $secondaryColor;
+	background-color: $tertiaryColor;
+	border: solid 1px $tertiaryColor;
 	color: white;
 	
 	&:hover {
 		background-color: rgba(0,0,0,0);
-		color: $secondaryColor;
+		color: $tertiaryColor;
 	}
 }
 

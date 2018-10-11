@@ -8,6 +8,7 @@
 
         <div class="col-md-4">
             <h2>Mon compte</h2>
+			<hr />
             <p>Nom d'utilisateur : {{ app.user.username }}</p>
             <p>Email : {{ app.user.email }}</p>
             <p>Nom : </p>
@@ -18,6 +19,7 @@
 
         <div class="col-md-8">
             <h2>Mes commentaires / Mes notes</h2>
+			<hr />
             <ul class="list-group">
                 {% for comment in app.user.comments %}
                     <li class="list-group-item">

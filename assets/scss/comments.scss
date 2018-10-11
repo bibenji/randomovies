@@ -6,7 +6,7 @@
 	margin: 0px 50px 30px;
 	box-shadow: 3px 3px 5px lighten(black, 10%);
 	
-	.comment, .comment-form textarea {
+	.comment-form textarea {
 		background-color: white;
 		border: solid 0px $grey;
 		border-radius: 3px;
@@ -17,6 +17,12 @@
 	
 	.comment {
 		margin: 5px auto;
+		padding: 25px;
+		background-color: rgba(255,255,255,0.25);
+		border: solid 1px rgba(255,255,255,0.5);
+		border-radius: 3px;
+		display: block;
+		width: 100%;		
 		
 		.comment-pseudo {
 			font-weight: bold;
@@ -27,7 +33,7 @@
 			margin-left: 25px;
 		}
 		.comment-note {
-			background-color: #f39c12; // orange
+			background-color: $tertiaryColor;
 			color: white;
 			padding: 5px 10px;
 			text-align: center;
@@ -48,14 +54,23 @@
 	}
 }
 
-.comment-pseudo img {
-	border-radius: 50%;
-	height: 50px;
-	width: 50px;
-	margin-right: 5px;
+.comment-pseudo {
+	font-size: 125%;
+	img {
+		border-radius: 50%;
+		height: 50px;
+		width: 50px;
+		margin-right: 15px;
+	}
 }
 
 #note-stars-zone {
-	color: $secondaryColor;
+	color: $tertiaryColor;
 	font-size: 125%;
+}
+
+#new-comment-form {
+	label {
+		line-height: 36px;
+	}
 }

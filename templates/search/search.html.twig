@@ -8,7 +8,7 @@
 
 	<div class="row">
 
-		<div class="col-md-11 search-zone">
+		<div class="col-md-12 search-zone">
 
 			<div class="row">
 
@@ -57,17 +57,14 @@
 
 				<div class="col-md-7">
 
-					<h5>
-						Résultats
-						<div class="float-right">{{ results|length }} film(s) trouvé(s)</div>
-					</h5>
+
 
 					<div class="row">
                         {% for movie in results %}
 							<div class="col-md-3 search-result">
 								<a href="{{ path('show', { 'id' : movie.id }) }}">
 									<div class="grey-bg">
-										<img class="" src="{{ asset('images/posters/' ~ movie.poster) }}" />
+										<img class="" src="{{ asset('images/posters/small/' ~ movie.poster) }}" />
 									</div>
                                     {{ movie.title }}
 								</a>

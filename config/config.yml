@@ -2,7 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    # - { resource: fos_elastica.yml }
+    - { resource: fos_elastica.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -16,7 +16,7 @@ parameters:
 
 framework:
     #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+    translator: { fallbacks: [ "fr" ] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/config/routing.yml'
@@ -98,3 +98,26 @@ swiftmailer:
     port: '%mailer_port%'
     username: '%mailer_user%'
     password: '%mailer_password%'
+
+easy_admin:
+    design:
+        brand_color: '#a55eea'
+    entities:
+        User:
+            class: Randomovies\Entity\User
+            form:
+                fields:
+                    - username
+                    - firstname
+                    - lastname
+                    - birthdate                    
+                    - email
+                    - roles
+                    - isActive
+                    - plainPassword                    
+        Comment:
+            class: Randomovies\Entity\Comment
+            list:
+                fields: ['id', 'createdAt', 'movie.title', 'user.username', 'comment', 'note']
+            form:
+                fields: ['comment', 'note']

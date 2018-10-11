@@ -88,6 +88,8 @@ class AdminMovieController extends Controller
 //                First, delete old poster
                 $fs = new Filesystem();
                 $fs->remove($this->getParameter('posters_directory').'/'.$movie->getPoster());
+                $fs->remove($this->getParameter('posters_directory').'/medium/'.$movie->getPoster());
+                $fs->remove($this->getParameter('posters_directory').'/small/'.$movie->getPoster());
 
 //                Then, save new poster
 				$fileName = md5(uniqid()).'.'.$file->guessExtension();

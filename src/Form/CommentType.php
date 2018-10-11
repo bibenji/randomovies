@@ -20,9 +20,10 @@ class CommentType extends AbstractType
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {	
         $builder
             ->add('movie_id', HiddenType::class, [
+				'data' => $options['movie_id'],
                 'empty_data' => $options['movie_id'],
                 'mapped' => false,
             ])

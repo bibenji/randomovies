@@ -40,14 +40,14 @@ class MovieController extends Controller
         }
 
         $commentForm = $this->createForm('Randomovies\Form\CommentType', $comment, [
-            'method' => 'POST',
-            'movie_id' => $movies[$randomNb]->getId(),
+            'method' => 'POST',            
+			'movie_id' => $movies[$randomNb]->getId(),
         ]);
 
         $commentForm->handleRequest($request);
-
+				
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-            $movieOfPreviousForm = $moviesRepository->find($commentForm->get('movie_id')->getData());
+            $movieOfPreviousForm = $moviesRepository->find($request->request->get('randomovies_comment')['movie_id']);
             $comment->setMovie($movieOfPreviousForm);
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
@@ -63,7 +63,7 @@ class MovieController extends Controller
 
             return $this->redirectToRoute('show', ['id' => $movieOfPreviousForm->getId()]);
         }
-
+		
         // replace this example code with whatever you need
         return $this->render('movie/show.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,

@@ -21,6 +21,7 @@ class Kernel extends BaseKernel
             new \JMS\SerializerBundle\JMSSerializerBundle(),
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+			new \EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
