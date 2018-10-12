@@ -48,12 +48,16 @@ class AdminMovieController extends Controller
 
         $form = $this->createForm('Randomovies\Form\MovieType', $movie);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted()) {        	
         	if ($form->get('aspire')->isClicked()) {
         		$hoover = new Hoover();
-        		$hoover->mapDataToMovie($hoover->aspireWikipedia($form->get('hooverLink')->getData()), $movie);
-        		$form = $this->createForm('Randomovies\Form\MovieType', $movie);
+        		try {
+        			$hoover->mapDataToMovie($hoover->aspireWikipedia($form->get('hooverLink')->getData()), $movie);
+        			$form = $this->createForm('Randomovies\Form\MovieType', $movie);
+        		} catch (\Exception $e) {
+        			$this->addFlash('danger', 'Une erreur s\'est produite : '.$e->getMessage());        			
+        		}
         	} elseif ($form->isValid()) {
         		if ($file = $movie->getPoster()) {
         			$fileName = md5(uniqid()).'.'.$file->guessExtension();

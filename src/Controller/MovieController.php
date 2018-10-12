@@ -91,8 +91,8 @@ class MovieController extends Controller
         $tags = $this->getDoctrine()->getRepository('Randomovies:Tag')->getDistinctTags();
 
         $totalMovies = $this->getDoctrine()->getRepository('Randomovies:Movie')->getTotalMovies($moviesQueryParams);
-
-        $totalPages = (int) round($totalMovies / 6);
+        
+        $totalPages = (int) ceil($totalMovies / 6);
         $totalPages = $totalPages !== 0 ? $totalPages : 1;
 
         $page = $request->query->has('page') ? $request->query->get('page') : 1;

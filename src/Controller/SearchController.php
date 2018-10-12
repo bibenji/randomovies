@@ -39,7 +39,7 @@ class SearchController extends Controller
         $movieSearch = $movieSearchForm->getData();
 
         $results = [];
-
+		        
         if ($request->getMethod() === Request::METHOD_POST) {
             $results = $this->getResultsForSearch($movieSearch);
         }
@@ -94,7 +94,7 @@ class SearchController extends Controller
         $boolQuery->addMust($ratingQuery);
 
         $ratingMin = $movieSearch->getRatedMin() ?? 1;
-        $ratingMax = $movieSearch->getRatedMax() ?? 5;
+        $ratingMax = $movieSearch->getRatedMax() ?? 5;        
         $ratingQuery = new Range();
         $ratingQuery->addField('rating', [
             'gte' => $ratingMin,
