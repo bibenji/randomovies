@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
+use Randomovies\Tool\Hoover;
 
 /**
  * Movie controller.
@@ -48,21 +49,28 @@ class AdminMovieController extends Controller
         $form = $this->createForm('Randomovies\Form\MovieType', $movie);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-			if ($file = $movie->getPoster()) {								
-				$fileName = md5(uniqid()).'.'.$file->guessExtension();
-				$file->move(
-					$this->getParameter('posters_directory'),
-					$fileName
-				);
-				$movie->setPoster($fileName);
-			}
-			
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($movie);
-            $em->flush();
-
-            return $this->redirectToRoute('admin_movie_index', array('id' => $movie->getId()));
+        if ($form->isSubmitted()) {
+        	
+        	if ($form->get('aspire')->isClicked()) {
+        		$hoover = new Hoover();
+        		$hoover->mapDataToMovie($hoover->aspireWikipedia($form->get('hooverLink')->getData()), $movie);
+        		$form = $this->createForm('Randomovies\Form\MovieType', $movie);
+        	} elseif ($form->isValid()) {
+        		if ($file = $movie->getPoster()) {
+        			$fileName = md5(uniqid()).'.'.$file->guessExtension();
+        			$file->move(
+        					$this->getParameter('posters_directory'),
+        					$fileName
+        					);
+        			$movie->setPoster($fileName);
+        		}
+        		
+        		$em = $this->getDoctrine()->getManager();
+        		$em->persist($movie);
+        		$em->flush();
+        		
+        		return $this->redirectToRoute('admin_movie_index', array('id' => $movie->getId()));        		
+        	}			
         }
 
         return $this->render('admin/movie/new.html.twig', array(

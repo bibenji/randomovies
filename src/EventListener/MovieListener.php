@@ -134,8 +134,10 @@ class MovieListener
         if (!$entity instanceof Movie) {
             return;
         }
-		
-		$imageResizer = new ImageResizer();
-		$imageResizer->makeSmallAndMediumThumbnails($this->postersDirectory, $entity->getPoster());		
+        
+        if (NULL !== $entity->getPoster()) {
+        	$imageResizer = new ImageResizer();
+        	$imageResizer->makeSmallAndMediumThumbnails($this->postersDirectory, $entity->getPoster());
+        }		
 	}
 }

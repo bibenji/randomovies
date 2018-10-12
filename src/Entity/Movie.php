@@ -95,7 +95,7 @@ class Movie
     /**
      * @var string
      *
-     * @ORM\Column(name="poster", type="string", length=255)
+     * @ORM\Column(name="poster", type="string", length=255, nullable=true)
      */
     private $poster;
 
@@ -117,6 +117,7 @@ class Movie
 
     public function __construct()
     {
+    	$this->rating = 5;    	
         $this->roles = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();

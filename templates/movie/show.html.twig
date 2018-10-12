@@ -23,7 +23,7 @@
 				</div>
 				<div class="main-movie-title">
 					<h2>
-						{{ movie.title }} {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-outline-secondary" href="{{ path('admin_movie_edit', { 'id': movie.id }) }}">edit</a>{% endif %}
+						{{ movie.title }} {% if is_granted('ROLE_CONTRIBUTOR') %}<a class="btn btn-outline-secondary" href="{{ path('admin_movie_edit', { 'id': movie.id }) }}">edit</a>{% endif %}
 					</h2>
 				</div>
 				<div class="main-movie-tags">
