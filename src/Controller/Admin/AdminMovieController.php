@@ -49,8 +49,7 @@ class AdminMovieController extends Controller
         $form = $this->createForm('Randomovies\Form\MovieType', $movie);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-        	
+        if ($form->isSubmitted()) {        	
         	if ($form->get('aspire')->isClicked()) {
         		$hoover = new Hoover();
         		$hoover->mapDataToMovie($hoover->aspireWikipedia($form->get('hooverLink')->getData()), $movie);
@@ -59,9 +58,9 @@ class AdminMovieController extends Controller
         		if ($file = $movie->getPoster()) {
         			$fileName = md5(uniqid()).'.'.$file->guessExtension();
         			$file->move(
-        					$this->getParameter('posters_directory'),
-        					$fileName
-        					);
+        				$this->getParameter('posters_directory'),
+        				$fileName
+        			);
         			$movie->setPoster($fileName);
         		}
         		

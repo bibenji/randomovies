@@ -117,7 +117,7 @@ class Movie
 
     public function __construct()
     {
-    	$this->rating = 5;    	
+        $this->rating = 5;    	
         $this->roles = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
