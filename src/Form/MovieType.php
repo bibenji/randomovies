@@ -9,6 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class MovieType extends AbstractType
 {
@@ -20,8 +23,19 @@ class MovieType extends AbstractType
 //        $posterRequired = (null === $options['data']->getPoster()) ?? false;
 
         $builder
-			->add('title')
-			->add('director')
+        	->add('hooverLink', TextType::class, [
+        			'label' => 'Récupérer les informations à partir de Wikipedia, lien :',
+        			'mapped' => false,
+        			'required' => false,
+        	])
+        	->add('aspire', SubmitType::class, [
+					'attr' => [
+						'class' => 'btn btn-secondary',
+					],
+        			'label' => 'Aspirer',
+        	])
+			->add('title', TextType::class, ['required' => false])
+			->add('director', TextType::class, ['required' => false])
 			->add('actors', TextType::class, [
 			    'required' => false,
             ])
@@ -31,19 +45,21 @@ class MovieType extends AbstractType
                 'by_reference' => false,
 			    'entry_type' => RoleType::class,
                 'prototype' => true,
+				'required' => false,
             ])
-			->add('year')
-			->add('duration')
-			->add('synopsis')
-			->add('rating')
-			->add('review')
-			->add('genre')
+			->add('year', IntegerType::class, ['required' => false])
+			->add('duration', IntegerType::class, ['required' => false])
+			->add('synopsis', TextareaType::class, ['required' => false])
+			->add('rating', IntegerType::class, ['required' => false])
+			->add('review', TextareaType::class, ['required' => false])
+			->add('genre', TextType::class, ['required' => false])
 
             ->add('tags', EntityType::class, [
                 'class' => 'Randomovies:Tag',
                 'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,
+            	'required' => false,
             ])
 //            ->add('tags', CollectionType::class, [
 //                'allow_add' => true,
@@ -58,15 +74,15 @@ class MovieType extends AbstractType
             $builder
                 ->add('newPoster', FileType::class, [
                     'label' => 'New Poster',
-                    'required' => false,
-                    'mapped' => false,
+                	'mapped' => false,
+                	'required' => false,                    
                 ])
             ;
         } else {
             $builder
                 ->add('poster', FileType::class, [
                     'label' => 'Poster',
-                    'required' => true,
+                    'required' => false,
                 ])
             ;
         }

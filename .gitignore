@@ -42,3 +42,7 @@ composer-setup.php
 /public/images/users/photos/small/*.*
 
 /node_modules/
+
+.buildPath
+.project
+.settings/
