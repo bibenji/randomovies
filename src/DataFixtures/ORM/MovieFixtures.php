@@ -154,33 +154,33 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        foreach (self::MOVIES as $one) {
-            $movie = new Movie();
-            $movie->setActors($one['actors']);
-            $movie->setDirector($one['director']);
-            $movie->setDuration($one['duration']);
-            $movie->setGenre($one['genre']);
-            $movie->setPoster($one['poster']);
-            $movie->setRating($one['rating']);
-            $movie->setReview($one['review']);
-            $movie->setSynopsis($one['synopsis']);
-            $movie->setTitle($one['title']);
-            $movie->setYear($one['year']);
+//         foreach (self::MOVIES as $one) {
+//             $movie = new Movie();
+//             $movie->setActors($one['actors']);
+//             $movie->setDirector($one['director']);
+//             $movie->setDuration($one['duration']);
+//             $movie->setGenre($one['genre']);
+//             $movie->setPoster($one['poster']);
+//             $movie->setRating($one['rating']);
+//             $movie->setReview($one['review']);
+//             $movie->setSynopsis($one['synopsis']);
+//             $movie->setTitle($one['title']);
+//             $movie->setYear($one['year']);
 
-            if (isset($one['people'])) {
-                foreach ($one['people'] as $person) {
-                    $role = new Role();
-                    $role->setMovie($movie);
-                    $role->setPerson($this->getReference($person));
-                    $role->setRole(Role::ROLE_ACTOR);
-                    $manager->persist($role);
-                }
-            }
+//             if (isset($one['people'])) {
+//                 foreach ($one['people'] as $person) {
+//                     $role = new Role();
+//                     $role->setMovie($movie);
+//                     $role->setPerson($this->getReference($person));
+//                     $role->setRole(Role::ROLE_ACTOR);
+//                     $manager->persist($role);
+//                 }
+//             }
 
-            $manager->persist($movie);
-        }
+//             $manager->persist($movie);
+//         }
 
-        $manager->flush();
+//         $manager->flush();
     }
 
     public function getDependencies()

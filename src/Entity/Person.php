@@ -129,6 +129,16 @@ class Person
     {
         $this->lastname = $lastname;
     }
+    
+    /**
+     * Get Fullname.
+     * 
+     * @return string|NULL
+     */
+    public function getFullname():? string
+    {
+    	return $this->firstname.' '.$this->lastname;
+    }
 
     /**
      * @return \DateTime
@@ -180,11 +190,6 @@ class Person
     public function getRoles()
     {
         return $this->roles;
-    }
-
-    public function getFullname(): string
-    {
-        return $this->lastname . ' ' . $this->firstname;
     }
 
     /**

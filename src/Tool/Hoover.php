@@ -35,8 +35,7 @@ class Hoover
 				
 		$basicHandling = function($keys, $node, &$data) {
 			foreach ($keys as $wikipediaText => $randomoviesText)
-				if ($wikipediaText === $node->nodeValue) {
-					dump($wikipediaText);
+				if ($wikipediaText === $node->nodeValue) {					
 					$targets = $node->nextSibling->nextSibling->getElementsByTagName('*');
 					if ($targets[0]) {
 						$data[$randomoviesText] = $targets[0]->nodeValue;
@@ -75,7 +74,12 @@ class Hoover
 			}			
 		}
 		
-		$currentPSynopsis = $dom->getElementById('Synopsis')->parentNode->nextSibling->nextSibling;		
+		if ($dom->getElementById('Synopsis')) {
+			$currentPSynopsis = $dom->getElementById('Synopsis')->parentNode->nextSibling->nextSibling;
+		} else {
+			$currentPSynopsis = $dom->getElementById('Résumé')->parentNode->nextSibling->nextSibling;
+		}
+		
 		$data['synopsis'] = '';
 		while (isset($currentPSynopsis->tagName) && 'p' === $currentPSynopsis->tagName) {			
 			$data['synopsis'] .= $currentPSynopsis->nodeValue.' ';

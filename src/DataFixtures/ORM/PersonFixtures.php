@@ -85,17 +85,17 @@ class PersonFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        foreach (self::PEOPLE as $index => $one) {
-            $person = new Person();
-            $birthdate = new \DateTime($one['birthdate']);
-            $person->setBirthdate($birthdate);
-            $person->setFirstname($one['lastname']);
-            $person->setLastname($one['firstname']);
-            $person->setGender($one['gender']);
-            $this->addReference($index, $person);
-            $manager->persist($person);
-        }
+//         foreach (self::PEOPLE as $index => $one) {
+//             $person = new Person();
+//             $birthdate = new \DateTime($one['birthdate']);
+//             $person->setBirthdate($birthdate);
+//             $person->setFirstname($one['lastname']);
+//             $person->setLastname($one['firstname']);
+//             $person->setGender($one['gender']);
+//             $this->addReference($index, $person);
+//             $manager->persist($person);
+//         }
 
-        $manager->flush();
+//         $manager->flush();
     }
 }

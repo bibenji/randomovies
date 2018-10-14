@@ -76,19 +76,24 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
         ;
 
-        $fourRandoNb = [];
-        while (count($fourRandoNb) !== 5) {
-            $randoNb = mt_rand(0, count($results)-1);
-            if (!(in_array($randoNb, $fourRandoNb))) {
-                $fourRandoNb[] = $randoNb;
-            }
-        }
-
+            
+        
         $fourMovies = [];
-
-        foreach($fourRandoNb as $oneRandoNb) {
-            $fourMovies[] = $results[$oneRandoNb];
-        }
+        
+        if (count($results) > 5) {
+        	$fourRandoNb = [];
+        	
+        	while (count($fourRandoNb) !== 5) {
+        		$randoNb = mt_rand(0, count($results)-1);
+        		if (!(in_array($randoNb, $fourRandoNb))) {
+        			$fourRandoNb[] = $randoNb;
+        		}
+        	}
+        	
+        	foreach($fourRandoNb as $oneRandoNb) {
+        		$fourMovies[] = $results[$oneRandoNb];
+        	}
+        }        
 
         return $fourMovies;
     }

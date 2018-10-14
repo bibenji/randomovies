@@ -22,7 +22,7 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
         $user = new User();
 
         $user->setUsername('bibenji');
-        $user->setPlainPassword('bibenji');
+        $user->setPlainPassword('123');
         $user->setEmail('benjamin.billette@hotmail.fr');
         $user->addRole('ROLE_ADMIN');
 
