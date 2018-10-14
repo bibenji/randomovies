@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Randomovies - Modifier mes informations personnelles{% endblock %}
+{% block title %}Randomovies - Modification du commentaire{% endblock %}
 
 {% form_theme comment_form 'bootstrap_4_layout.html.twig' %}
 
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <a href="{{ path('user-account') }}" class="btn btn-warning">Retour</a>
+            <a href="{{ back_path }}" class="btn btn-warning">Retour</a>
 
             <input class="btn btn-success" type="submit" value="Enregistrer"/>
 

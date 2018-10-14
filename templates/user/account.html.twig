@@ -22,7 +22,7 @@
 			<hr />
             <ul class="list-group">
                 {% for comment in app.user.comments %}
-                    <li class="list-group-item">
+                    <li id="commentId{{ comment.id }}" class="list-group-item">
                         <div class="float-right">&nbsp;
                             <a href="{{ path('comment-edit', { 'id': comment.id }) }}" class="btn btn-warning">Edit</a>
                             <a href="{{ path('comment-delete', { 'id': comment.id }) }}" class="btn btn-danger">Delete</a>
