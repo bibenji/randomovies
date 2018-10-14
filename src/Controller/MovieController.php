@@ -40,15 +40,15 @@ class MovieController extends Controller
         }
 
         $commentForm = $this->createForm('Randomovies\Form\CommentType', $comment, [
-            'method' => 'POST',            
-			'movie_id' => $movies[$randomNb]->getId(),
+            'method' => 'POST',
         ]);
 
         $commentForm->handleRequest($request);
-				
-        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+        
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {        	
             $movieOfPreviousForm = $moviesRepository->find($request->request->get('randomovies_comment')['movie_id']);
             $comment->setMovie($movieOfPreviousForm);
+                        
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush($comment);
@@ -61,8 +61,17 @@ class MovieController extends Controller
                 ]
             );
 
-            return $this->redirectToRoute('show', ['id' => $movieOfPreviousForm->getId()]);
+            return $this->redirectToRoute('show_with_comment', [
+            		'id' => $movieOfPreviousForm->getId(),
+            		'comment_id' => $comment->getId(),
+            ]);
         }
+        
+        // re-création du formulaire avec l'id du nouveau film affiché afin de pouvoir utiliser isValid() plus haut avec le bon id
+        $commentForm = $this->createForm('Randomovies\Form\CommentType', $comment, [
+        		'method' => 'POST',
+        		'movie_id' => $movies[$randomNb]->getId(),
+        ]);
 		
         // replace this example code with whatever you need
         return $this->render('movie/show.html.twig', [
@@ -115,7 +124,7 @@ class MovieController extends Controller
     }
 
     /**
-     * @Route("/show/{id}", name="show")
+     * @Route("/show/{id}", name="show")     
      */
     public function showAction(Request $request, Movie $movie)
     {	
@@ -143,8 +152,12 @@ class MovieController extends Controller
                     'movie_id' => $movie->getId()
                 ]
             );
+        	
+            return $this->redirect(
+            		$this->generateUrl('show', ['id' => $movie->getId()]).'#commentId'.$comment->getId()
+			);
         }
-
+        
         return $this->render('movie/show.html.twig', [
             'movie' => $movie,
             'comment_form' => $commentForm->createView()

@@ -40,6 +40,12 @@ class CommentType extends AbstractType
                 ],
                 'label' => 'Note',
             ])
+            ->add('referer', HiddenType::class, [
+            	'data' => $options['referer'],
+            	'empty_data' => $options['referer'],
+            	'mapped' => false,
+            	'required' => false,
+            ])
         ;
     }
     
@@ -51,6 +57,7 @@ class CommentType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Randomovies\Entity\Comment',
             'movie_id' => null,
+        	'referer' => null,
         ));
     }
 
