@@ -5,7 +5,7 @@ namespace Randomovies\Entity;
 class MovieSearch
 {
     protected $title;
-    protected $synopsis;
+    protected $keyWords;
     protected $genre;
 
     protected $yearFrom;
@@ -37,14 +37,14 @@ class MovieSearch
         return $this;
     }
 
-    public function getSynopsis()
+    public function getKeyWords()
     {
-        return $this->synopsis;
+        return $this->keyWords;
     }
 
-    public function setSynopsis($synopsis)
+    public function setKeyWords($keyWords)
     {
-        $this->synopsis = $synopsis;
+        $this->keyWords = $keyWords;
         return $this;
     }
 

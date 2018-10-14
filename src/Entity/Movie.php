@@ -178,6 +178,13 @@ class Movie
      */
     public function getDirector()
     {
+    	if (!($this->roles->isEmpty())) {
+    		foreach($this->roles as $role) {
+    			if (Role::ROLE_REALISATOR === $role->getRole()) {
+    				return $role->getPerson()->getFullname();
+    			}
+    		}
+    	}    	
         return $this->director;
     }
 
@@ -202,6 +209,15 @@ class Movie
      */
     public function getActors()
     {
+    	if (!$this->roles->isEmpty()) {
+    		$actors = [];
+    		foreach ($this->roles as $role) {    			
+    			if (Role::ROLE_ACTOR === $role->getRole()) {
+    				$actors[] = $role->getPerson()->getFullname();
+    			}
+    		}
+    		return implode(', ', $actors);
+    	}
         return $this->actors;
     }
 

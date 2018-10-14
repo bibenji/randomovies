@@ -75,6 +75,10 @@ services:
             - "traefik.port=${ELASTIC_PORT}"
             - "traefik.frontend.passHostHeader=true"
             - "traefik.backend.loadbalancer.method=drr"
+        ports:
+            - 8004:9200
+            - 8005:9300
+#            - 8005:92000
 
     randomovies_node:
         build:

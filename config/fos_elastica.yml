@@ -1,9 +1,8 @@
 fos_elastica:
-    clients:
-#        default: { host: %elastic_host%, port: %elastic_port% }
+    clients:    
 #        default: { host: '%env(ELASTIC_HOST)%', port: '%env(ELASTIC_PORT)%' }
-#        default: { host: 172.18.0.16, port: '%env(ELASTIC_PORT)%' }
         default: { url: '%elastic_host%' }
+        
 #    serializer:
 #        callback_class: FOS\ElasticaBundle\Serializer\Callback
 #        serializer: serializer
@@ -18,25 +17,42 @@ fos_elastica:
 #                        title_analyzer:
 #                            type: custom
 #                            tokenizer: nGram
-#    #                        filter: [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+#                            filter: [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
 #                            filter: [lowercase]
 #                    tokenizer:
 #                        nGram:
 #                            type:     nGram
 #                            min_gram: 1
 #                            max_gram: 2
-
+            
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            lowercase_analyser:
+                                type: custom
+                                tokenizer: letter
+                                filter: [lowercase]
+                            french_analyser:
+                                type: custom
+                                tokenizer: letter
+                                filter: ["asciifolding", "lowercase", "french_stem", "stop_fr"]
+                        filter:
+                            stop_fr:
+                                type: "stop"
+                                stopwords: ["l", "m", "t", "qu", "n", "s", "j", "d"]
+            
             types:
-                movie:
-                    # config trouvée sur le site de l'afsy
-                    properties:
+                movie:                    
+                    properties:                        
+                        title: { analyser: lowercase_analyser, boost: 10 }
                         genre: ~
-#                        title: { boost: 10, analyzer: title_analyzer }
-                        title: { boost: 10 }
-                        synopsis: ~
-                        year: ~
-                        duration: ~
-                        rating: ~
+                        year: { type: integer }
+                        duration: { type: integer }                            
+                        rating: { type: integer }
+                        director: { analyser: lowercase_analyser }
+                        actors: { analyser: lowercase_analyser }
+                        synopsis: { analyser: french_analyser }
                     persistence:
                         driver: orm
                         model: Randomovies\Entity\Movie
@@ -44,25 +60,3 @@ fos_elastica:
                         listener: ~
                         finder: ~
                         repository: Randomovies\SearchRepository\MovieRepository
-
-#                    mappings:
-#                        id:
-#                            type: integer
-#                        title: { search_analyzer: custom_search_analyzer, index_analyzer: custom_index_analyzer, type: string }
-#                        director: ~
-#                        actors: ~
-#                        year:
-#                            type: integer
-#                        duration:
-#                            type: integer
-#                        synopsis: ~
-#                        rating:
-#                            type: integer
-#                        genre: ~
-#                    persistence:
-#                        driver: orm
-#                        model: Randomovies\Entity\Movie
-#                        finder: ~
-#                        provider: ~
-#                        listener: ~
-#                        repository: Randomovies\Entity\MovieSearchRepository

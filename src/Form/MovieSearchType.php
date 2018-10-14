@@ -20,7 +20,7 @@ class MovieSearchType extends AbstractType
             ->add('title', null, array(
                 'required' => false,
             ))
-            ->add('synopsis', null, array(
+            ->add('keyWords', null, array(
                 'label' => 'Mots clés',
                 'required' => false,
             ))
