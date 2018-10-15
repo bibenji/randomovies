@@ -1,6 +1,15 @@
 @import 'colors';
 @import 'fonts';
 
+// flash messages
+
+#layout-alert-container {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	z-index: 100000;
+}
+
 // navbar
 
 nav {
