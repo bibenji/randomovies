@@ -15,26 +15,16 @@
         {% block stylesheets %}{% endblock %}
 	</head>
 
-	<body id="home-body">
+	<body id="home-body">		
 		
-		<style>
-			#layout-alert-container {
-				position: absolute;
-				top: 20px;
-				right: 20px;
-				z-index: 100000;
-			}
-		
-		</style>
-		
-		{% for label, messages in app.flashes(['warning', 'danger']) %}
+		{% for label, messages in app.flashes(['danger', 'success', 'warning']) %}
 			<div id="layout-alert-container">
 				{% for message in messages %}
 					<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<strong>Erreur!</strong> {{ message }}
+						{{ message }}
 					</div>				
 				{% endfor %}
 			</div>

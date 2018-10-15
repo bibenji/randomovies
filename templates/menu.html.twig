@@ -18,6 +18,14 @@
 					<li class="{{ app.request.get('_route') == 'search' ? 'active' : '' }}">
 						<a href="{{ path('search') }}">Recherche avancée</a>
 					</li>
+					{% if is_granted('ROLE_USER') %}
+						<li class="{{ app.request.get('_route') == 'create-suggestion' ? 'active' : '' }}">
+							<a href="{{ path('create-suggestion') }}">Recommandations</a>
+						</li>
+						<li class="{{ app.request.get('_route') == 'create-suggestion' ? 'active' : '' }}">
+							<a href="{{ path('create-suggestion') }}">Suggestions</a>
+						</li>
+					{% endif %}
 					{% if is_granted('ROLE_CONTRIBUTOR') %}
 						<li class="{{ app.request.get('_route') == 'admin_movie_index' ? 'active' : '' }}">
 							<a href="{{ path('admin_movie_index') }}">Admin</a>

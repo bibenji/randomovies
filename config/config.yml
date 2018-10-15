@@ -121,3 +121,7 @@ easy_admin:
                 fields: ['id', 'createdAt', 'movie.title', 'user.username', 'comment', 'note']
             form:
                 fields: ['comment', 'note']
+        Suggestion:
+            class: Randomovies\Entity\Suggestion
+            list:
+                fields: ['id', 'movieTitle', 'user.username', 'suggestedAt', 'treatedAt']

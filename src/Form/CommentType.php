@@ -2,11 +2,6 @@
 
 namespace Randomovies\Form;
 
-use Randomovies\Entity\Movie;
-use Randomovies\Entity\Person;
-use Randomovies\Entity\Role;
-use Randomovies\Repository\PersonRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;

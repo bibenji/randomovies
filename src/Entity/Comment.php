@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Role
+ * Comment
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity()

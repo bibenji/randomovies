@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}RandoMovies - Home{% endblock %}
+
+{% block body %}
+
+	<br />
+
+	<div class="row">
+
+		<div class="col-md-12">
+		
+			<h2>Faire une suggestion</h2>
+			
+			<p>Retrouvez (peut-être) les films que vous avez particulièrement adorés sur Randomovies en faisant une suggestion! Celle-ci sera traitée dans les plus brefs délais!</p>
+			
+			{{ form_start(form) }}
+				<label>Titre du film que vous souhaitez suggérer</label>
+				{{ form_widget(form.movieTitle, {'attr': {'class': 'form-control'}}) }}
+				<input type="submit" class="btn btn-success mt-2" value="Suggérer" />
+			{{ form_end(form) }}
+			
+		</div>
+	</div>
+
+{% endblock %}
