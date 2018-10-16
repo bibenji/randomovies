@@ -76,6 +76,11 @@ class User implements UserInterface, \Serializable
     private $isActive;
 
     /**
+     * @ORM\OneToMany(targetEntity="Randomovies\Entity\Review", mappedBy="user", cascade={"remove"})
+     */
+    private $reviews;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Randomovies\Entity\Comment", mappedBy="user", cascade={"all"})
      */
     private $comments;
@@ -105,7 +110,7 @@ class User implements UserInterface, \Serializable
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
         $this->comments = new ArrayCollection();
-
+		$this->reviews = new ArrayCollection();
         $this->roles = [];
         $this->addRole(self::ROLE_USER);
     }
@@ -184,6 +189,39 @@ class User implements UserInterface, \Serializable
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+    
+    
+    /**
+     * @param Review $review
+     * @return $this
+     */
+    public function addReview(Review $review)
+    {
+    	$review->setUser($this);
+    	$this->reviews->add($review);
+    	return $this;
+    }
+    
+    /**
+     * @param Review $review
+     */
+    public function removeReview(Review $review)
+    {
+    	$this->reviews->removeElement($review);
+    }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getReviews()
+    {
+    	return $this->reviews;
+    }
+    
+    public function setReviews($reviews)
+    {
+    	$this->reviews = $reviews;
     }
 
     /**

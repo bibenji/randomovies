@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Randomovies\Tool\Hoover;
+use Randomovies\Entity\Review;
 
 /**
  * Movie controller.
@@ -45,8 +46,15 @@ class AdminMovieController extends Controller
     public function newAction(Request $request)
     {
         $movie = new Movie();
+        
+        $review = new Review();
+        $review->setUser($this->getUser());
+        $review->setMain(TRUE);        
+        $movie->addReview($review);
 
-        $form = $this->createForm('Randomovies\Form\MovieType', $movie);
+        $form = $this->createForm('Randomovies\Form\MovieType', $movie, [
+        	'current_user' => $this->getUser(),
+        ]);
         $form->handleRequest($request);
         
         if ($form->isSubmitted()) {        	
@@ -54,7 +62,9 @@ class AdminMovieController extends Controller
         		$hoover = new Hoover();
         		try {
         			$hoover->mapDataToMovie($hoover->aspireWikipedia($form->get('hooverLink')->getData()), $movie);
-        			$form = $this->createForm('Randomovies\Form\MovieType', $movie);
+        			$form = $this->createForm('Randomovies\Form\MovieType', $movie, [
+        				'current_user' => $this->getUser(),
+        			]);
         		} catch (\Exception $e) {
         			$this->addFlash('danger', 'Une erreur s\'est produite : '.$e->getMessage());        			
         		}
@@ -91,7 +101,23 @@ class AdminMovieController extends Controller
     public function editAction(Request $request, Movie $movie)
     {
         $deleteForm = $this->createDeleteForm($movie);
-        $editForm = $this->createForm('Randomovies\Form\MovieType', $movie, ['edit' => true]);
+        
+        $userReview = NULL;
+        foreach ($movie->getReviews() as $review) {        	
+        	if ($review->getUser() === $this->getUser()) {
+        		$userReview = $review;
+        	}
+        }
+        if (!$userReview) {
+        	$userReview = new Review();
+        	$userReview->setUser($this->getUser());
+        	$movie->addReview($userReview);
+        }        
+                
+        $editForm = $this->createForm('Randomovies\Form\MovieType', $movie, [
+        	'edit' => true,
+        	'current_user' => $this->getUser(),
+        ]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

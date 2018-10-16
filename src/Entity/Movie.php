@@ -72,18 +72,9 @@ class Movie
     private $synopsis;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="rating", type="integer")
+     * @ORM\OneToMany(targetEntity="Randomovies\Entity\Review", mappedBy="movie", cascade={"all"})
      */
-    private $rating;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="review", type="text", nullable=true)
-     */
-    private $review;
+    private $reviews;
 
     /**
      * @var string
@@ -119,6 +110,7 @@ class Movie
     {
         $this->rating = 5;    	
         $this->roles = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
@@ -294,53 +286,66 @@ class Movie
     }
 
     /**
-     * Set rating
-     *
-     * @param integer $rating
-     *
-     * @return Movie
-     */
-    public function setRating($rating)
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
-    /**
-     * Get rating
+     * Get main rating
      *
      * @return int
      */
     public function getRating()
     {
-        return $this->rating;
+    	foreach ($this->reviews as $review) {
+    		if ($review->isMain()) {
+    			return $review->getRating();
+    		}
+    	}
     }
-
+    
     /**
-     * Set review
-     *
-     * @param string $review
-     *
-     * @return Movie
-     */
-    public function setReview($review)
-    {
-        $this->review = $review;
-
-        return $this;
-    }
-
-    /**
-     * Get review
-     *
+     * Get main review
+     * 
      * @return string
      */
     public function getReview()
     {
-        return $this->review;
+    	foreach ($this->reviews as $review) {
+    		if ($review->isMain()) {
+    			return $review->getReview();
+    		}
+    	}
+    }    
+    
+    /**
+     * @param Review $review
+     * @return $this
+     */
+    public function addReview(Review $review)
+    {
+    	$review->setMovie($this);
+    	//        $this->roles[] = $role;
+    	$this->reviews->add($review);
+    	return $this;
     }
-
+    
+    /**
+     * @param Review $review
+     */
+    public function removeReview(Review $review)
+    {
+    	$this->reviews->removeElement($review);
+    }
+    
+    /**
+     * @return ArrayCollection
+     */
+    public function getReviews()
+    {
+    	return $this->reviews;
+    }
+    
+    public function setReviews($reviews)
+    {
+    	$this->reviews = $reviews;
+    }
+    
     /**
      * Set genre
      *
