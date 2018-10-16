@@ -15,7 +15,7 @@ parameters:
     mailer_delivery: '%env(MAILER_DELIVERY)%'
     mailer_sender: '%env(MAILER_SENDER)%'
 
-    elastic_host: '%env(ELASTIC_URL)%'
+    elastic_host: '%env(ELASTIC_HOST)%'
     elastic_port: '%env(ELASTIC_PORT)%'
     
     secret: '%env(SECRET)%'

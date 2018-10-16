@@ -162,24 +162,33 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
             ->getSingleScalarResult()
         ;
     }
-
+	
+    /**
+     * Used for ETL
+     * 
+     * @param unknown $min
+     * @param unknown $max
+     * @return mixed|\Doctrine\DBAL\Driver\Statement|array|NULL
+     */
     public function getMoviesForETL($min, $max)
     {
         return $this->createQueryBuilder('m')
-            ->where('m.id BETWEEN :min AND :max')
-            ->setParameters([
-                'min' => $min,
-                'max' => $max
-            ])
+        	->setFirstResult($min)
+        	->setMaxResults($max)            
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function getMaxMovieId()
+    /**
+     * Used for ETL
+     * 
+     * @return mixed|\Doctrine\DBAL\Driver\Statement|array|NULL
+     */
+    public function getMaxMoviesId()
     {
         return $this->createQueryBuilder('m')
-            ->select('MAX(m.id)')
+            ->select('COUNT(m)')
             ->getQuery()
             ->getSingleScalarResult()
         ;

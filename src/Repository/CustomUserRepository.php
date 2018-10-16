@@ -16,4 +16,35 @@ class CustomUserRepository extends EntityRepository implements UserLoaderInterfa
             ->getQuery()
             ->getOneOrNullResult();
     }
+    
+    /**
+     * Used for ETL
+     *
+     * @param unknown $min
+     * @param unknown $max
+     * @return mixed|\Doctrine\DBAL\Driver\Statement|array|NULL
+     */
+    public function getUsersForETL($min, $max)
+    {
+    	return $this->createQueryBuilder('u')	    	
+	    	->setFirstResult($min)
+	    	->setMaxResults($max)
+    		->getQuery()
+    		->getResult()
+    	;
+    }
+    
+    /**
+     * Used for ETL
+     *
+     * @return mixed|\Doctrine\DBAL\Driver\Statement|array|NULL
+     */
+    public function getMaxUsersId()
+    {
+    	return $this->createQueryBuilder('u')
+	    	->select('COUNT(u)')
+	    	->getQuery()
+	    	->getSingleScalarResult()
+    	;
+    }
 }

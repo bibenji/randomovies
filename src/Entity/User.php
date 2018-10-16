@@ -230,7 +230,7 @@ class User implements UserInterface, \Serializable
      */
     public function addComment(Comment $comment)
     {
-        $comment->setMovie($this);
+        $comment->setUser($this);
 //        $this->roles[] = $role;
         $this->comments->add($comment);
         return $this;

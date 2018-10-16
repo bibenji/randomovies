@@ -19,7 +19,7 @@ class Client
     /**
      * @var mixed
      */
-    private $index;
+    private $indexes;
 
     /**
      * Client constructor.
@@ -27,8 +27,8 @@ class Client
      * @param ElasticsearchLogger $logger
      */
     public function __construct(array $config, ElasticsearchLogger $logger)
-    {
-        $this->index = $config['index'];
+    {    	
+        $this->indexes = $config['indexes'];
         $this->logger = $logger;
         $this->client = ClientBuilder::create()
                             ->setHosts($config['hosts'])
@@ -38,7 +38,17 @@ class Client
     
     public function getIndex(): string
     {
-        return $this->index;
+        return $this->getIndexForMovies();
+    }
+    
+    public function getIndexForMovies(): string
+    {
+    	return $this->indexes['movies'];    	
+    }
+    
+    public function getIndexForUsers(): string
+    {
+    	return $this->indexes['users'];
     }
     
     public function index($params): array
@@ -56,8 +66,8 @@ class Client
     }
 
     public function bulk($params): array
-    {
-        $data = $this->client->bulk($params);
+    {    	
+        $data = $this->client->bulk($params);        
         $this->logRequestInfo();
         return $data;
     }
@@ -71,13 +81,15 @@ class Client
 
     public function logRequestInfo()
     {
-        $info = $this->client->transport->getConnection()->getLastRequestInfo();
-
+        $info = $this->client->transport->getConnection()->getLastRequestInfo();		        
+        
         $this->logger->logQuery(
             $info['request']['uri'],
             $info['request']['http_method'],
             $info['request']['body'],
-            $info['request']['transfer_stats']['total_time'],
+//         	undefined index: transfer_stats
+//             $info['request']['transfer_stats']['total_time'],
+			0,
             [
                 'method' => $info['request']['scheme'],
                 'transport' => $info['request']['scheme'],

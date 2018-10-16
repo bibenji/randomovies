@@ -4,25 +4,21 @@ namespace Randomovies\ETL;
 
 class Load
 {
+	const MOVIE_TYPE = 'movie';
+	const USER_TYPE = 'user';
+	
     /**
      * @var Client
      */
     protected $client;
 
     /**
-     * @var string
-     */
-    private $type;
-
-    /**
      * Load constructor.
      * @param Client $client
-     * @param $type
      */
-    public function __construct(Client $client, $type)
+    public function __construct(Client $client)
     {
-        $this->client;
-        $this->type = $type;
+        $this->client = $client;
     }
 
     /**
@@ -33,8 +29,8 @@ class Load
         $id = $movie['id'];
         unset($movie['id']);
         $params = [
-            'index' => $this->client->getIndex(),
-            'type' => $this->type,
+            'index' => $this->client->getIndexForMovies(),
+            'type' => self::MOVIE_TYPE,
             'id' => $id,
             'body' => $movie,
         ];
@@ -48,8 +44,8 @@ class Load
     public function deleteMovie($movieId)
     {
         $params = [
-            'index' => $this->client->getIndex(),
-            'type' => $this->type,
+            'index' => $this->client->getIndexForMovies(),
+            'type' => self::MOVIE_TYPE,
             'id' => $movieId,
         ];
 
@@ -76,15 +72,15 @@ class Load
 
                 $params['body'][] = [
                     'index' => [
-                        '_index' => $this->client->getIndex(),
-                        '_type' => $this->type,
+                        '_index' => $this->client->getIndexForMovies(),
+                        '_type' => self::MOVIE_TYPE,
                         '_id' => $id,
                     ],
                 ];
 
                 $params['body'][] = $movie;
             }
-
+            
             $this->client->bulk($params);
         }
     }
@@ -92,9 +88,82 @@ class Load
     public function searchMovieWithParams($params)
     {
         return $this->client->search([
-            'index' => $this->client->getIndex(),
-            'type' => $this->type,
+            'index' => $this->client->getIndexForMovies(),
+            'type' => self::MOVIE_TYPE,
             'body' => $params,
         ]);
+    }
+    
+    /**
+     * @param array $user
+     */
+    public function loadUser(array $user)
+    {
+    	$id = $user['id'];
+    	unset($user['id']);
+    	$params = [
+    			'index' => $this->client->getIndexForUsers(),
+    			'type' => self::USER_TYPE,
+    			'id' => $id,
+    			'body' => $user,
+    	];
+    	dump($params);
+    	$this->client->index($params);    	
+    }
+    
+    /**
+     * @param $userId
+     */
+    public function deleteUser($userId)
+    {
+    	$params = [
+    			'index' => $this->client->getIndexForUsers(),
+    			'type' => self::USER_TYPE,
+    			'id' => $userType,
+    	];
+    	
+    	$this->client->delete($params);
+    }
+    
+    /**
+     * @param array $users
+     */
+    public function loadUsers(array $users)
+    {
+    	$params = [];
+    	
+    	if (1 === count($users)) {
+    		$this->loadUser(array_pop($users));
+    	} else {
+    		foreach ($users as $user) {
+    			$id = $user['id'];
+    			unset($user['id']);
+    			
+    			if (!isset($params['body'])) {
+    				$params['body'] = [];
+    			}
+    			
+    			$params['body'][] = [
+    					'index' => [
+    							'_index' => $this->client->getIndexForUsers(),
+    							'_type' => self::USER_TYPE,
+    							'_id' => $id,
+    					],
+    			];
+    			
+    			$params['body'][] = $user;
+    		}
+    		
+    		$this->client->bulk($params);
+    	}
+    }
+    
+    public function searchUserWithParams($params)
+    {
+    	return $this->client->search([
+    			'index' => $this->client->getIndexForUsers(),
+    			'type' => self::USER_TYPE,
+    			'body' => $params,
+    	]);
     }
 }

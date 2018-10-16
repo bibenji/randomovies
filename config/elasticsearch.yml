@@ -1,8 +1,8 @@
 parameters:
     elasticsearch:
         hosts:
-            - host: randomovies_elasticsearch
-        index: randomovies_test
+            - host: '%elastic_host%'
+        indexes: { movies: randomovies_movies, users: randomovies_users }
 
 services:
 
@@ -36,8 +36,7 @@ services:
         public: true
         class: Randomovies\ETL\Load
         arguments:
-            - '@elasticsearch_client'
-            - 'movies'
+            - '@elasticsearch_client'            
 
     app.model.etl:
         class: Randomovies\ETL\ETL
