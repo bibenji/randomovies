@@ -49,9 +49,21 @@ class MovieType extends AbstractType
             ])
 			->add('year', IntegerType::class, ['required' => false])
 			->add('duration', IntegerType::class, ['required' => false])
-			->add('synopsis', TextareaType::class, ['required' => false])
-			->add('rating', IntegerType::class, ['required' => false])
-			->add('review', TextareaType::class, ['required' => false])
+			->add('synopsis', TextareaType::class, ['required' => false])			
+			
+			->add('reviews', CollectionType::class, [
+				'allow_add' => true,
+				'allow_delete' => false,
+				'by_reference' => false,
+				'entry_type' => ReviewType::class,
+				'entry_options' => [
+					'current_user' => $options['current_user'],
+					'edit' => $options['edit'],
+				],
+				'prototype' => false,
+				'required' => false,					
+			])
+			
 			->add('genre', TextType::class, ['required' => false])
 
             ->add('tags', EntityType::class, [
@@ -99,7 +111,8 @@ class MovieType extends AbstractType
 
         $resolver->setDefaults([
             'data_class' => 'Randomovies\Entity\Movie',
-            'edit' => false
+            'edit' => false,
+        	'current_user' => NULL,
         ]);
     }
 

@@ -114,7 +114,13 @@ easy_admin:
                     - email
                     - roles
                     - isActive
-                    - plainPassword                    
+                    - plainPassword
+        Review:
+            class: Randomovies\Entity\Review
+            list:
+                fields: ['id', 'movie.title', 'user.username', 'rating', 'review', 'createdAt', 'main']
+            form:
+                fields: ['rating', 'review', 'main']    		
         Comment:
             class: Randomovies\Entity\Comment
             list:
@@ -124,4 +130,6 @@ easy_admin:
         Suggestion:
             class: Randomovies\Entity\Suggestion
             list:
-                fields: ['id', 'movieTitle', 'user.username', 'suggestedAt', 'treatedAt']
+                fields: ['id', 'movieTitle', 'user.username', 'suggestedAt', 'treatedAt']                
+            form:
+                fields: ['treatedAt']          

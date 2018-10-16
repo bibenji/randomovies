@@ -112,13 +112,18 @@ security:
             - ROLE_COMMENT_CREATE
             - ROLE_COMMENT_EDIT
             - ROLE_COMMENT_DELETE
+        ROLE_REVIEWER:
+            - ROLE_USER
+            - ROLE_MOVIE_EDIT
         ROLE_CONTRIBUTOR:
             - ROLE_USER
+            - ROLE_REVIEWER
             - ROLE_MOVIE_FULL           
             - ROLE_PERSON_FULL           
             - ROLE_TAG_FULL           
         ROLE_ADMIN:
             - ROLE_USER
+            - ROLE_REVIEWER
             - ROLE_CONTRIBUTOR
             - ROLE_MOVIE_FULL
             - ROLE_PERSON_FULL            
