@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}RandoMovies - Recommandations{% endblock %}
+
+{% block body %}
+
+	<br />
+
+	<div class="row">
+
+		<div class="col-md-12">
+		
+			<h2>Recommandations</h2>
+			
+			<ul>
+				{% for movie in recommendations %}
+					<li>{{ movie.title }}</li>
+				{% endfor %}
+			</ul>
+			
+		</div>
+		
+	</div>
+
+{% endblock %}

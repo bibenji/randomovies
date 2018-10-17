@@ -78,7 +78,7 @@ class Client
         $this->logRequestInfo();
         return $data;
     }
-
+    
     public function logRequestInfo()
     {
         $info = $this->client->transport->getConnection()->getLastRequestInfo();		        

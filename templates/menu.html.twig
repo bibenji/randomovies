@@ -19,8 +19,8 @@
 						<a href="{{ path('search') }}">Recherche avancée</a>
 					</li>
 					{% if is_granted('ROLE_USER') %}
-						<li class="{{ app.request.get('_route') == 'create-suggestion' ? 'active' : '' }}">
-							<a href="{{ path('create-suggestion') }}">Recommandations</a>
+						<li class="{{ app.request.get('_route') == 'recommendations' ? 'active' : '' }}">
+							<a href="{{ path('recommendations') }}">Recommandations</a>
 						</li>
 						<li class="{{ app.request.get('_route') == 'create-suggestion' ? 'active' : '' }}">
 							<a href="{{ path('create-suggestion') }}">Suggestions</a>

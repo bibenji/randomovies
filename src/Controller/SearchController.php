@@ -2,11 +2,6 @@
 
 namespace Randomovies\Controller;
 
-use Elastica\Query\BoolQuery;
-use Elastica\Query\Match;
-use Elastica\Query\Term;
-use Elastica\Query\Terms;
-use Elastica\Query\Range;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,67 +44,86 @@ class SearchController extends Controller
 
     private function getResultsForSearch(MovieSearch $movieSearch)
     {
-        $finder = $this->container->get('fos_elastica.finder.randomovies.movie');
+    	// @todo : faire un tool pour construire la query elasticsearch
+    	
+    	$etlClient = $this->get('elasticsearch_client');
+    	
+    	$baseJson = '
+			{
+				"query": {
+					"bool": {
+						"must": [%s],
+						"must_not": [],
+						"should": []
+					}
+				},				
+				"size": 10
+			}
+		'; 
+    	
+    	$must = '';
+    	$should = '';
+    	
 
-        $boolQuery = new BoolQuery();
+    	if (null !== $movieSearch->getTitle()) {
+    		$must .= sprintf('{"term":{"title":"%s"}},', $movieSearch->getTitle());
+    	}
+    	
+    	if (null !== $movieSearch->getGenre() && '' !== $movieSearch->getGenre()) {    		
+    		$must .= sprintf('{"term":{"genre.keyword":"%s"}},', $movieSearch->getTitle());
+    	}
+    	
+    	if (null !== $movieSearch->getKeyWords()) {    		
+    		$should .= sprintf('{"match":{"title": "%s"}},{"match":{"director": "%s"}},{"match":{"actors": "%s"}},', $movieSearch->getKeyWords(), $movieSearch->getKeyWords(), $movieSearch->getKeyWords());
+    	}
 
-        if (null !== $movieSearch->getGenre() && '' !== $movieSearch->getGenre()) {
-            $genreQuery = new Terms();
-            $genreQuery->setTerms('genre', [strtolower($movieSearch->getGenre())]);
-            $boolQuery->addMust($genreQuery);
-        }
-
-        if (null !== $movieSearch->getTitle()) {
-            $titleQuery = new Match();
-            $titleQuery->setFieldQuery('title', $movieSearch->getTitle());
-            $boolQuery->addMust($titleQuery);
-        }
-
-        if (null !== $movieSearch->getKeyWords()) {
-            $researchKeyWords = explode(' ', $movieSearch->getKeyWords());
-            $synopsisQuery = new Terms();
-            $synopsisQuery->setTerms('synopsis', $researchKeyWords);
-            $directorQuery = new Terms();
-            $directorQuery->setTerms('director', $researchKeyWords);
-            $actorsQuery = new Terms();
-            $actorsQuery->setTerms('actors', $researchKeyWords);
-            $subBoolQuery = new BoolQuery();
-            $subBoolQuery->addShould($synopsisQuery);
-            $subBoolQuery->addShould($directorQuery);
-            $subBoolQuery->addShould($actorsQuery);
-            $boolQuery->addFilter($subBoolQuery);
-        }
+    	$today = new \DateTime();
+    	$currentYear = $today->format('Y');    	
+    	$yearFrom = $movieSearch->getYearFrom()->format('Y') ?? 1900;
+    	$yearTo = $movieSearch->getYearTo()->format('Y') ?? $currentYear;    	    
+    	$must .= sprintf('{"range":{"year":{"gt":"%s","lt":"%s"}}},', $yearFrom, $yearTo);
+    	
+    	$durationFrom = $movieSearch->getDurationFrom() ?? 0;
+    	$durationTo = $movieSearch->getDurationTo() ?? 600;    	
+    	$must .= sprintf('{"range":{"duration":{"gt":"%s","lt":"%s"}}},', $durationFrom, $durationTo);
+    	
+    	$ratingMin = $movieSearch->getRatedMin() ?? 1;
+    	$ratingMax = $movieSearch->getRatedMax() ?? 5;    	
+    	$must .= sprintf('{"range":{"rating":{"gt":"%s","lt":"%s"}}},', $ratingMin, $ratingMax);    	   	
+    	
+    	$must = rtrim($must, ',');
+    	$should = rtrim($should, ',');
+    	
+    	$finalJson = sprintf($baseJson, $must, $should);
+    	
+    	$body = json_decode($finalJson, TRUE);
+    	
+    	$params = [
+    			'index' => $etlClient->getIndexForMovies(),
+    			'type' => 'movie',
+    			'body' => $body
+    	];
+    	
+    	dump($params);
+    	
+    	$result = $etlClient->search($params);    	
+    	
+    	dump($result);
         
-        $today = new \DateTime();        
-        $currentYear = $today->format('Y');
+    	$ids = [];
+    	
+    	foreach ($result['hits']['hits'] as $hit) {
+    		$ids[] = $hit['_id'];
+    	}
+    	
+    	dump($ids);
+    	
+    	$moviesRepository = $this->getDoctrine()->getRepository('Randomovies:Movie');
+    	
+    	$results = $moviesRepository->getMoviesWithIds($ids);
+    	
+    	dump($results);
 
-        $yearFrom = $movieSearch->getYearFrom()->format('Y') ?? 1900;
-        $yearTo = $movieSearch->getYearTo()->format('Y') ?? $currentYear;
-        $yearRange = new Range();
-        $yearRange->addField('year', [
-            'gte' => $yearFrom,
-            'lte' => $yearTo,
-        ]);
-        $boolQuery->addMust($yearRange);
-
-        $durationFrom = $movieSearch->getDurationFrom() ?? 0;
-        $durationTo = $movieSearch->getDurationTo() ?? 600;        
-        $durationRange = new Range();
-        $durationRange->addField('duration', [
-            'gte' => $durationFrom,
-            'lte' => $durationTo,
-        ]);
-        $boolQuery->addMust($durationRange);
-
-        $ratingMin = $movieSearch->getRatedMin() ?? 1;
-        $ratingMax = $movieSearch->getRatedMax() ?? 5;        
-        $ratingRange = new Range();
-        $ratingRange->addField('rating', [
-            'gte' => $ratingMin,
-            'lte' => $ratingMax,
-        ]);
-        $boolQuery->addMust($ratingRange);
-
-        return $finder->find($boolQuery);
+        return $results;
     }
 }

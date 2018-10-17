@@ -193,4 +193,22 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
             ->getSingleScalarResult()
         ;
     }
+    
+    public function getMoviesWithIds(array $ids)
+    {
+    	if (count($ids) < 1) {
+    		return [];
+    	}
+    	
+    	$qb = $this->createQueryBuilder('m');
+    	return $qb
+    		->select('m')
+//     		->from('Movies', 'm')
+    		->where(
+    			$qb->expr()->in('m.id', $ids)
+    		)
+    		->getQuery()
+    		->getResult()
+    	;    	
+    }
 }
