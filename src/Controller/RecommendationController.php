@@ -4,6 +4,7 @@ namespace Randomovies\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Randomovies\Tool\{ETLParamsBuilder, Query};
 
 class RecommendationController extends Controller
 {
@@ -21,6 +22,8 @@ class RecommendationController extends Controller
 
     private function getResultsForRecommendations()    
     {
+//     	$baseJson = '{"query":{"terms":{"likes":[]}},"size":0,"aggs":{"movies_like_likes":{"significant_terms":{"field":"likes","min_doc_count":1,"size":10,"exclude":[]}}}}';
+
     	$likes = [];
     	foreach ($this->getUser()->getComments() as $comment) {
     		if ($comment->getNote() >= 4) {
@@ -28,25 +31,25 @@ class RecommendationController extends Controller
     		}    		
     	}
     	
-    	$baseJson = '{"query":{"terms":{"likes":[]}},"size":0,"aggregations":{"movies_like_likes":{"significant_terms":{"field":"likes","min_doc_count": 1,"size":10}}}}';
+    	$etlClient = $this->get('elasticsearch_client');
     	
-    	$body = json_decode($baseJson, TRUE);
+    	$builder = new ETLParamsBuilder();
+    	$builder->setIndex($this->get('elasticsearch_client')->getIndexForUsers());
+    	$builder->setType('user');
     	
-    	$body['query']['terms']['likes'] = $likes;    	
+    	$query = new Query();
+    	$query->addTerms(['likes' => $likes]);
+    	$builder->addQuery($query);
     	
-    	$etlClient = $this->get('elasticsearch_client');    	    	
-    	    	
-    	$params = [
-    			'index' => $etlClient->getIndexForUsers(),
-    			'type' => 'user',
-    			'body' => $body
-    	];
+    	$builder->addSize(0);
+    	$builder->addAggregation('movies_like_likes', 'significant_terms', [
+    		'field' => 'likes',
+    		'min_doc_count' => 1,
+    		'size' => 12,
+    		'exclude' => $likes
+    	]);
     	
-    	dump(json_encode($params));
-    	
-    	$result = $etlClient->search($params);    	
-    	
-    	dump($result);
+    	$result = $etlClient->search($builder->getParams());    	
         
     	$ids = [];
     	
@@ -54,13 +57,9 @@ class RecommendationController extends Controller
     		$ids[] = $bucket['key'];
     	}
     	
-    	dump($ids);
-    	
     	$moviesRepository = $this->getDoctrine()->getRepository('Randomovies:Movie');
     	
     	$results = $moviesRepository->getMoviesWithIds($ids);
-    	
-    	dump($results);
 
         return $results;
     }

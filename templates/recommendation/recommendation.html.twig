@@ -3,20 +3,35 @@
 {% block title %}RandoMovies - Recommandations{% endblock %}
 
 {% block body %}
-
-	<br />
-
+	
 	<div class="row">
 
 		<div class="col-md-12">
 		
-			<h2>Recommandations</h2>
+			<div class="row">
 			
-			<ul>
+				<div class="col-md-12">
+					<h2>Recommandations</h2>			
+					<p>Sur Randomovies, plus vous notez de films, plus vous aurez de chances d'avoir de recommandations qui coincident avec vos goûts !</p>			
+					<p>Voici, en exclu pour vous, les recommandations du moment :</p>
+				</div>			
+			
 				{% for movie in recommendations %}
-					<li>{{ movie.title }}</li>
+					<div class="col-md-3">					
+						<a href="{{ path('show', { 'id' : movie.id }) }}">
+							<div class="grey-bg">
+								<img class="" src="{{ asset('images/posters/small/' ~ movie.poster) }}" />
+							</div>
+							{{ movie.title }}
+						</a>
+					</div>
 				{% endfor %}
-			</ul>
+				
+				<div class="col-md-12">
+					<p class="mt-3">Pour faire disparaitre un film de ces recommandations, il vous suffit de le noter...</p>				
+				</div>
+				
+			</div>
 			
 		</div>
 		

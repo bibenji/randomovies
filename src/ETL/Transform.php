@@ -10,7 +10,7 @@ class Transform
     {
         $transformedMovies = [];
 
-        foreach ($movies as $movie) {
+        foreach ($movies as $movie) {       	
             /** @var Movie $movie */
             $transformedMovies[$movie->getId()] = [
                 'id' => $movie->getId(),

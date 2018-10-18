@@ -203,7 +203,6 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
     	$qb = $this->createQueryBuilder('m');
     	return $qb
     		->select('m')
-//     		->from('Movies', 'm')
     		->where(
     			$qb->expr()->in('m.id', $ids)
     		)

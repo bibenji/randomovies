@@ -27,5 +27,4 @@ class ETLCommand extends ContainerAwareCommand
         $container = $this->getContainer();        
         $container->get('app.model.etl')->launch(ucfirst(strtolower(trim($input->getOption('index')))), $input->getOption('id'));
     }
-
 }

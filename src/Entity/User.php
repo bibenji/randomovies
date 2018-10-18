@@ -76,7 +76,7 @@ class User implements UserInterface, \Serializable
     private $isActive;
 
     /**
-     * @ORM\OneToMany(targetEntity="Randomovies\Entity\Review", mappedBy="user", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Randomovies\Entity\Review", mappedBy="user", cascade={"all"})
      */
     private $reviews;
     

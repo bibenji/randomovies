@@ -48,12 +48,12 @@ services:
             - '@doctrine'
             - '@logger'
 
-#    app_elasticsearch_subscriber:
-#        public: true
-#        class: Randomovies\EventSubscriber\ElasticSearchSubscriber
-#        arguments:
-#            - '@logger'
-#            - '@app_etl_load'
-#            - '@app.model.etl'
-#        tags:
-#            - { name: doctrine.event_subscriber, connection: default }
+    app_elasticsearch_subscriber:
+        public: true
+        class: Randomovies\EventSubscriber\ElasticSearchSubscriber
+        arguments:
+            - '@logger'
+            - '@app_etl_load'
+            - '@app.model.etl'
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }

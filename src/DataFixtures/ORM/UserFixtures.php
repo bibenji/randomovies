@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker\Factory as FakerFactory;
 use Randomovies\Entity\Comment;
+use Randomovies\Entity\Review;
 
 class UserFixtures extends Fixture implements ContainerAwareInterface, DependentFixtureInterface
 {
@@ -21,15 +22,29 @@ class UserFixtures extends Fixture implements ContainerAwareInterface, Dependent
     }
 
     public function load(ObjectManager $manager)
-    {
+    {    	
+    	$faker = FakerFactory::create();
+    	
         $bibenji = new User();
         $bibenji->setUsername('bibenji');
         $bibenji->setPlainPassword('123');
         $bibenji->setEmail('benjamin.billette@hotmail.fr');
         $bibenji->addRole('ROLE_ADMIN');        
         $password = $this->container->get('security.password_encoder')->encodePassword($bibenji, $bibenji->getPlainPassword());
-        //        $password = $this->encoder->encodePassword($bibenji, $bibenji->getPlainPassword());
-        $bibenji->setPassword($password);        
+// 		$password = $this->encoder->encodePassword($bibenji, $bibenji->getPlainPassword());
+        $bibenji->setPassword($password);
+        
+        $j = 0;
+        while ($j <= 20) {
+        	$j++;
+        	$newReview = new Review();
+        	$newReview->setRating(3);
+        	$newReview->setReview($faker->paragraph(5, FALSE));
+        	$newReview->setMovie($this->getReference('movie'.$j));
+        	$newReview->setMain(TRUE);
+        	$bibenji->addReview($newReview);
+        }
+        
         $manager->persist($bibenji);
         
         $sisimon = new User();        
@@ -38,12 +53,10 @@ class UserFixtures extends Fixture implements ContainerAwareInterface, Dependent
         $sisimon->setEmail('simon.thomas@hotmail.fr');
         $sisimon->addRole('ROLE_CONTRIBUTOR');
         $password = $this->container->get('security.password_encoder')->encodePassword($sisimon, $sisimon->getPlainPassword());
-        //        $password = $this->encoder->encodePassword($sisimon, $sisimon->getPlainPassword());
+// 		$password = $this->encoder->encodePassword($sisimon, $sisimon->getPlainPassword());
         $sisimon->setPassword($password);        
         $manager->persist($sisimon);
-        
-        $faker = FakerFactory::create();
-        
+                
         $i = 0;
         while ($i <= 20) {
         	$i++;
@@ -55,7 +68,7 @@ class UserFixtures extends Fixture implements ContainerAwareInterface, Dependent
         	$newUser->setEmail($firstname.'.'.$lastname.'@hotmail.fr');
         	$newUser->addRole('ROLE_USER');
         	$password = $this->container->get('security.password_encoder')->encodePassword($newUser, $newUser->getPlainPassword());
-        	//        $password = $this->encoder->encodePassword($sisimon, $sisimon->getPlainPassword());
+// 			$password = $this->encoder->encodePassword($sisimon, $sisimon->getPlainPassword());
         	$newUser->setPassword($password);
         	
         	$j = 0;
@@ -66,7 +79,6 @@ class UserFixtures extends Fixture implements ContainerAwareInterface, Dependent
         		$newComment->setComment($faker->paragraph(3, FALSE));        		
         		$newComment->setMovie($this->getReference('movie'.$j));        		
         		$newUser->addComment($newComment);
-//         		$manager->persist($newComment);
         	}
         	
         	$manager->persist($newUser);
