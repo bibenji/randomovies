@@ -5,7 +5,6 @@ parameters:
         indexes: { movies: randomovies_movies, users: randomovies_users }
 
 services:
-
     Randomovies\ETL\ElasticsearchLogger:
         public: false
         arguments: ['@logger', '%kernel.debug%']
@@ -48,12 +47,12 @@ services:
             - '@doctrine'
             - '@logger'
 
-    app_elasticsearch_subscriber:
-        public: true
-        class: Randomovies\EventSubscriber\ElasticSearchSubscriber
-        arguments:
-            - '@logger'
-            - '@app_etl_load'
-            - '@app.model.etl'
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
+#    app_elasticsearch_subscriber:
+#        public: true
+#        class: Randomovies\EventSubscriber\ElasticSearchSubscriber
+#        arguments:
+#            - '@logger'
+#            - '@app_etl_load'
+#            - '@app.model.etl'
+#        tags:
+#            - { name: doctrine.event_subscriber, connection: default }
