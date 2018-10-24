@@ -4,6 +4,7 @@ namespace Randomovies\ETL;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Monolog\Logger;
+use Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
 
 class ETL
 {
@@ -20,7 +21,7 @@ class ETL
     /**
      * @var Load
      */
-    protected $load;
+    public $load;
 
     /**
      * @var Registry
@@ -36,7 +37,7 @@ class ETL
      * @var int
      */
     protected $batchSize;
-
+    
     /**
      * ETL constructor.
      * @param Extract $extract
@@ -45,19 +46,28 @@ class ETL
      * @param Registry $registry
      * @param Logger $logger
      */
-    public function __construct(Extract $extract, Transform $transform, Load $load, Registry $registry, Logger $logger)
-    {
-        $this->extract = $extract;
+    public function __construct(Logger $logger, Registry $registry, Transform $transform, Load $load, Extract $extract = NULL)
+    {        
+        $this->logger = $logger;
+        $this->registry = $registry;
         $this->transform = $transform;
         $this->load = $load;
-        $this->registry = $registry;
-        $this->logger = $logger;
+        $this->extract = $extract;        
         $this->batchSize = 500;
     }
     
-    public function launch($index = NULL, $id = NULL)
-    {	   	    	
-    	if (in_array($index, ['Movies','Users'])) {
+    public function setExtract(Extract $extract)
+    {
+        $this->extract = $extract;
+    }
+    
+    public function launch(string $index = NULL, $id = NULL)
+    {
+        if (NULL === $this->extract) {
+            throw new BadMethodCallException('Extract is NULL in '.__CLASS__);    
+        }
+        
+    	if (in_array($index, ['Movies','Users']) && NULL !== $id) {
     		$this->handleLaunch([$index], $id);    		
     	} else {
     		$this->handleLaunch(['Movies', 'Users'], NULL);

@@ -11,7 +11,7 @@ class Extract
     protected $movieRepository;
     protected $userRepository;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager)    
     {
         $this->movieRepository = $entityManager->getRepository(Movie::class);
         $this->userRepository = $entityManager->getRepository(User::class);

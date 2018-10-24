@@ -52,7 +52,7 @@ class Client
     }
     
     public function index($params): array
-    {
+    {   
         $data = $this->client->index($params);
         $this->logRequestInfo();
         return $data;

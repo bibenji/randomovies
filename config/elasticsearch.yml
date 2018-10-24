@@ -21,11 +21,19 @@ services:
             - '%elasticsearch%'
             - '@Randomovies\ETL\ElasticsearchLogger'
 
+#    app.user_repository:
+#        class: Doctrine\ORM\EntityRepository
+#        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+#        arguments:
+#            - Randomovies\Entity\User
+            
     app_etl_extract:
         public: true
         class: Randomovies\ETL\Extract
         arguments:
-            - '@doctrine.orm.default_entity_manager'
+#            - '@doctrine.orm.default_entity_manager'
+            -  '@doctrine.orm.entity_manager'
+#            - '@doctrine'
 
     app_etl_transform:
         public: true
@@ -41,18 +49,17 @@ services:
         class: Randomovies\ETL\ETL
         public: true
         arguments:
-            - '@app_etl_extract'
+            - '@logger'    
+            - '@doctrine'
             - '@app_etl_transform'
             - '@app_etl_load'
-            - '@doctrine'
+            - '@app_etl_extract'               
+        
+    Randomovies\EventSubscriber\ETLSubscriber:
+        arguments:
             - '@logger'
-
-#    app_elasticsearch_subscriber:
-#        public: true
-#        class: Randomovies\EventSubscriber\ElasticSearchSubscriber
-#        arguments:
-#            - '@logger'
-#            - '@app_etl_load'
-#            - '@app.model.etl'
-#        tags:
-#            - { name: doctrine.event_subscriber, connection: default }
+            - '@doctrine'
+            - '@app_etl_transform'
+            - '@app_etl_load'
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
