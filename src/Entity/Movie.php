@@ -208,7 +208,7 @@ class Movie
     				$actors[] = $role->getPerson()->getFullname();
     			}
     		}
-    		return implode(', ', $actors);
+    		return implode(',', $actors);
     	}
         return $this->actors;
     }

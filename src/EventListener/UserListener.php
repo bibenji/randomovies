@@ -11,11 +11,11 @@ class UserListener
 	/**
 	 * @var string
 	 */
-	private $usersPhotosFirectory;
+	private $usersPhotosDirectory;
 
-    public function __construct(string $usersPhotosFirectory)
+    public function __construct(string $usersPhotosDirectory)
     {
-		$this->usersPhotosFirectory = $usersPhotosFirectory;
+		$this->usersPhotosDirectory = $usersPhotosDirectory;
     }
 
 	public function postUpdate(LifecycleEventArgs $args)
@@ -36,7 +36,7 @@ class UserListener
         }
 		
 		$imageResizer = new ImageResizer();
-		$imageResizer->makeSmallThumbnail($this->usersPhotosFirectory, $entity->getPhoto(), 400, 400);		
-		$imageResizer->makeMediumThumbnail($this->usersPhotosFirectory, $entity->getPhoto(), 800, 800);		
+		$imageResizer->makeSmallThumbnail($this->usersPhotosDirectory, $entity->getPhoto(), 400, 400);		
+		$imageResizer->makeMediumThumbnail($this->usersPhotosDirectory, $entity->getPhoto(), 800, 800);		
 	}
 }

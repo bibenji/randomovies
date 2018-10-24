@@ -1,4 +1,12 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Randomovies\Command\:
+        resource: '../src/Command'
+
 #    app.doctrine_poster_listener:
 #        class: Randomovies\EventListener\PosterUploadListener
 #        arguments: ['%posters_directory%']

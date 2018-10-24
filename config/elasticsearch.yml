@@ -1,0 +1,65 @@
+parameters:
+    elasticsearch:
+        hosts:
+            - host: '%elastic_host%'
+        indexes: { movies: randomovies_movies, users: randomovies_users }
+
+services:
+    Randomovies\ETL\ElasticsearchLogger:
+        public: false
+        arguments: ['@logger', '%kernel.debug%']
+
+    Randomovies\ETL\ElasticsearchDataCollector:
+        arguments:
+           - '@Randomovies\ETL\ElasticsearchLogger'
+        tags:
+           - { name: data_collector, template: 'ETL/elasticsearch.html.twig', id: 'app.elasticsearch_data_collector' }
+
+    elasticsearch_client:
+        class: Randomovies\ETL\Client
+        arguments:
+            - '%elasticsearch%'
+            - '@Randomovies\ETL\ElasticsearchLogger'
+
+#    app.user_repository:
+#        class: Doctrine\ORM\EntityRepository
+#        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+#        arguments:
+#            - Randomovies\Entity\User
+            
+    app_etl_extract:
+        public: true
+        class: Randomovies\ETL\Extract
+        arguments:
+#            - '@doctrine.orm.default_entity_manager'
+            -  '@doctrine.orm.entity_manager'
+#            - '@doctrine'
+
+    app_etl_transform:
+        public: true
+        class: Randomovies\ETL\Transform
+
+    app_etl_load:
+        public: true
+        class: Randomovies\ETL\Load
+        arguments:
+            - '@elasticsearch_client'            
+
+    app.model.etl:
+        class: Randomovies\ETL\ETL
+        public: true
+        arguments:
+            - '@logger'    
+            - '@doctrine'
+            - '@app_etl_transform'
+            - '@app_etl_load'
+            - '@app_etl_extract'               
+        
+    Randomovies\EventSubscriber\ETLSubscriber:
+        arguments:
+            - '@logger'
+            - '@doctrine'
+            - '@app_etl_transform'
+            - '@app_etl_load'
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }

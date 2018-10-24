@@ -7,9 +7,12 @@ use Randomovies\Entity\Role;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Faker\Factory as FakerFactory;
 
 class MovieFixtures extends Fixture implements DependentFixtureInterface
 {
+	const GENRES = ['Comédie','Comédie dramatique','Thriller','Science-fiction','Action','Drame'];
+	
     const MOVIES = [
         'Inception' => [
             'actors' => 'Leonardo DiCaprio, Ellen Page, Cillian Murphy, Ken Watanabe, Joseph Gordon-Levitt, Marion Cotillard, Tom Hardy',
@@ -180,7 +183,25 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
 //             $manager->persist($movie);
 //         }
 
-//         $manager->flush();
+    	$faker = FakerFactory::create();
+
+    	$i = 0;
+    	while ($i <= 20) {    		
+    		$i++;
+			$movie = new Movie();			
+			$movie->setActors($faker->firstname.' '.$faker->lastname.', '.$faker->firstname.' '.$faker->lastname);
+    		$movie->setDirector($faker->firstname.' '.$faker->lastname);
+    		$movie->setDuration($faker->numberBetween(61, 240));
+    		$movie->setGenre(self::GENRES[$faker->numberBetween(0, count(self::GENRES)-1)]);
+    		$movie->setSynopsis($faker->paragraphs(2, TRUE));
+			$wordsInTitle = $faker->numberBetween(1, 3);
+    		$movie->setTitle($faker->words($wordsInTitle, TRUE));
+			$movie->setYear($faker->numberBetween(1900, 2020));			
+			$this->addReference('movie'.$i, $movie);			
+			$manager->persist($movie);
+    	}    	
+    	
+    	$manager->flush();
     }
 
     public function getDependencies()

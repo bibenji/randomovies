@@ -1,8 +1,8 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: services.yml }
-    - { resource: fos_elastica.yml }
+    - { resource: services.yml }    
+    - { resource: elasticsearch.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -132,4 +132,4 @@ easy_admin:
             list:
                 fields: ['id', 'movieTitle', 'user.username', 'suggestedAt', 'treatedAt']                
             form:
-                fields: ['treatedAt']          
+                fields: ['treatedAt']
