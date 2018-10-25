@@ -1,0 +1,42 @@
+@media screen and (max-width: 1200px) {
+	nav {
+		#menu {
+			#menu-list-container {
+				position: relative;
+				
+				ul {
+					position: absolute;
+					top: 0;
+					left: 0;
+					z-index: 1000;
+					background-color: $primaryColor;
+					width: 100%;
+					
+					&:hover {
+						li {					
+							display: block;
+						}
+					}
+					
+					li {
+						display: block;
+						margin-right: 0px;
+						text-align: center;
+						display: none;
+						padding: 0px;				
+					}
+					
+					li:last-of-type {
+						border-top: 1px solid rgba(255, 255, 255, 0.5);
+						line-height: 40px;
+					}
+					
+					li:first-of-type {
+						border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+						display: block;
+					}
+				}
+			}
+		}
+	}
+}

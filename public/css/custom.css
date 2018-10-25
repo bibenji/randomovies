@@ -52,110 +52,11 @@
   font-weight: normal;
   font-style: normal; }
 
-nav {
-  background-color: #2980b9;
-  color: white;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
-
-#site-title {
-  background-color: #409ad5;
-  text-align: center; }
-  #site-title h1 {
-    line-height: 75px;
-    margin: 0px; }
-
-#menu-list-container {
-  padding-left: 0px; }
-
-#menu ul {
-  margin: 0px;
-  padding: 0px; }
-  #menu ul li {
-    display: inline-block;
-    line-height: 75px;
-    padding: 0px 30px;
-    margin-right: -5px; }
-    #menu ul li:hover {
-      background-color: #409ad5;
-      cursor: pointer; }
-    #menu ul li a {
-      text-decoration: none;
-      color: white; }
-    #menu ul li.active {
-      background-color: #409ad5; }
-
-#menu #my-account-menu {
-  position: relative;
-  line-height: 75px;
-  background-color: #409ad5;
-  text-align: center; }
-  #menu #my-account-menu img {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%; }
-  #menu #my-account-menu a {
-    text-decoration: none;
-    color: white; }
-  #menu #my-account-menu #account-menu {
-    display: none;
-    position: absolute;
-    top: 75px;
-    left: 0;
-    background-color: #ff793f;
-    z-index: 1000;
-    width: 100%; }
-    #menu #my-account-menu #account-menu ul {
-      margin: 0px;
-      padding: 0px; }
-      #menu #my-account-menu #account-menu ul li {
-        line-height: 50px;
-        margin: 0px;
-        padding: 0px;
-        display: block; }
-  #menu #my-account-menu:hover #account-menu {
-    display: block; }
-
-#submenu {
-  background-color: #4e5758;
-  color: white; }
-
-#submenu-search {
-  background-color: #667273;
-  text-align: center;
-  padding: 25px 0px 20px 25px; }
-  #submenu-search input[type=text] {
-    border-radius: 10px 0px 0px 10px;
-    padding: 5px 45px 5px 10px;
-    border: none;
-    width: 65%; }
-  #submenu-search i.fas.fa-search {
-    position: relative;
-    left: -35px;
-    color: #667273; }
-  #submenu-search input[type=submit] {
-    position: relative;
-    left: -30px;
-    padding: 5px;
-    top: 0px;
-    border: none;
-    border-radius: 0px 10px 10px 0px;
-    background-color: #e74c3c;
-    color: white;
-    width: 25%; }
-    #submenu-search input[type=submit]:hover {
-      background-color: #ed7669;
-      cursor: pointer; }
-
-#submenu-categories {
-  padding: 25px 0px 20px 35px; }
-  #submenu-categories ul {
-    padding: 0px 0px 0px 15px;
-    margin-top: 10px; }
-    #submenu-categories ul li a {
-      text-decoration: none;
-      color: #bfbfbf; }
-      #submenu-categories ul li a:hover {
-        text-decoration: underline; }
+#layout-alert-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100000; }
 
 #main-container {
   /*background-color: lighten(black, 10%);*/
@@ -203,8 +104,6 @@ a {
       background-color: #ed7669;
       border: solid 1px #ed7669;
       padding: 5px; }
-    #suggestions-bar .one-suggestion img {
-      width: 90%; }
     #suggestions-bar .one-suggestion a {
       text-decoration: none;
       color: white; }
@@ -424,3 +323,140 @@ a {
   position: absolute;
   bottom: 0px;
   right: 15px; }
+
+nav {
+  background-color: #2980b9;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
+  nav #my-account-menu {
+    position: relative;
+    line-height: 75px;
+    background-color: #409ad5;
+    text-align: center; }
+    nav #my-account-menu img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%; }
+    nav #my-account-menu a {
+      text-decoration: none;
+      color: white;
+      display: block; }
+    nav #my-account-menu #account-menu {
+      display: none;
+      position: absolute;
+      top: 75px;
+      left: 0;
+      background-color: #ff793f;
+      z-index: 1000;
+      width: 100%; }
+      nav #my-account-menu #account-menu ul {
+        margin: 0px;
+        padding: 0px; }
+        nav #my-account-menu #account-menu ul li {
+          line-height: 50px;
+          margin: 0px;
+          padding: 0px;
+          display: block; }
+          nav #my-account-menu #account-menu ul li:hover {
+            background-color: #409ad5; }
+        nav #my-account-menu #account-menu ul li:first-of-type {
+          border-top: 1px solid rgba(255, 255, 255, 0.5); }
+    nav #my-account-menu:hover #account-menu {
+      display: block; }
+
+#site-title {
+  background-color: #409ad5;
+  text-align: center; }
+  #site-title h1 {
+    line-height: 75px;
+    margin: 0px; }
+
+#menu-list-container {
+  padding-left: 0px; }
+
+#menu ul {
+  margin: 0px;
+  padding: 0px; }
+  #menu ul li {
+    display: inline-block;
+    line-height: 75px;
+    padding: 0px 20px;
+    margin-right: -5px; }
+    #menu ul li:hover {
+      background-color: #409ad5;
+      cursor: pointer; }
+    #menu ul li a {
+      display: block;
+      text-decoration: none;
+      color: white; }
+    #menu ul li.active {
+      background-color: #409ad5; }
+  #menu ul li:first-of-type, #menu ul li:last-of-type {
+    display: none; }
+
+#submenu {
+  background-color: #4e5758;
+  color: white; }
+
+#submenu-search {
+  background-color: #667273;
+  text-align: center;
+  padding: 25px 0px 20px 25px; }
+  #submenu-search input[type=text] {
+    border-radius: 10px 0px 0px 10px;
+    padding: 5px 45px 5px 10px;
+    border: none;
+    width: 65%; }
+  #submenu-search i.fas.fa-search {
+    position: relative;
+    left: -35px;
+    color: #667273; }
+  #submenu-search input[type=submit] {
+    position: relative;
+    left: -30px;
+    padding: 5px;
+    top: 0px;
+    border: none;
+    border-radius: 0px 10px 10px 0px;
+    background-color: #e74c3c;
+    color: white;
+    width: 25%; }
+    #submenu-search input[type=submit]:hover {
+      background-color: #ed7669;
+      cursor: pointer; }
+
+#submenu-categories {
+  padding: 25px 0px 20px 35px; }
+  #submenu-categories ul {
+    padding: 0px 0px 0px 15px;
+    margin-top: 10px; }
+    #submenu-categories ul li a {
+      text-decoration: none;
+      color: #bfbfbf; }
+      #submenu-categories ul li a:hover {
+        text-decoration: underline; }
+
+@media screen and (max-width: 1200px) {
+  nav #menu #menu-list-container {
+    position: relative; }
+    nav #menu #menu-list-container ul {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background-color: #2980b9;
+      width: 100%; }
+      nav #menu #menu-list-container ul:hover li {
+        display: block; }
+      nav #menu #menu-list-container ul li {
+        display: block;
+        margin-right: 0px;
+        text-align: center;
+        display: none;
+        padding: 0px; }
+      nav #menu #menu-list-container ul li:last-of-type {
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        line-height: 40px; }
+      nav #menu #menu-list-container ul li:first-of-type {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        display: block; } }

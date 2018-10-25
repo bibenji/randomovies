@@ -1,22 +1,25 @@
 <nav class="row">
-	<div id="site-title" class="col-md-2 col-sm-12">
-		<h1>Randomovies</h1>
+	<div id="site-title" class="col-xl-3 col-lg-4 col-md-12">
+        <h1>Randomovies</h1>
 	</div>
-	<div id="menu" class="col-md-10 col-sm-12">
+	<div id="menu" class="col-xl-7 col-lg-4 col-md-6">
 		<div class="row">
-			<div id="menu-list-container" class="col-md-10 col-sm-12">
+			<div id="menu-list-container" class="col-md-12">
 				<ul>
+					<li>
+						Menu&nbsp;&nbsp;<i class="fas fa-angle-double-down"></i>
+					</li>
 					<li class="{{ app.request.get('_route') == 'homepage' ? 'active' : '' }}">
-						<a href="{{ path('homepage') }}">Film au hasard</a>
+						<a href="{{ path('homepage') }}">Au hasard</a>
 					</li>
 					<li class="{{ app.request.get('_route') == 'list_movies' ? 'active' : '' }}">
-						<a href="{{ path('list_movies') }}">Tous les films</a>
+						<a href="{{ path('list_movies') }}">Films</a>
 					</li>
 					<li class="{{ app.request.get('_route') == 'list_actors' ? 'active' : '' }}">
-						<a href="{{ path('list_actors') }}">Tous les acteurs</a>
+						<a href="{{ path('list_actors') }}">Acteurs</a>
 					</li>
 					<li class="{{ app.request.get('_route') == 'search' ? 'active' : '' }}">
-						<a href="{{ path('search') }}">Recherche avancée</a>
+						<a href="{{ path('search') }}">Recherche</a>
 					</li>
 					{% if is_granted('ROLE_USER') %}
 						<li class="{{ app.request.get('_route') == 'recommendations' ? 'active' : '' }}">
@@ -26,44 +29,49 @@
 							<a href="{{ path('create-suggestion') }}">Suggestions</a>
 						</li>
 					{% endif %}
+					{#
 					{% if is_granted('ROLE_CONTRIBUTOR') %}
 						<li class="{{ app.request.get('_route') == 'admin_movie_index' ? 'active' : '' }}">
 							<a href="{{ path('admin_movie_index') }}">Admin</a>
 						</li>
 					{% endif %}
+					#}
+					<li>
+						<i class="fas fa-angle-double-up"></i>
+					</li>
 				</ul>
 			</div>
-			<div id="my-account-menu" class="col-md-2 col-sm-12">
-				{% if app.user %}
-					<a id="link-for-account-menu" href="">
-						<img src="{{ app.user.photo ? asset('images/users/photos/small/' ~ app.user.photo) : "/images/my-profile.png" }}" /> &nbsp;{{ app.user.username }} &nbsp;<i class="fas fa-chevron-circle-down"></i>
-					</a>
-					<div id="account-menu" class="">
-						<ul>
-							<li>
-								<a href="{{ path('user-account') }}"> Mes données</a>
-							</li>
-							<li>
-								<a href="{{ path('logout') }}">Logout</a>
-							</li>
-						</ul>
-					</div>
-				{% else %}
-					<a id="link-for-account-menu" href="">
-						<img src="/images/my-profile.png" /> &nbsp;Zone membre &nbsp;<i class="fas fa-chevron-circle-down"></i>
-					</a>
-					<div id="account-menu" class="">
-						<ul>
-							<li>
-								<a href="{{ path('login') }}">Login</a>
-							</li>
-							<li>
-								<a href="{{ path('user_registration') }}">Register</a>
-							</li>
-						</ul>
-					</div>
-				{% endif %}
-			</div>
 		</div>
+	</div>
+	<div id="my-account-menu" class="col-xl-2 col-lg-4 col-md-6">
+		{% if app.user %}
+			<a id="link-for-account-menu" href="">
+				<img src="{{ app.user.photo ? asset('images/users/photos/small/' ~ app.user.photo) : "/images/my-profile.png" }}" /> &nbsp;{{ app.user.username }} &nbsp;<i class="fas fa-chevron-circle-down"></i>
+			</a>
+			<div id="account-menu" class="">
+				<ul>
+					<li>
+						<a href="{{ path('user-account') }}"> Mes données</a>
+					</li>
+					<li>
+						<a href="{{ path('logout') }}">Logout</a>
+					</li>
+				</ul>
+			</div>
+		{% else %}
+			<a id="link-for-account-menu" href="">
+				<img src="/images/my-profile.png" /> &nbsp;Zone membre &nbsp;<i class="fas fa-chevron-circle-down"></i>
+			</a>
+			<div id="account-menu" class="">
+				<ul>
+					<li>
+						<a href="{{ path('login') }}">Login</a>
+					</li>
+					<li>
+						<a href="{{ path('user_registration') }}">Register</a>
+					</li>
+				</ul>
+			</div>
+		{% endif %}
 	</div>
 </nav>

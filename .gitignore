@@ -41,6 +41,10 @@ composer-setup.php
 /public/images/users/photos/medium/*.*
 /public/images/users/photos/small/*.*
 
+!/public/images/posters/.gitkeep
+!/public/images/posters/medium/.gitkeep
+!/public/images/posters/small/.gitkeep
+
 /node_modules/
 
 .buildPath
