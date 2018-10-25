@@ -9,33 +9,14 @@
 	right: 20px;
 	z-index: 100000;
 }
+
 #main-container {
 	/*background-color: lighten(black, 10%);*/
 	background-image: url('../images/bg3.png');
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	color: lighten(black, 50%);
-}
-
-.custom-pagination {
-	display: block;
-	text-align: center;
-	
-	li {
-		border: solid 1px $primaryColor;
-		color: $primaryColor;
-		display: inline-block;
-		padding: 5px 10px;
-		border-radius: 3px;
-		
-		&:hover {
-			color: white;
-			background-color: $primaryColor;
-			cursor: pointer;
-		}		
-	}
-	
-	
+	padding: 20px 40px 0px 20px;
 }
 
 a {

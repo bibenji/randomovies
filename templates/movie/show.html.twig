@@ -4,66 +4,106 @@
 
 {% block body %}
 	<div class="row">
-		<div class="col-md-5">
-			<br />
+		<div class="col-xl-5 col-lg-6 col-md-12">			
             {% if movie.poster != "" %}
 				<a href="/images/posters/{{ movie.poster }}" target="_blank">
 					<img class="main-movie-cover" src="{{ asset('images/posters/medium/' ~ movie.poster) }}" />
 				</a>
-            {% endif %}
+				<br />			
+            {% endif %}            
 		</div>
-
-		<div class="col-md-6">
-			<br />
+		
+		<div class="col-xl-7 col-lg-6 col-md-12">			
 			<div class="main-movie-infos">
-				<div class="main-movie-stars">
-                    {% for i in 1..movie.rating %}
-						<img src="/images/yellow-star.png" />
-                    {% endfor %}
-				</div>
-				<div class="main-movie-title">
-					<h2>
-						{{ movie.title }} {% if is_granted('ROLE_CONTRIBUTOR') %}<a class="btn btn-outline-secondary" href="{{ path('admin_movie_edit', { 'id': movie.id }) }}">edit</a>{% endif %}
-					</h2>
-				</div>
-				<div class="main-movie-tags">
-					{% set totalTags = movie.tags|length %}
-					{% for index, tag in movie.tags %}
-						{{ tag.name }}{% if index+1 < totalTags %}, {% endif %}
-					{% endfor %}
-					<br /><br />
-				</div>
-				<div class="main-movie-synopsis">
-					<h4><i class="fas fa-play"></i> Synopsis</h4>
-					<p>
-                        {{ movie.synopsis|raw }}
-					</p>
-				</div>
-				<div class="main-movie-details">
-					<h4><i class="fas fa-play"></i> Infos</h4>
-					<p>Genre : {{ movie.genre }}</p>
-					<p>Durée : {{ movie.duration }} min</p>
-					<p>Réalisateur : {{ movie.director }}</p>
-					<p>
-						Acteurs :&nbsp;
-                        {% for role in movie.roles %}
-                            {% if role.role == "actor" %}
-                                {{ role.person.fullname }},&nbsp
-                            {% endif %}
-                        {% endfor %}
-				</div>
+			
+				<div class="row">								
+					<div class="main-movie-title col-xl-8 col-lg-12">
+						<h2>
+							{{ movie.title }} {% if is_granted('ROLE_CONTRIBUTOR') %}<a class="btn btn-outline-secondary" href="{{ path('admin_movie_edit', { 'id': movie.id }) }}">edit</a>{% endif %}
+						</h2>
+					</div>
+					
+					<div class="main-movie-stars col-xl-4 col-lg-12">
+	                    {% for i in 1..movie.rating %}
+							<img src="/images/yellow-star.png" />
+	                    {% endfor %}
+					</div>				
+				
+					<div class="main-movie-tags col-lg-12">
+						{% if movie.tags|length > 0 %}
+							<h4><i class="fas fa-play"></i> Tags</h4>
+							<p>
+								{% set totalTags = movie.tags|length %}
+								{% for index, tag in movie.tags %}
+									{{ tag.name }}{% if index+1 < totalTags %}, {% endif %}
+								{% endfor %}
+							</p>	
+						{% endif %}					
+					</div>
+					
+					<div class="main-movie-synopsis col-lg-12">
+						<h4><i class="fas fa-play"></i> Synopsis</h4>
+						<p>
+	                        {{ movie.synopsis|raw }}
+						</p>
+					</div>
+					
+					<div class="main-movie-details col-lg-12">
+						<h4><i class="fas fa-play"></i> Infos</h4>
+						<div class="row text-center">
+							<div class="col-xl-4 col-lg-12">
+								<p>									
+									<br />
+									Genre :
+									<br />
+									{{ movie.genre }}
+								</p>	
+							</div>
+							<div class="col-xl-4 col-lg-12">
+								<p>
+									<br />
+									Durée :
+									<br />
+									{{ movie.duration }} min
+								</p>	
+							</div>
+							<div class="col-xl-4 col-lg-12">
+								<p>
+									<br />
+									Réalisateur :
+									<br />
+									{% if movie.directorPerson %}
+										<a href="{{ path('show_actor', {'id': movie.directorPerson.id}) }}">{{ movie.directorPerson.fullname }}</a>
+									{% else %}									
+										{{ movie.director }}
+									{% endif %}
+								</p>									
+							</div>
+						</div>
+					</div>
+					
+					<div class="main-movie-actors col-lg-12">						
+						<h4><i class="fas fa-play"></i> Actors</h4>		
+						<p>
+	                        {% for role in movie.roles %}
+	                            {% if role.role == "actor" %}
+	                                {{ role.person.fullname }},&nbsp
+	                            {% endif %}
+	                        {% endfor %}
+                        </p>
+					</div>
 
-				<div class="main-movie-critique">
-					<h4><i class="fas fa-play"></i> Critique</h4>
-					<p>
-                        {{ movie.review }}
-					</p>
+					<div class="main-movie-critique col-lg-12">
+						<h4><i class="fas fa-play"></i> Critique</h4>
+						<p>
+	                        {{ movie.review }}
+						</p>
+					</div>
+					
+					<a href="{{ path('homepage') }}" class="another-random-movie-button">
+						Un Autre Film Au Hasard
+					</a>
 				</div>
-
-				<br />
-				<a href="{{ path('homepage') }}" class="another-random-movie-button">
-					Un Autre Film Au Hasard
-				</a>
 			</div>
 		</div>
 	</div>
@@ -72,15 +112,18 @@
 	<br />
 
 	<div id="suggestions-bar" class="row">
-		<div class="col-md-12">
+		<div class="col-sm-12">
 			<h3 class="text-center">Vous Aimerez Peut-Être Aussi</h3>
 		</div>
-
+		
+		<div class="col-sm-12">
+		<div class="row">
+			
         {% for index, rando in fourRandoMovies %}
             {% if index != 4 %}
                 {% if movie is defined %}
                     {%  if rando.id != movie.id %}
-						<div class="col one-suggestion">
+						<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 one-suggestion">
 							<a href="{{ path('show', { 'id' : rando.id }) }}">
 								<img class="suggestion-cover" src="{{ asset('images/posters/small/' ~ rando.poster) }}" />
 								<p>{{ rando.title }}</p>
@@ -91,8 +134,12 @@
                 {% endif %}
             {% endif %}
         {% endfor %}
+        
+        </div>
+        </div>
+        
 	</div>
-
+	
     {% if app.user %}
         {% include 'comment/module.html.twig' with {'comments': movie.comments, 'comment_form': comment_form} %}
     {% endif %}

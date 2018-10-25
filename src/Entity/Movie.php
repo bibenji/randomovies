@@ -179,6 +179,23 @@ class Movie
     	}    	
         return $this->director;
     }
+    
+    /**
+     * Get director person
+     * 
+     * @return Person
+     */
+    public function getDirectorPerson(): ?Person
+    {
+        if (!($this->roles->isEmpty())) {
+            foreach($this->roles as $role) {
+                if (Role::ROLE_REALISATOR === $role->getRole()) {
+                    return $role->getPerson();
+                }
+            }
+        }
+        return NULL;
+    }
 
     /**
      * Set actors
