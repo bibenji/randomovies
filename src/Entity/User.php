@@ -32,6 +32,11 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank()
      */
     private $username;
+    
+    /**
+     * @ORM\Column(type="text", nullable=true)     
+     */
+    private $description;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
@@ -137,6 +142,22 @@ class User implements UserInterface, \Serializable
     public function setUsername($username)
     {
         $this->username = $username;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
     }
 
     /**

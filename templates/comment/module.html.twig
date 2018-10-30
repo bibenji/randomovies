@@ -1,17 +1,26 @@
 <div id="comments" class="row">
     <div class="col-md-1"></div>
-    <div class="col-md-10">
+    <div class="col-md-10">    
+    	
+    	<br />
+		
+		<h3>Ecrire un commentaire</h3>
+        
+        <br />
+		
+        {% include 'comment/new.html.twig' with {'comment_form': comment_form} %}
+        
         <br />
 
         <div class="comments-total-notes float-right text-center">
             <div class="text-right">
                 Total des notes des utilisateurs pour ce film :
             </div>
-            <strong>{{ totalUsersNotes(comments) }} / 5</strong>
+            <strong>{{ comments_data.usersNote }} / 5</strong>
             <br /><br />
         </div>
 
-        <h3>Commentaires</h3>
+        <h3 id="comments-title">Commentaires</h3>
         <div class="clearfix"></div>
         {% for comment in comments %}
             <div id="commentId{{ comment.id }}" class="comment">
@@ -28,13 +37,14 @@
                 {% endif %}
             </div>
         {% endfor %}
+        
+        <div class="text-center">
+	        {% for pageNumber in 1..comments_data.totalPages %}				
+				<a {{ comments_data.currentPage == pageNumber ? 'class=active' : 'href=?cpage=' ~ pageNumber ~ '#comments-title' }}>{{ pageNumber }}</a>{% if pageNumber < comments_data.totalPages %} - {% endif %}				
+			{% endfor %}
+		</div>
 		
 		<br />
-		<h3>Ecrire un nouveau commentaire</h3>
-        <br />
-		
-        {% include 'comment/new.html.twig' with {'comment_form': comment_form} %}
-
-        <br />
+        
     </div>
 </div>

@@ -4,10 +4,7 @@
 
 {% block body %}
 
-	<br />
-
-	<div class="row">
-
+	<div class="row main-row">
 		<div class="col-md-12">
 		
 			<h2>Faire une suggestion</h2>
@@ -16,9 +13,11 @@
 			
 			{{ form_start(form) }}
 				<label>Titre du film que vous souhaitez suggérer</label>
-				{{ form_widget(form.movieTitle, {'attr': {'class': 'form-control'}}) }}
-				<input type="submit" class="btn btn-success mt-2" value="Suggérer" />
+				{{ form_widget(form.movieTitle, {'attr': {'class': 'form-control mb-4'}}) }}
+				<input type="submit" class="btn btn-success" value="Suggérer" />
 			{{ form_end(form) }}
+			
+			<br />
 			
 		</div>
 	</div>

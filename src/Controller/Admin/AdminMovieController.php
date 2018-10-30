@@ -43,9 +43,14 @@ class AdminMovieController extends Controller
      * @Route("/new", name="admin_movie_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Suggestion $suggestion = NULL)
     {
         $movie = new Movie();
+        
+        if ($suggestion) {
+            $suggestion->setTreatedAt(new \DateTime());
+            $movie->setSuggestion($suggestion);
+        }
         
         $review = new Review();
         $review->setUser($this->getUser());

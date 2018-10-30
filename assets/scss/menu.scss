@@ -104,6 +104,7 @@ nav {
 #submenu {
 	background-color: darken($grey, 20%);
 	color: white;
+	z-index: 1;
 }
 #submenu-search {
 	background-color: darken($grey, 10%);

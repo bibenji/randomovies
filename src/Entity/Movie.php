@@ -97,6 +97,7 @@ class Movie
 
     /**
      * @ORM\OneToMany(targetEntity="Randomovies\Entity\Comment", mappedBy="movie", cascade={"remove"})
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $comments;
 
@@ -105,6 +106,11 @@ class Movie
      * @ORM\ManyToMany(targetEntity="Randomovies\Entity\Tag", inversedBy="movies", cascade={"persist"})
      */
     private $tags;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Randomovies\Entity\Suggestion", cascade={"all"})     
+     */
+    private $suggestion;
 
     public function __construct()
     {
@@ -515,5 +521,15 @@ class Movie
     public function setTags($tags)
     {
         $this->tags = $tags;
+    }
+    
+    public function getSuggestion()
+    {
+        return $this->suggestion;
+    }
+    
+    public function setSuggestion(Suggestion $suggestion)
+    {
+        $this->suggestion = $suggestion;
     }
 }

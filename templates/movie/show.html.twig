@@ -3,7 +3,7 @@
 {% block title %}RandoMovies{% endblock %}
 
 {% block body %}
-	<div class="row">
+	<div class="row main-row">
 		<div class="col-xl-5 col-lg-6 col-md-12">			
             {% if movie.poster != "" %}
 				<a href="/images/posters/{{ movie.poster }}" target="_blank">
@@ -141,7 +141,7 @@
 	</div>
 	
     {% if app.user %}
-        {% include 'comment/module.html.twig' with {'comments': movie.comments, 'comment_form': comment_form} %}
+        {% include 'comment/module.html.twig' with {'comment_form': comment_form, 'comments': movie_comments, 'comments_data': comments_data} %}
     {% endif %}
 
 {% endblock %}

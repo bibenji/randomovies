@@ -12,7 +12,8 @@ parameters:
     medias_directory: '%kernel.project_dir%/public/images/medias'
     posters_directory: '%kernel.project_dir%/public/images/posters'
     users_photos_directory: '%kernel.project_dir%/public/images/users/photos'
-    max_results_by_page: 6
+    max_results_by_page: 10
+    max_comments_by_page: 5
 
 framework:
     #esi: ~

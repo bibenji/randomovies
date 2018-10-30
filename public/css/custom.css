@@ -64,13 +64,20 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   color: gray;
-  padding: 20px 40px 0px 20px; }
+  padding: 0px; }
+
+#main-container .main-row {
+  margin: 0px;
+  padding: 20px 20px 0px 10px; }
 
 a {
   color: #2980b9;
   text-decoration: none; }
   a:hover {
     color: #6ab0de; }
+
+main {
+  margin: 0px; }
 
 #suggestions-bar {
   margin: 0px 50px 30px;
@@ -395,7 +402,8 @@ nav {
 
 #submenu {
   background-color: #4e5758;
-  color: white; }
+  color: white;
+  z-index: 1; }
 
 #submenu-search {
   background-color: #667273;
@@ -464,6 +472,9 @@ nav {
       background-color: #2980b9; }
       .custom-pagination li a.active:hover {
         color: white; }
+
+#recommendations img {
+  max-width: 90%; }
 
 @media screen and (max-width: 1200px) {
   nav #menu #menu-list-container {

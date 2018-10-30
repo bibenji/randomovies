@@ -26,14 +26,12 @@
 
 {% block body %}
 
-	<div class="row">
+	<div class="row main-row">
 	
 	<div id="all-movies" class="col-xl-12">
 		
-		<h3>Tous les films</h3>
-			
-		<div class="card">
-		<div class="card-body">
+		<h3>Tous les films</h3>		
+		
 		<div class="row">
 		
             {% set queryWithParams = path('list_movies')~'?' %}
@@ -73,8 +71,6 @@
 				{% endif %}
 			</div>
 		
-		</div>	
-		</div>
 		</div>
 		
 		<br />
