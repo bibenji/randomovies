@@ -1,0 +1,46 @@
+@import 'colors';
+
+.custom-pagination {
+	display: block;
+	text-align: center;
+	
+	li {
+		display: inline-block;
+		
+		a {
+			border: solid 1px $primaryColor;
+			color: $primaryColor;
+			display: block;
+			padding: 5px 10px;
+			border-radius: 3px;		
+			margin: 0px 1px;
+			line-height: 30px;
+			
+			&:hover {
+				color: white;
+				text-decoration: none;
+				background-color: $primaryColor;					
+			}
+		}
+		
+		a.disabled {
+			border: solid 1px $grey;
+			color: $grey;				
+			cursor: default;
+			
+			&:hover {
+				background-color: rgba(0,0,0,0);
+			}
+		}
+			
+		a.active {
+			color: white;	
+			cursor: default;
+			background-color: $primaryColor;
+			
+			&:hover {
+				color: white;			
+			}
+		}
+	}	
+}

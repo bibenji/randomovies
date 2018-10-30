@@ -6,22 +6,23 @@
 
     <div id="my-account" class="row">
 
-        <div class="col-md-4">
+        <div class="col-xl-4 col-lg-12">
             <h2>Mon compte</h2>
 			<hr />
             <p>Nom d'utilisateur : {{ app.user.username }}</p>
+            <p>Description : {{ app.user.description }}</p>
             <p>Email : {{ app.user.email }}</p>
             <p>Nom : </p>
             <p>Prénom : </p>
             <p>Date de naissance : </p>
-            <a href="{{ path('user-edit') }}" class="btn randomovies-btn-confirm">Modifier mes informations</a>
+            <a href="{{ path('user-edit') }}" class="btn randomovies-btn-confirm">Modifier mes informations</a>            
         </div>
 
-        <div class="col-md-8">
+        <div class="col-xl-8 col-lg-12">
             <h2>Mes commentaires / Mes notes</h2>
 			<hr />
             <ul class="list-group">
-                {% for comment in app.user.comments %}
+                {% for comment in userComments %}
                     <li id="commentId{{ comment.id }}" class="list-group-item">
                         <div class="float-right">&nbsp;
                             <a href="{{ path('comment-edit', { 'id': comment.id }) }}" class="btn btn-warning">Edit</a>
@@ -36,6 +37,13 @@
                     </li>
                 {% endfor %}
             </ul>
+            
+             <div class="text-center">
+	        	{% for pageNumber in 1..totalPages %}				
+					<a {{ currentPage == pageNumber ? 'class=active' : 'href=?cpage=' ~ pageNumber }}>{{ pageNumber }}</a>{% if pageNumber < totalPages %} - {% endif %}				
+				{% endfor %}
+			</div>
+            
         </div>
 
     </div>

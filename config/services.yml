@@ -35,12 +35,8 @@ services:
         tags:
             - { name: twig.extension }
 
-    app.twig.total_users_notes:
-        class: Randomovies\Twig\Extension\TotalUsersNotesExtension
-        tags:
-            - { name: twig.extension }
-
     app.randomovies_mailer:
+        public: true
         class: Randomovies\Service\Mailer
         arguments:
             - "@mailer"

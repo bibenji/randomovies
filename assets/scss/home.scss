@@ -7,7 +7,7 @@
 	box-shadow: 3px 3px 10px rgba(200,200,200,0.25);
 }
 
-.main-movie-title, .main-movie-synopsis, .main-movie-details, .main-movie-critique {
+.main-movie-synopsis, .main-movie-details, .main-movie-actors, .main-movie-critique {
 	margin-bottom: 40px;
 	
 	i {
@@ -16,7 +16,8 @@
 }
 
 .main-movie-infos {
-	color: lighten(black, 50%)
+	color: lighten(black, 50%);
+	margin-left: 20px;
 }
 
 .main-movie-title {
@@ -26,7 +27,6 @@
 }
 
 .main-movie-stars {
-	float: right;
 	img {
 		width: 30px;
 		height: 30px;
@@ -35,20 +35,25 @@
 }
 
 .another-random-movie-button {
-	background-color: $secondaryColor;
-	color: white;
+	border: solid 1px $secondaryColor;
+	background-color: rgba(255,255,255,0);
+	color: $secondaryColor;
 	font-size: 125%;
 	padding: 10px 20px;
-	border-radius: 5px;
-	border: solid 1px $secondaryColor;
+	border-radius: 5px;	
 	display: block;
 	margin: 0px auto;
 	text-align: center;
 	width: 90%;
+	transition: all 250ms linear;	
 	
 	&:hover {
-		text-decoration: none;
-		background-color: rgba(255,255,255,0);
-		color: $secondaryColor;
+		background-color: $secondaryColor;
+		color: white;
+		text-decoration: none;		
 	}
+}
+
+.suggestion-cover {
+	width: 90%;
 }

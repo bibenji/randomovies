@@ -26,10 +26,14 @@
 
 {% block body %}
 
-	<div id="all-movies">
-		<br />
+	<div class="row main-row">
+	
+	<div id="all-movies" class="col-xl-12">
+		
+		<h3>Tous les films</h3>		
+		
 		<div class="row">
-
+		
             {% set queryWithParams = path('list_movies')~'?' %}
             {% for filter_name, filter_value in app.request.query.all %}
 				{% if filter_name != 'page' %}
@@ -37,15 +41,15 @@
 				{% endif %}
             {% endfor %}
 
-			<div class="col-md-3">
+			<div class="col-xl-3 col-lg-6 col-md-12">
 				Note
 				{{ filter.rating('rating', queryWithParams) }}
 			</div>
-			<div class="col-md-3">
+			<div class="col-xl-3 col-lg-6 col-md-12">
 				Note des utilisateurs
                 {{ filter.rating('users_rating', queryWithParams) }}
 			</div>
-			<div class="col-md-6">
+			<div class="col-xl-3 col-lg-12">
 				Tags<br />
                 {% if app.request.query.all['tag'] is defined %}
 					{% set queryWithoutThatParam = path('list_movies')~'?' %}
@@ -66,43 +70,51 @@
 					{% endfor %}
 				{% endif %}
 			</div>
+		
 		</div>
+		
 		<br />
+		
 		<div class="row">
             {% for movie in movies %}
-				<div class="col-md-2 all-movies-one">
+				<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 all-movies-one">
 					<a href="{{ path('show', { 'id' : movie.id }) }}">
-						<img src="{{ asset('images/posters/small/' ~ movie.poster) }}" />
-						<div>
-							{{ movie.title }}<br />{{ movie.year }}<br />{{ movie.genre }}
-						</div>
+						<img src="{{ asset('images/posters/small/' ~ movie.poster) }}" />						
+						<div class="movie-title">{{ movie.title }}</div>
+						<div class="movie-genre">{{ movie.genre }}</div>
+						<div class="movie-year">{{ movie.year }}</div>
 					</a>
 				</div>
             {% endfor %}
 		</div>
 
         {% set queryWithParamsWithCurrentPage = path('list_movies')~'?' %}
+        {% set currentPage = 1 %}
         {% for filter_name, filter_value in app.request.query.all %}
 			{% if filter_name != 'page' %}
 				{% set queryWithParamsWithCurrentPage = queryWithParamsWithCurrentPage~filter_name~'='~filter_value~'&' %}
+			{% else %}
+				{% set currentPage = filter_value %}
 			{% endif %}
         {% endfor %}
-
+        		
 		<ul class="custom-pagination">
 			<li>
-				<a href="{{ queryWithParamsWithCurrentPage }}page={{ page > 1 ? page-1 : '1' }}">Précédent</a>
+				<a {{ currentPage == 1 ? 'class=disabled' : 'href=' ~ queryWithParamsWithCurrentPage ~ 'page=' ~ (page > 1 ? page-1 : '1') }}>Précédent</a>
 			</li>
 
 			{% for pageNumber in 1..totalPages %}
 				<li>
-					<a href="{{ queryWithParamsWithCurrentPage }}page={{ pageNumber }}">{{ pageNumber }}</a>
+					<a {{ currentPage == pageNumber ? 'class=active' : 'href=' ~ queryWithParamsWithCurrentPage ~ 'page=' ~ pageNumber }}>{{ pageNumber }}</a>
 				</li>
 			{% endfor %}
 
 			<li>
-				<a href="{{ queryWithParamsWithCurrentPage }}page={{ page < totalPages ? page+1 : totalPages }}">Suivant</a>
+				<a {{ currentPage == totalPages ? 'class=disabled' : 'href=' ~ queryWithParamsWithCurrentPage ~ 'page=' ~ (page < totalPages ? page+1 : totalPages) }}>Suivant</a>
 			</li>
 		</ul>
+		
 	</div>
-
+	</div>
+	
 {% endblock %}

@@ -10,11 +10,12 @@
 	
 		<div id="my-account" class="row">
 
-			<div class="col-md-6">
+			<div class="col-xl-6 col-lg-12">
 				
 				<h3>Paramètres du compte</h3>
 				<hr />
 				{{ form_row(form.username) }}
+				{{ form_row(form.description) }}
                 {{ form_row(form.email) }}                
                 {{ form_row(form.plainPassword) }}						
 				
@@ -27,7 +28,7 @@
 
 			</div>
 
-			<div class="col-md-6">			
+			<div class="col-xl-6 col-lg-12">			
 				<h3>Avatar</h3>
 				<hr />
 				<p>Photo actuellement liée à votre profil :</p>				
@@ -42,7 +43,7 @@
 				<br />
 			</div>
 			
-			<div class="col-md-12 text-center">
+			<div class="col-xl-12 text-center">
                 <a href="{{ path('user-account') }}" class="btn btn-outline-secondary">Retour</a>
 				<input type="submit" class="btn btn-outline-primary" value="Enregistrer les modifications" />				
 			</div>

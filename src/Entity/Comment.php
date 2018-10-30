@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Comment
  *
  * @ORM\Table(name="comment")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Randomovies\Repository\CommentRepository")
  * @UniqueEntity(
  *     fields={"movie", "user"},
  *     message="Vous avez déjà noté et / ou commenté ce film."

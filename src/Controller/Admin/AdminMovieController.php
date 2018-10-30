@@ -43,9 +43,14 @@ class AdminMovieController extends Controller
      * @Route("/new", name="admin_movie_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Suggestion $suggestion = NULL)
     {
         $movie = new Movie();
+        
+        if ($suggestion) {
+            $suggestion->setTreatedAt(new \DateTime());
+            $movie->setSuggestion($suggestion);
+        }
         
         $review = new Review();
         $review->setUser($this->getUser());
@@ -122,11 +127,13 @@ class AdminMovieController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             if ($file = $editForm->get('newPoster')->getData()) {
-//                First, delete old poster
-                $fs = new Filesystem();
-                $fs->remove($this->getParameter('posters_directory').'/'.$movie->getPoster());
-                $fs->remove($this->getParameter('posters_directory').'/medium/'.$movie->getPoster());
-                $fs->remove($this->getParameter('posters_directory').'/small/'.$movie->getPoster());
+//                First, delete old poster if one exists
+                if (NULL != $movie->getPoster()) {
+                    $fs = new Filesystem();
+                    $fs->remove($this->getParameter('posters_directory').'/'.$movie->getPoster());
+                    $fs->remove($this->getParameter('posters_directory').'/medium/'.$movie->getPoster());
+                    $fs->remove($this->getParameter('posters_directory').'/small/'.$movie->getPoster());
+                }
 
 //                Then, save new poster
 				$fileName = md5(uniqid()).'.'.$file->guessExtension();

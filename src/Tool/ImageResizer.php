@@ -2,6 +2,8 @@
 
 namespace Randomovies\Tool;
 
+use Symfony\Component\Filesystem\Filesystem;
+
 class ImageResizer
 {
 	const SMALL_THUMBNAIL_WIDTH = 400;
@@ -79,6 +81,10 @@ class ImageResizer
 		imagecopyresampled($destination, $source, $destination_x, $destination_y, $source_x, $source_y, $largeur_destination, $hauteur_destination, $largeur_source, $hauteur_source);
 
 		// imagejpeg($destination);
+		
+		$fs = new Filesystem();
+		if (!$fs->exists($path.'/'.$subfolder.'/'))
+		    $fs->mkdir($path.'/'.$subfolder.'/');
 				
 		imagejpeg($destination, $path.'/'.$subfolder.'/'.$imageName);		
 	}

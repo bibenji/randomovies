@@ -4,9 +4,7 @@
 
 {% block body %}
 
-	<br />
-
-	<div id="actor-card" class="row">
+	<div id="actor-card" class="row main-row">
 		<div class="col-md-5">
             {% for index, media in actor.medias %}
 				<img class="{{ index == 0 ? 'main-photo' : 'other-photo' }}" alt="{{ media.name }}" src="{{ asset('images/medias/' ~ media.path) }}" />

@@ -7,7 +7,7 @@
 		<meta name="author" content="CopierAndColler">
 		<!--<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />-->
 
-		<title>{% block title %}Welcome!{% endblock %}</title>
+		<title>{% block title %}Randomovies - {% endblock %}</title>
 
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
@@ -33,52 +33,58 @@
     	{% include 'menu.html.twig' %}
 
 		<main class="row">
-			<div id="submenu" class="col-md-2 col-sm-4">
+			<div id="submenu" class="col-xl-3 col-lg-4">
 				<div class="row">
-					<div id="submenu-search" class="col-md-12">
+					<div id="submenu-search" class="col-lg-12">
 						<form method="post" action="{{ path('search') }}">
 							<input name="title" type="text" placeholder="Recherche rapide" /><i class="fas fa-search"></i>
 							<input type="submit" value="Go !"/>
 						</form>
 					</div>
 					<div id="submenu-categories" class="col-md-12">
-						Catégories
-						<ul>
-                            {% for category in distinctCategories %}
-								<li>
-									<a href="{{ path('homepage') }}?category={{ category.genre|camelize }}">
-                                        {{ category.genre }}
-									</a>
-								</li>
-                            {% endfor %}
-						</ul>
-						{% if is_granted('ROLE_CONTRIBUTOR') %}
-							Admin
-							<ul>
-								<li>
-									<a href="{{ path('admin_movie_index') }}">Admin Movie Index</a>
-								</li>
-								<li>
-									<a href="{{ path('admin_person_index') }}">Admin Person Index</a>
-								</li>
-								<li>
-									<a href="{{ path('admin_tag_index') }}">Admin Tag Index</a>
-								</li>
-								{% if is_granted('ROLE_ADMIN') %}
-								<li>
-									<a href="{{ path('admin-import') }}">Admin Import</a>
-								</li>
-								<li>
-									<a href="{{ path('easyadmin') }}">Admin Users And Comments</a>
-								</li>
+						<div class="row">
+							<div class="col-lg-12 col-md-6">
+								Catégories
+								<ul>
+		                            {% for category in distinctCategories %}
+										<li>
+											<a href="{{ path('homepage') }}?category={{ category.genre|camelize }}">
+		                                        {{ category.genre }}
+											</a>
+										</li>
+		                            {% endfor %}
+								</ul>
+							</div>
+							<div class="col-lg-12 col-md-6">
+								{% if is_granted('ROLE_CONTRIBUTOR') %}
+									Admin
+									<ul>
+										<li>
+											<a href="{{ path('admin_movie_index') }}">Admin Movie Index</a>
+										</li>
+										<li>
+											<a href="{{ path('admin_person_index') }}">Admin Person Index</a>
+										</li>
+										<li>
+											<a href="{{ path('admin_tag_index') }}">Admin Tag Index</a>
+										</li>
+										{% if is_granted('ROLE_ADMIN') %}
+										<li>
+											<a href="{{ path('admin-import') }}">Admin Import</a>
+										</li>
+										<li>
+											<a href="{{ path('easyadmin') }}">Admin Users And Comments</a>
+										</li>
+										{% endif %}
+									</ul>
 								{% endif %}
-							</ul>
-						{% endif %}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<div id="main-container" class="col-md-10 col-sm-8">
+			<div id="main-container" class="col-xl-9 col-lg-8">
 
                 {% block body %}{% endblock %}
 

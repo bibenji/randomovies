@@ -11,6 +11,31 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MovieController extends Controller
 {
+    private function indexAndShowAction(Request $request, Movie $movie)
+    {        
+        $commentsData = $this->getDoctrine()->getRepository(Comment::class)->getCommentsData($movie->getId());
+        $totalComments = $commentsData[0]['totalComments'];
+        $usersNote = round($commentsData[0]['usersNote']);
+        $commentsByPage = $this->getParameter('max_comments_by_page');
+        
+        $currentPage = $request->get('cpage') ?? 1;
+        $totalPages = ceil($totalComments / $commentsByPage);
+        
+        $movieComments = $this->getDoctrine()->getRepository(Comment::class)->findBy(
+            ['movie' => $movie],
+            ['createdAt' => 'DESC'],
+            $commentsByPage,
+            ($currentPage-1)*$commentsByPage
+        );
+        
+        return [
+            'movieComments' => $movieComments,
+            'usersNote' => $usersNote,
+            'currentPage' => $currentPage,
+            'totalPages' => $totalPages,
+        ];
+    }
+    
     /**
      * @Route("/", name="homepage")
      */
@@ -32,7 +57,9 @@ class MovieController extends Controller
 
         $comment = new Comment();
         $comment->setMovie($movies[$randomNb]);
-
+        
+        $commentsData = $this->indexAndShowAction($request, $movies[$randomNb]);
+        
         if ($user = $this->getUser()) {
             if ($user instanceof User) {
                 $comment->setUser($user);
@@ -60,24 +87,77 @@ class MovieController extends Controller
                     'movie_id' => $movies[$randomNb]->getId()
                 ]
             );
-
-            return $this->redirectToRoute('show_with_comment', [
-            		'id' => $movieOfPreviousForm->getId(),
-            		'comment_id' => $comment->getId(),
-            ]);
+            
+            $url = $this->generateUrl('show', ['id' => $movieOfPreviousForm->getId()]);
+            return $this->redirect($url.'#commentId'.$comment->getId());
         }
         
         // re-création du formulaire avec l'id du nouveau film affiché afin de pouvoir utiliser isValid() plus haut avec le bon id
         $commentForm = $this->createForm('Randomovies\Form\CommentType', $comment, [
-        		'method' => 'POST',
-        		'movie_id' => $movies[$randomNb]->getId(),
+    		'method' => 'POST',
+    		'movie_id' => $movies[$randomNb]->getId(),
         ]);
 		
         // replace this example code with whatever you need
         return $this->render('movie/show.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
             'movie' => $movies[$randomNb],
-            'comment_form' => $commentForm->createView()
+            'comment_form' => $commentForm->createView(),
+            'movie_comments' => $commentsData['movieComments'],
+            'comments_data' => [
+                'usersNote' => $commentsData['usersNote'],
+                'totalPages' => $commentsData['totalPages'],
+                'currentPage' => $commentsData['currentPage'],
+            ],
+        ]);
+    }
+    
+    /**
+     * @Route("/show/{id}", name="show")     
+     */
+    public function showAction(Request $request, Movie $movie)
+    {        
+        $commentsData = $this->indexAndShowAction($request, $movie);        
+        
+        $comment = new Comment();
+        $comment->setMovie($movie);
+        
+        if ($user = $this->getUser()) {
+            if ($user instanceof User) {
+                $comment->setUser($user);
+            }
+        }
+        
+        $commentForm = $this->createForm('Randomovies\Form\CommentType', $comment);
+        $commentForm->handleRequest($request);
+        
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush($comment);
+            
+            $this->get('app.randomovies_mailer')->sendConfirmationCommentMail(
+                    $user->getEmail(),
+                    [
+                            'comment' => $comment->getComment(),
+                            'movie_id' => $movie->getId()
+                    ]
+                    );
+            
+            return $this->redirect(
+                    $this->generateUrl('show', ['id' => $movie->getId()]).'#commentId'.$comment->getId()
+                    );
+        }
+        
+        return $this->render('movie/show.html.twig', [
+            'movie' => $movie,
+            'comment_form' => $commentForm->createView(),
+            'movie_comments' => $commentsData['movieComments'],
+            'comments_data' => [
+                'usersNote' => $commentsData['usersNote'],
+                'totalPages' => $commentsData['totalPages'],
+                'currentPage' => $commentsData['currentPage'],
+            ],
         ]);
     }
 
@@ -120,47 +200,6 @@ class MovieController extends Controller
             'totalPages' => $totalPages,
             'page' => $page,
             'movies' => $movies
-        ]);
-    }
-
-    /**
-     * @Route("/show/{id}", name="show")     
-     */
-    public function showAction(Request $request, Movie $movie)
-    {	
-        $comment = new Comment();
-        $comment->setMovie($movie);
-
-        if ($user = $this->getUser()) {
-            if ($user instanceof User) {
-                $comment->setUser($user);
-            }
-        }
-
-        $commentForm = $this->createForm('Randomovies\Form\CommentType', $comment);
-        $commentForm->handleRequest($request);
-
-        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
-            $em->flush($comment);
-
-            $this->get('app.randomovies_mailer')->sendConfirmationCommentMail(
-                $user->getEmail(),
-                [
-                    'comment' => $comment->getComment(),
-                    'movie_id' => $movie->getId()
-                ]
-            );
-        	
-            return $this->redirect(
-            		$this->generateUrl('show', ['id' => $movie->getId()]).'#commentId'.$comment->getId()
-			);
-        }
-        
-        return $this->render('movie/show.html.twig', [
-            'movie' => $movie,
-            'comment_form' => $commentForm->createView()
         ]);
     }
 

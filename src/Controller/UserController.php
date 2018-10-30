@@ -8,15 +8,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Randomovies\Entity\Comment;
 
 class UserController extends Controller
 {
+    private function getCommentsData(Request $request)
+    {        
+        $totalComments = $this->getDoctrine()->getRepository(Comment::class)->getTotalCommentsForUser($this->getUser()->getId());        
+        
+        $commentsByPage = $this->getParameter('max_comments_by_page');
+        
+        $currentPage = $request->get('cpage') ?? 1;
+        $totalPages = ceil($totalComments / $commentsByPage);
+             
+        $usersComments = $this->getDoctrine()->getRepository(Comment::class)->findBy(
+            ['user' => $this->getUser()],
+            ['createdAt' => 'DESC'],
+            $commentsByPage,
+            ($currentPage-1)*$commentsByPage
+        );
+        
+        return [
+            'userComments' => $usersComments, 
+            'currentPage' => $currentPage,
+            'totalPages' => $totalPages,
+        ];
+    }
+    
     /**
      * @Route("/user", name="user-account")
      */
     public function accountAction(Request $request)
-    {
-        return $this->render('user/account.html.twig');
+    {        
+        return $this->render('user/account.html.twig', $this->getCommentsData($request));
     }
 
     /**
