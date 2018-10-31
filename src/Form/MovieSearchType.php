@@ -11,11 +11,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MovieSearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {        
         $builder
             ->add('title', null, array(
                 'required' => false,
@@ -41,14 +42,8 @@ class MovieSearchType extends AbstractType
                 'widget' => 'single_text',
             ))
             ->add('genre', ChoiceType::class, [
-                'choices' => [
-                    "Tous genres confondus" => "",
-                    Movie::SCIENCE_FICTION => Movie::SCIENCE_FICTION,
-                    Movie::COMEDIE_DRAMATIQUE => Movie::COMEDIE_DRAMATIQUE,
-                    Movie::COMEDIE => Movie::COMEDIE,
-                    Movie::DRAME => Movie::DRAME
-                ],
-                'required' => false
+                'choices' => array_merge(["Tous genres confondus" => "",], $options['genre_options']),
+                'required' => false,
             ])
             ->add('durationFrom', IntegerType::class, [
                 'required' => false,
@@ -74,14 +69,15 @@ class MovieSearchType extends AbstractType
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        parent::setDefaultOptions($resolver);
-        $resolver->setDefaults(array(
+//         parent::setDefaultOptions($resolver);
+        $resolver->setDefaults([
             // avoid to pass the csrf token in the url (but it's not protected anymore)
             'csrf_protection' => false,
-            'data_class' => 'Randomovies\Entity\MovieSearch'
-        ));
+            'data_class' => 'Randomovies\Entity\MovieSearch',
+            'genre_options' => [],
+        ]);                
     }
 
     public function getName()

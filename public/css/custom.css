@@ -66,6 +66,9 @@
   color: gray;
   padding: 0px; }
 
+#main-container-private {
+  background-color: white; }
+
 #main-container .main-row {
   margin: 0px;
   padding: 20px 20px 0px 10px; }
@@ -80,7 +83,8 @@ main {
   margin: 0px; }
 
 #suggestions-bar {
-  margin: 0px 50px 30px;
+  margin: 0px auto 30px;
+  width: 90%;
   box-shadow: 3px 3px 5px #1a1a1a;
   background-color: gray;
   color: #1a1a1a; }
@@ -120,6 +124,23 @@ main {
     background-color: rgba(0, 0, 0, 0);
     color: #2980b9; }
 
+.another-random-movie-button {
+  border: solid 1px #e74c3c;
+  background-color: rgba(255, 255, 255, 0);
+  color: #e74c3c;
+  font-size: 125%;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: block;
+  margin: 0px auto 20px;
+  text-align: center;
+  width: 90%;
+  transition: all 250ms linear; }
+  .another-random-movie-button:hover {
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none; }
+
 #all-movies h2 {
   margin: 20px 0px 20px 10px;
   color: #409ad5;
@@ -144,7 +165,8 @@ main {
 #comments {
   background-color: #9aa4a5;
   color: black;
-  margin: 0px 50px 30px;
+  margin: 0px auto 30px;
+  width: 90%;
   box-shadow: 3px 3px 5px #1a1a1a; }
   #comments .comment-form textarea {
     background-color: white;
@@ -268,9 +290,12 @@ main {
   display: block;
   box-shadow: 3px 3px 10px rgba(200, 200, 200, 0.25); }
 
-.main-movie-synopsis, .main-movie-details, .main-movie-actors, .main-movie-critique {
+.main-movie-title {
   margin-bottom: 40px; }
-  .main-movie-synopsis i, .main-movie-details i, .main-movie-actors i, .main-movie-critique i {
+
+.main-movie-tags, .main-movie-synopsis, .main-movie-details, .main-movie-actors, .main-movie-critique {
+  margin-bottom: 40px; }
+  .main-movie-tags i, .main-movie-synopsis i, .main-movie-details i, .main-movie-actors i, .main-movie-critique i {
     margin-right: 5px; }
 
 .main-movie-infos {
@@ -285,22 +310,21 @@ main {
   height: 30px;
   display: inline-block; }
 
-.another-random-movie-button {
-  border: solid 1px #e74c3c;
-  background-color: rgba(255, 255, 255, 0);
-  color: #e74c3c;
-  font-size: 125%;
+.review {
+  border: solid 1px gray;
+  border-radius: 3px;
   padding: 10px 20px;
-  border-radius: 5px;
-  display: block;
-  margin: 0px auto;
-  text-align: center;
   width: 90%;
-  transition: all 250ms linear; }
-  .another-random-movie-button:hover {
-    background-color: #e74c3c;
-    color: white;
-    text-decoration: none; }
+  margin: 20px auto 0px;
+  box-sizing: border-box;
+  font-size: 110%; }
+  .review .reviewer {
+    font-size: 85%;
+    margin-top: 15px;
+    width: 90%; }
+    .review .reviewer img {
+      width: 100%;
+      border-radius: 50%; }
 
 .suggestion-cover {
   width: 90%; }
@@ -442,6 +466,17 @@ nav {
       color: #bfbfbf; }
       #submenu-categories ul li a:hover {
         text-decoration: underline; }
+
+#admin-body nav {
+  background-color: #a55eea; }
+  #admin-body nav #my-account-menu {
+    background-color: #8c31e4; }
+    #admin-body nav #my-account-menu #account-menu ul li:hover {
+      background-color: #8c31e4; }
+  #admin-body nav #site-title {
+    background-color: #8c31e4; }
+  #admin-body nav #menu ul li:hover {
+    background-color: #8c31e4; }
 
 .custom-pagination {
   display: block;

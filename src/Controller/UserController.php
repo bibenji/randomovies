@@ -16,7 +16,7 @@ class UserController extends Controller
     {        
         $totalComments = $this->getDoctrine()->getRepository(Comment::class)->getTotalCommentsForUser($this->getUser()->getId());        
         
-        $commentsByPage = $this->getParameter('max_comments_by_page');
+        $commentsByPage = $this->getParameter('max_comments_per_page');
         
         $currentPage = $request->get('cpage') ?? 1;
         $totalPages = ceil($totalComments / $commentsByPage);

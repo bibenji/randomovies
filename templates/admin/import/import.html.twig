@@ -3,7 +3,7 @@
 {% block body %}
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 m-3">
 
             <h2>Importer des films</h2>
 			
@@ -12,9 +12,8 @@
 			{{ form_start(form) }}
 			
 			<div class="row">
-				<div class="col-md-6">{{ form_row(form.file) }}</div>
-				<div class="col-md-6">{{ form_row(form.importer) }}</div>
-
+				<div class="col-lg-6 col-md-12">{{ form_row(form.file) }}</div>
+				<div class="col-lg-6 col-md-12">{{ form_row(form.importer) }}</div>
 			</div>
 			
             {{ form_end(form) }}

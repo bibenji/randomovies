@@ -69,7 +69,7 @@ class MovieListener
         }
 
         if (null !== $entity->getDirector()) {
-            $explodedDirectorFullName = explode(' ', $entity->getDirector());
+            $explodedDirectorFullName = explode(' ', trim($entity->getDirector()));
 
             if (count($explodedDirectorFullName) >= 2) {
                 $em = $args->getEntityManager();
@@ -93,12 +93,13 @@ class MovieListener
                 $entity->addRole($role);
             }
         }
-
-        if (null !== $entity->getActors()) {
-            $explodedActors = explode(', ', $entity->getActors());
-
+        
+        dump($entity->getActors(Movie::ACTORS_AS_STRING));
+        if (null !== $entity->getActors(Movie::ACTORS_AS_STRING)) {            
+            $explodedActors = explode(',', $entity->getActors(Movie::ACTORS_AS_STRING));
+            dump($explodedActors);
             foreach ($explodedActors as $actor) {
-                $explodedActorFullName = explode(' ', $actor);
+                $explodedActorFullName = explode(' ', trim($actor));
 
                 if (count($explodedActorFullName) >= 2) {
                     $em = $args->getEntityManager();

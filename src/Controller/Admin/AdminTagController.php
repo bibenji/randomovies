@@ -22,15 +22,25 @@ class AdminTagController extends Controller
      * @Route("/", name="admin_tag_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $tags = $em->getRepository('Randomovies:Tag')->findAll();
-
-        return $this->render('admin/tag/index.html.twig', array(
+        $perPage = $this->getParameter('admin_max_results_per_page');
+        $totalTags = $this->getDoctrine()->getRepository(Tag::class)->getTotalTags();
+        $currentPage = $request->get('page') ?? 1;
+        $totalPages = ceil($totalTags / $perPage);
+        
+        $tags = $this->getDoctrine()->getRepository(Tag::class)->findBy(
+            [],
+            ['name' => 'ASC'],
+            $perPage,
+            ($currentPage-1)*$perPage
+        );
+        
+        return $this->render('admin/tag/index.html.twig', [
             'tags' => $tags,
-        ));
+            'totalPages' => $totalPages,
+            'currentPage' => $currentPage,
+        ]);
     }
 
     /**

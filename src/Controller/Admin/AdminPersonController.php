@@ -22,15 +22,25 @@ class AdminPersonController extends Controller
      * @Route("/", name="admin_person_index")
      * @Method("GET")
      */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $people = $em->getRepository('Randomovies:Person')->findAll();
-
-        return $this->render('admin/person/index.html.twig', array(
+    public function indexAction(Request $request)
+    {        
+        $perPage = $this->getParameter('admin_max_results_per_page');
+        $totalPeople = $this->getDoctrine()->getRepository(Person::class)->getTotalPeople();
+        $currentPage = $request->get('page') ?? 1;
+        $totalPages = ceil($totalPeople / $perPage);
+        
+        $people = $this->getDoctrine()->getRepository(Person::class)->findBy(
+            [],
+            ['lastname' => 'ASC'],
+            $perPage,
+            ($currentPage-1)*$perPage
+        );
+        
+        return $this->render('admin/person/index.html.twig', [
             'people' => $people,
-        ));
+            'totalPages' => $totalPages,
+            'currentPage' => $currentPage,
+        ]);
     }
 
     /**

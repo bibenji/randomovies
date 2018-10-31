@@ -12,6 +12,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Randomovies\Tool\Hoover;
 use Randomovies\Entity\Review;
+use Randomovies\Entity\Suggestion;
 
 /**
  * Movie controller.
@@ -19,21 +20,31 @@ use Randomovies\Entity\Review;
  * @Route("admin/movie")
  */
 class AdminMovieController extends Controller
-{
+{   
     /**
      * Lists all movie entities.
      *
      * @Route("/", name="admin_movie_index")
      * @Method("GET")
      */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $movies = $em->getRepository('Randomovies:Movie')->findAll();
-
+    public function indexAction(Request $request)
+    {   
+        $perPage = $this->getParameter('admin_max_results_per_page');
+        $totalMovies = $this->getDoctrine()->getRepository(Movie::class)->getTotalMovies();
+        $currentPage = $request->get('page') ?? 1;
+        $totalPages = ceil($totalMovies / $perPage);
+        
+        $movies = $this->getDoctrine()->getRepository(Movie::class)->findBy(
+            [],
+            ['title' => 'ASC'],
+            $perPage,
+            ($currentPage-1)*$perPage
+        );               
+        
         return $this->render('admin/movie/index.html.twig', array(
             'movies' => $movies,
+            'totalPages' => $totalPages,
+            'currentPage' => $currentPage,
         ));
     }
 
@@ -41,6 +52,7 @@ class AdminMovieController extends Controller
      * Creates a new movie entity.
      *
      * @Route("/new", name="admin_movie_new")
+     * @Route("/new/suggestion/{id}", name="admin_movie_new_with_suggestion")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, Suggestion $suggestion = NULL)
@@ -74,7 +86,8 @@ class AdminMovieController extends Controller
         			$this->addFlash('danger', 'Une erreur s\'est produite : '.$e->getMessage());        			
         		}
         	} elseif ($form->isValid()) {
-        		if ($file = $movie->getPoster()) {
+        		
+        	    if ($file = $movie->getPoster()) {
         			$fileName = md5(uniqid()).'.'.$file->guessExtension();
         			$file->move(
         				$this->getParameter('posters_directory'),
@@ -84,10 +97,11 @@ class AdminMovieController extends Controller
         		}
         		
         		$em = $this->getDoctrine()->getManager();
-        		$em->persist($movie);
+        		$em->persist($movie);        		
         		$em->flush();
         		
-        		return $this->redirectToRoute('admin_movie_index', array('id' => $movie->getId()));        		
+        		return $this->redirectToRoute('admin_movie_index', array('id' => $movie->getId()));
+        		
         	}			
         }
 

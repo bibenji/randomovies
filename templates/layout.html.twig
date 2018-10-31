@@ -15,7 +15,7 @@
         {% block stylesheets %}{% endblock %}
 	</head>
 
-	<body id="home-body">		
+	<body id="{% block body_id %}home-body{% endblock %}">		
 		
 		{% for label, messages in app.flashes(['danger', 'success', 'warning']) %}
 			<div id="layout-alert-container">
@@ -73,7 +73,7 @@
 											<a href="{{ path('admin-import') }}">Admin Import</a>
 										</li>
 										<li>
-											<a href="{{ path('easyadmin') }}">Admin Users And Comments</a>
+											<a href="{{ path('easyadmin') }}">Easyadmin</a>
 										</li>
 										{% endif %}
 									</ul>
@@ -84,7 +84,7 @@
 				</div>
 			</div>
 
-			<div id="main-container" class="col-xl-9 col-lg-8">
+			<div id="{% block main_id %}main-container{% endblock %}" class="col-xl-9 col-lg-8">
 
                 {% block body %}{% endblock %}
 

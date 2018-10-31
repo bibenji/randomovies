@@ -27,5 +27,14 @@ class AdminController extends BaseAdminController
 	{
 		return $this->get('security.password_encoder')->encodePassword($user, $user->getPlainPassword());		
 		
-	}	    
+	}
+	
+	public function createAction()
+	{
+	    $suggestionId = $this->request->query->get('id');
+	    
+	    return $this->redirectToRoute('admin_movie_new_with_suggestion', [
+            'id' => $suggestionId,	            
+	    ]);
+	}
 }

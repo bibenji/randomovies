@@ -1,10 +1,10 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}RandoMovies{% endblock %}
+{% block title %}RandoMovies - {{ movie.title }}{% endblock %}
 
 {% block body %}
 	<div class="row main-row">
-		<div class="col-xl-5 col-lg-6 col-md-12">			
+		<div class="col-xl-5 col-lg-12">			
             {% if movie.poster != "" %}
 				<a href="/images/posters/{{ movie.poster }}" target="_blank">
 					<img class="main-movie-cover" src="{{ asset('images/posters/medium/' ~ movie.poster) }}" />
@@ -13,31 +13,32 @@
             {% endif %}            
 		</div>
 		
-		<div class="col-xl-7 col-lg-6 col-md-12">			
+		<div class="col-xl-7 col-lg-12">			
 			<div class="main-movie-infos">
 			
 				<div class="row">								
 					<div class="main-movie-title col-xl-8 col-lg-12">
 						<h2>
 							{{ movie.title }} {% if is_granted('ROLE_CONTRIBUTOR') %}<a class="btn btn-outline-secondary" href="{{ path('admin_movie_edit', { 'id': movie.id }) }}">edit</a>{% endif %}
-						</h2>
+						</h2>						
+						{% if movie.suggestion %}Film suggéré par {{ movie.suggestion.user.username }}{% endif %}						
 					</div>
 					
 					<div class="main-movie-stars col-xl-4 col-lg-12">
 	                    {% for i in 1..movie.rating %}
 							<img src="/images/yellow-star.png" />
 	                    {% endfor %}
-					</div>				
-				
+					</div>
+
 					<div class="main-movie-tags col-lg-12">
 						{% if movie.tags|length > 0 %}
 							<h4><i class="fas fa-play"></i> Tags</h4>
-							<p>
+							<div class="text-center">
 								{% set totalTags = movie.tags|length %}
 								{% for index, tag in movie.tags %}
-									{{ tag.name }}{% if index+1 < totalTags %}, {% endif %}
+									<h5><span class="badge badge-light">{{ tag.name }}</span></h5>
 								{% endfor %}
-							</p>	
+							</div>	
 						{% endif %}					
 					</div>
 					
@@ -85,59 +86,72 @@
 					<div class="main-movie-actors col-lg-12">						
 						<h4><i class="fas fa-play"></i> Actors</h4>		
 						<p>
-	                        {% for role in movie.roles %}
-	                            {% if role.role == "actor" %}
-	                                {{ role.person.fullname }},&nbsp
-	                            {% endif %}
+							{% set actors = movie.roles('actor') %}
+	                        {% for index, role in actors %}	                            
+                            	<a href="{{ path('show_actor', {'id': role.person.id}) }}">{{ role.person.fullname }}</a>{% if index+1 < actors|length %},&nbsp{% endif %}	                            
 	                        {% endfor %}
                         </p>
 					</div>
-
+					
 					<div class="main-movie-critique col-lg-12">
-						<h4><i class="fas fa-play"></i> Critique</h4>
-						<p>
-	                        {{ movie.review }}
-						</p>
+						<h4><i class="fas fa-play"></i> Critique(s)</h4>						
+						{% set allReviews = [movie.review]|merge(movie.otherReviews) %}
+						{% for review in allReviews %}
+							<div class="review">
+								<div>
+									<div class="float-right">{{ review.rating }} / 5</div>
+		                        	{{ review.review }}
+								</div>
+								<div class="row reviewer">
+									<div class="text-center col-xl-2 col-lg-4">
+										<img src="{{ review.user.photo ? asset('images/users/photos/small/' ~ review.user.photo) : "/images/my-profile.png" }}" />
+										{{ review.user.username }}
+									</div>
+									<div class="col-xl-10 col-lg-8">
+										{{ review.user.description }}
+									</div>
+								</div>
+							</div>						
+						{% endfor %}
 					</div>
 					
-					<a href="{{ path('homepage') }}" class="another-random-movie-button">
-						Un Autre Film Au Hasard
-					</a>
+					<div class="col-lg-12">
+						<a href="{{ path('homepage') }}" class="another-random-movie-button">
+							Un Autre Film Au Hasard
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<br />
+	
 	<br />
 
 	<div id="suggestions-bar" class="row">
+		
 		<div class="col-sm-12">
 			<h3 class="text-center">Vous Aimerez Peut-Être Aussi</h3>
 		</div>
 		
 		<div class="col-sm-12">
-		<div class="row">
-			
-        {% for index, rando in fourRandoMovies %}
-            {% if index != 4 %}
-                {% if movie is defined %}
-                    {%  if rando.id != movie.id %}
-						<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 one-suggestion">
-							<a href="{{ path('show', { 'id' : rando.id }) }}">
-								<img class="suggestion-cover" src="{{ asset('images/posters/small/' ~ rando.poster) }}" />
-								<p>{{ rando.title }}</p>
-								<small>{{ rando.genre }}, {{ rando.year }}, {{ rando.duration }} min</small>
-							</a>
-						</div>
-                    {% endif %}
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-        
-        </div>
-        </div>
-        
+			<div class="row">			
+		        {% for index, rando in fourRandoMovies %}
+		            {% if index != 4 %}
+		                {% if movie is defined %}
+		                    {%  if rando.id != movie.id %}
+								<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 one-suggestion">
+									<a href="{{ path('show', { 'id' : rando.id }) }}">
+										<img class="suggestion-cover" src="{{ asset('images/posters/small/' ~ rando.poster) }}" />
+										<p>{{ rando.title }}</p>
+										<small>{{ rando.genre }}, {{ rando.year }}, {{ rando.duration }} min</small>
+									</a>
+								</div>
+		                    {% endif %}
+		                {% endif %}
+		            {% endif %}
+		        {% endfor %}	        
+	        </div>
+        </div>        
 	</div>
 	
     {% if app.user %}

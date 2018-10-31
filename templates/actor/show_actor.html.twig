@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}RandoMovies - Home{% endblock %}
+{% block title %}RandoMovies - Fiche acteur - {{ actor.fullname }}{% endblock %}
 
 {% block body %}
 
@@ -12,7 +12,7 @@
 		</div>
 		<div class="col-md-7">
 			<h2>
-				{{ actor.getFullName() }} {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-outline-primary" href="{{ path('admin_person_edit', { 'id': actor.id }) }}">edit</a>{% endif %}
+				{{ actor.getFullName() }} {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-outline-secondary" href="{{ path('admin_person_edit', { 'id': actor.id }) }}">edit</a>{% endif %}
 			</h2>
 
 			<h4>Infos</h4>
