@@ -21,4 +21,15 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
             ;
     }
+    
+    public function getTotalPeople()
+    {
+        return $this->getEntityManager()
+        ->createQueryBuilder()
+        ->select('COUNT(p)')
+        ->from('Randomovies:Person', 'p')
+        ->getQuery()
+        ->getSingleScalarResult()
+        ;
+    }
 }

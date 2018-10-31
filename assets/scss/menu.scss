@@ -153,3 +153,38 @@ nav {
 		}
 	}
 }
+
+#admin-body {
+	nav {
+		background-color: $adminPrimaryColor;
+		
+		#my-account-menu {
+			background-color: darken($adminPrimaryColor, 10%);
+			
+			#account-menu {
+						
+				ul {	
+					li {					
+						&:hover {
+							background-color: darken($adminPrimaryColor, 10%);
+						}
+					}
+				}
+			}
+		}
+		
+		#site-title {
+			background-color: darken($adminPrimaryColor, 10%);
+		}
+		
+		#menu {
+			ul {		
+				li {			
+					&:hover {
+						background-color: darken($adminPrimaryColor, 10%);
+					}
+				}
+			}
+		}
+	}
+}

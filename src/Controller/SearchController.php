@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Randomovies\Entity\MovieSearch;
 use Randomovies\Tool\{ETLParamsBuilder, Query, BoolBuilder};
+use Randomovies\Form\MovieSearchType;
+use Randomovies\Entity\Movie;
 
 class SearchController extends Controller
 {
@@ -16,17 +18,13 @@ class SearchController extends Controller
     public function searchAction(Request $request)
     {
         $movieSearch = new MovieSearch();
-
-        $movieSearchForm = $this->get('form.factory')
-            ->createNamed(
-                '',
-                'Randomovies\Form\MovieSearchType',
-                $movieSearch,
-                [
-                    'action' => $this->generateUrl('search'),
-                    'method' => 'POST'
-                ]
-            );
+        
+        $genreOptions = array_map(function($elem) { return $elem['genre']; }, $this->getDoctrine()->getRepository(Movie::class)->getDistinctCategories());        
+        $genreOptions = array_combine($genreOptions, $genreOptions);
+        
+        $movieSearchForm = $this->createForm(MovieSearchType::class, $movieSearch, [
+            'genre_options' => $genreOptions,            
+        ]);        
 
         $movieSearchForm->handleRequest($request);
         $movieSearch = $movieSearchForm->getData();

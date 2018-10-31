@@ -22,5 +22,16 @@ class TagRepository extends \Doctrine\ORM\EntityRepository
 			->getQuery()
 			->getResult()			
 		;
+	}	
+	
+	public function getTotalTags()
+	{
+	    return $this->getEntityManager()
+	        ->createQueryBuilder()
+	        ->select('COUNT(t)')
+	        ->from('Randomovies:Tag', 't')
+            ->getQuery()
+            ->getSingleScalarResult()
+	    ;
 	}
 }

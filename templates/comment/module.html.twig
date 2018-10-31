@@ -37,12 +37,14 @@
                 {% endif %}
             </div>
         {% endfor %}
-        
-        <div class="text-center">
-	        {% for pageNumber in 1..comments_data.totalPages %}				
-				<a {{ comments_data.currentPage == pageNumber ? 'class=active' : 'href=?cpage=' ~ pageNumber ~ '#comments-title' }}>{{ pageNumber }}</a>{% if pageNumber < comments_data.totalPages %} - {% endif %}				
-			{% endfor %}
-		</div>
+                
+    	{% if comments_data.totalPages > 1 %}
+    		<div class="text-center">     	
+		        {% for pageNumber in 1..comments_data.totalPages %}				
+					<a {{ comments_data.currentPage == pageNumber ? 'class=active' : 'href=?cpage=' ~ pageNumber ~ '#comments-title' }}>{{ pageNumber }}</a>{% if pageNumber < comments_data.totalPages %} - {% endif %}				
+				{% endfor %}
+			</div>
+		{% endif %}		
 		
 		<br />
         

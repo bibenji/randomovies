@@ -14,11 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Movie
 {
-    const SCIENCE_FICTION = "Science-fiction";
-    const COMEDIE_DRAMATIQUE = "Comédie dramatique";
-    const COMEDIE = "Comédie";
-    const ANTICIPATION = "Anticipation";
-    const DRAME = "Drame";
+    const ACTORS_AS_STRING = TRUE;
 
     /**
      * @var int
@@ -222,16 +218,16 @@ class Movie
      *
      * @return string
      */
-    public function getActors()
-    {
-    	if (!$this->roles->isEmpty()) {
+    public function getActors($asString = FALSE)
+    {        
+    	if (!$asString && !$this->roles->isEmpty()) {
     		$actors = [];
     		foreach ($this->roles as $role) {    			
     			if (Role::ROLE_ACTOR === $role->getRole()) {
     				$actors[] = $role->getPerson()->getFullname();
     			}
     		}
-    		return implode(',', $actors);
+    		return implode(', ', $actors);
     	}
         return $this->actors;
     }
@@ -331,10 +327,21 @@ class Movie
     {
     	foreach ($this->reviews as $review) {
     		if ($review->isMain()) {
-    			return $review->getReview();
+    			return $review;
     		}
     	}
-    }    
+    }
+    
+    public function getOtherReviews()
+    {
+        $reviews = [];
+        foreach ($this->reviews as $review) {
+            if (!$review->isMain()) {
+                $reviews[] = $review;
+            }
+        }
+        return $reviews;        
+    }
     
     /**
      * @param Review $review
@@ -343,7 +350,7 @@ class Movie
     public function addReview(Review $review)
     {
     	$review->setMovie($this);
-    	//        $this->roles[] = $role;
+//         $this->roles[] = $role;
     	$this->reviews->add($review);
     	return $this;
     }
@@ -440,9 +447,18 @@ class Movie
     /**
      * @return ArrayCollection
      */
-    public function getRoles()
-    {
-        return $this->roles;
+    public function getRoles($roleRole = NULL)
+    {           
+        if ($roleRole === Role::ROLE_ACTOR || $roleRole === Role::ROLE_REALISATOR) {
+            $roles = [];
+            foreach ($this->roles  as $role) {
+                if ($roleRole === $role->getRole()) $roles[] = $role;
+            }
+        } else {
+            $roles = $this->roles;
+        }
+
+        return $roles;
     }
 
     public function setRoles($roles)

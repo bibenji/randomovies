@@ -16,7 +16,7 @@ class MovieController extends Controller
         $commentsData = $this->getDoctrine()->getRepository(Comment::class)->getCommentsData($movie->getId());
         $totalComments = $commentsData[0]['totalComments'];
         $usersNote = round($commentsData[0]['usersNote']);
-        $commentsByPage = $this->getParameter('max_comments_by_page');
+        $commentsByPage = $this->getParameter('max_comments_per_page');
         
         $currentPage = $request->get('cpage') ?? 1;
         $totalPages = ceil($totalComments / $commentsByPage);
@@ -190,8 +190,8 @@ class MovieController extends Controller
 
         $movies = $this->getDoctrine()->getRepository('Randomovies:Movie')
             ->getOrderedMoviesByTitle(
-                ($page-1)*$this->getParameter('max_results_by_page'),
-                $this->getParameter('max_results_by_page'),
+                ($page-1)*$this->getParameter('max_movies_per_page'),
+                $this->getParameter('max_movies_per_page'),
                 $moviesQueryParams
             );
 

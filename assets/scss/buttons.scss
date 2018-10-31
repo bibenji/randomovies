@@ -21,3 +21,23 @@
 		color: $primaryColor;
 	}
 }
+
+.another-random-movie-button {
+	border: solid 1px $secondaryColor;
+	background-color: rgba(255,255,255,0);
+	color: $secondaryColor;
+	font-size: 125%;
+	padding: 10px 20px;
+	border-radius: 5px;	
+	display: block;
+	margin: 0px auto 20px;
+	text-align: center;
+	width: 90%;
+	transition: all 250ms linear;	
+	
+	&:hover {
+		background-color: $secondaryColor;
+		color: white;
+		text-decoration: none;		
+	}
+}

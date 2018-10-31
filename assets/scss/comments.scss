@@ -3,7 +3,8 @@
 #comments {
 	background-color: lighten($grey, 10%);
 	color: black;
-	margin: 0px 50px 30px;
+	margin: 0px auto 30px;
+	width: 90%;
 	box-shadow: 3px 3px 5px lighten(black, 10%);
 	
 	.comment-form textarea {

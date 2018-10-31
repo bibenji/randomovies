@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Admin - Movies List{% endblock %}
+{% block title %}Randomovies - Mon compte{% endblock %}
+{% block main_id %}main-container-private{% endblock %}
 
 {% block body %}
 
@@ -25,8 +26,8 @@
                 {% for comment in userComments %}
                     <li id="commentId{{ comment.id }}" class="list-group-item">
                         <div class="float-right">&nbsp;
-                            <a href="{{ path('comment-edit', { 'id': comment.id }) }}" class="btn btn-warning">Edit</a>
-                            <a href="{{ path('comment-delete', { 'id': comment.id }) }}" class="btn btn-danger">Delete</a>
+                            <a href="{{ path('comment-edit', { 'id': comment.id }) }}" class="btn btn-warning">Editer</a>
+                            <a href="{{ path('comment-delete', { 'id': comment.id }) }}" class="btn btn-danger">Supprimer</a>
                         </div>
                         {{ comment.updatedAt|date('d/m/Y à H:m') }}<br />
                         <a href="{{ path('show', {'id': comment.movie.id}) }}">
@@ -38,11 +39,13 @@
                 {% endfor %}
             </ul>
             
-             <div class="text-center">
-	        	{% for pageNumber in 1..totalPages %}				
-					<a {{ currentPage == pageNumber ? 'class=active' : 'href=?cpage=' ~ pageNumber }}>{{ pageNumber }}</a>{% if pageNumber < totalPages %} - {% endif %}				
-				{% endfor %}
-			</div>
+            {% if totalPages > 1 %}
+	            <div class="text-center">
+		        	{% for pageNumber in 1..totalPages %}				
+						<a {{ currentPage == pageNumber ? 'class=active' : 'href=?cpage=' ~ pageNumber }}>{{ pageNumber }}</a>{% if pageNumber < totalPages %} - {% endif %}				
+					{% endfor %}
+				</div>
+			{% endif %}
             
         </div>
 
