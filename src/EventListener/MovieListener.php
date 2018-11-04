@@ -93,11 +93,10 @@ class MovieListener
                 $entity->addRole($role);
             }
         }
-        
-        dump($entity->getActors(Movie::ACTORS_AS_STRING));
+                
         if (null !== $entity->getActors(Movie::ACTORS_AS_STRING)) {            
             $explodedActors = explode(',', $entity->getActors(Movie::ACTORS_AS_STRING));
-            dump($explodedActors);
+        
             foreach ($explodedActors as $actor) {
                 $explodedActorFullName = explode(' ', trim($actor));
 

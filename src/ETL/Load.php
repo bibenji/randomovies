@@ -102,12 +102,11 @@ class Load
     	$id = $user['id'];
     	unset($user['id']);
     	$params = [
-    			'index' => $this->client->getIndexForUsers(),
-    			'type' => self::USER_TYPE,
-    			'id' => $id,
-    			'body' => $user,
-    	];
-    	dump($params);
+			'index' => $this->client->getIndexForUsers(),
+			'type' => self::USER_TYPE,
+			'id' => $id,
+			'body' => $user,
+    	];    	
     	$this->client->index($params);    	
     }
     
@@ -117,9 +116,9 @@ class Load
     public function deleteUser($userId)
     {
     	$params = [
-    			'index' => $this->client->getIndexForUsers(),
-    			'type' => self::USER_TYPE,
-    			'id' => $userType,
+			'index' => $this->client->getIndexForUsers(),
+			'type' => self::USER_TYPE,
+			'id' => $userType,
     	];
     	
     	$this->client->delete($params);
@@ -144,11 +143,11 @@ class Load
     			}
     			
     			$params['body'][] = [
-    					'index' => [
-    							'_index' => $this->client->getIndexForUsers(),
-    							'_type' => self::USER_TYPE,
-    							'_id' => $id,
-    					],
+					'index' => [
+						'_index' => $this->client->getIndexForUsers(),
+						'_type' => self::USER_TYPE,
+						'_id' => $id,
+					],
     			];
     			
     			$params['body'][] = $user;
@@ -161,9 +160,9 @@ class Load
     public function searchUserWithParams($params)
     {
     	return $this->client->search([
-    			'index' => $this->client->getIndexForUsers(),
-    			'type' => self::USER_TYPE,
-    			'body' => $params,
+			'index' => $this->client->getIndexForUsers(),
+			'type' => self::USER_TYPE,
+			'body' => $params,
     	]);
     }
 }
