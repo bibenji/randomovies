@@ -12,9 +12,13 @@ use Randomovies\ETL\Transform;
 use Randomovies\ETL\Load;
 use Randomovies\ETL\Extract;
 use Monolog\Logger;
+use Randomovies\Entity\Comment;
 
 class ETLSubscriber implements EventSubscriber
 {   
+    const ETL_INDEX_MOVIES = 'Movies';
+    const ETL_INDEX_USERS = 'Users';
+    
     /**     
      * @var Logger
      */
@@ -53,24 +57,33 @@ class ETLSubscriber implements EventSubscriber
     }
 
     public function postUpdate(LifecycleEventArgs $args)
-    {        
+    {
         if ($args->getObject() instanceof Movie) {
-            $this->index($args);
+            $this->index($args, self::ETL_INDEX_MOVIES);
+        }
+        
+        if ($args->getObject() instanceof Comment) {
+            $this->index($args, self::ETL_INDEX_USERS);
         }
     }
 
     public function postPersist(LifecycleEventArgs $args)
     {        
-        if ($args->getObject() instanceof Movie) {            
-            $this->index($args);
+        if ($args->getObject() instanceof Movie) {
+            $this->index($args, self::ETL_INDEX_MOVIES);
+        }
+        
+        if ($args->getObject() instanceof Comment) {
+            $this->index($args, self::ETL_INDEX_USERS);
         }
     }
 
-    private function index(LifecycleEventArgs $args)
-    {
+    private function index(LifecycleEventArgs $args, $ETLIndex)
+    {        
         $extract = new Extract($args->getObjectManager());
-        $this->etl->setExtract($extract);        
-        $this->etl->launch('Movies', $args->getObject());
+        $this->etl->setExtract($extract);
+        $object = $args->getObject() instanceof Movie ? $args->getObject() : $args->getObject()->getUser();
+        $this->etl->launch($ETLIndex, $object);
     }
     
     public function postRemove(LifecycleEventArgs $args)
@@ -87,6 +100,10 @@ class ETLSubscriber implements EventSubscriber
                         'message' => $e->getMessage(),
                 ]);
             }
+        }
+        
+        if ($args->getObject() instanceof Comment) {
+            $this->index($args->getObject()->getUser(), self::ETL_INDEX_USERS);
         }
     }
 }

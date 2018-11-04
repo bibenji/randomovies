@@ -1,0 +1,35 @@
+easy_admin:
+    design:
+        brand_color: '#a55eea'
+    entities:
+        User:
+            class: Randomovies\Entity\User
+            form:
+                fields:
+                    - username
+                    - firstname
+                    - lastname
+                    - birthdate                    
+                    - email
+                    - roles
+                    - isActive
+                    - plainPassword
+        Review:
+            class: Randomovies\Entity\Review
+            list:                
+                fields: ['id', 'movie.title', 'user.username', 'rating', 'review', 'createdAt', 'main']
+            form:
+                fields: ['rating', 'review', 'main']        
+        Comment:
+            class: Randomovies\Entity\Comment
+            list:                
+                fields: ['id', 'createdAt', 'movie.title', 'user.username', 'comment', 'note']
+            form:
+                fields: ['comment', 'note']
+        Suggestion:
+            class: Randomovies\Entity\Suggestion
+            list:
+                actions: ['create']
+                fields: ['id', 'movieTitle', 'user.username', 'suggestedAt', 'treatedAt']                
+            form:
+                fields: ['treatedAt']
