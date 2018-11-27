@@ -181,7 +181,7 @@ class MovieController extends Controller
 
         $totalMovies = $this->getDoctrine()->getRepository('Randomovies:Movie')->getTotalMovies($moviesQueryParams);
         
-        $totalPages = (int) ceil($totalMovies / 6);
+        $totalPages = (int) ceil($totalMovies / $this->getParameter('max_movies_per_page'));
         $totalPages = $totalPages !== 0 ? $totalPages : 1;
 
         $page = $request->query->has('page') ? $request->query->get('page') : 1;
@@ -212,7 +212,8 @@ class MovieController extends Controller
             'comedie-dramatique' => 'Comédie dramatique',
             'comedie' => 'Comédie',
             'anticipation' => 'Anticipation',
-            'thriller' => 'Thriller'
+            'thriller' => 'Thriller',
+            'policier' => 'Policier',                
         ];
 
         return $categoriesConversion[$category];
