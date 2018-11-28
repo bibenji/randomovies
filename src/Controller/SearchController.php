@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Randomovies\Entity\MovieSearch;
-use Randomovies\Tool\{ETLParamsBuilder, Query, BoolBuilder};
+use Randomovies\Tool\{ETLParamsBuilder, Query, BoolBuilder, ShouldBuilder};
 use Randomovies\Form\MovieSearchType;
 use Randomovies\Entity\Movie;
 
@@ -18,6 +18,10 @@ class SearchController extends Controller
     public function searchAction(Request $request)
     {
         $movieSearch = new MovieSearch();
+        
+        if ($request->request->get('title')) {
+            $movieSearch->setTitle($request->request->get('title'));
+        }
         
         $genreOptions = array_map(function($elem) { return $elem['genre']; }, $this->getDoctrine()->getRepository(Movie::class)->getDistinctCategories());        
         $genreOptions = array_combine($genreOptions, $genreOptions);
@@ -55,17 +59,19 @@ class SearchController extends Controller
     	$bool = new BoolBuilder();
     	
     	if (null !== $movieSearch->getTitle()) {
-    		$bool->addMust(['term' => ['title' => $movieSearch->getTitle()]]);    		
+    	    $bool->addMust(['term' => ['title' => $movieSearch->getTitle()]]);    		
     	}
     	
     	if (null !== $movieSearch->getGenre() && '' !== $movieSearch->getGenre()) {
-    		$bool->addMust(['term' => ['genre.keyword' => $movieSearch->getGenre()]]);
+    	    $bool->addMust(['term' => ['genre.keyword' => $movieSearch->getGenre()]]);
     	}
     	
     	if (null !== $movieSearch->getKeyWords()) {
-    		$bool->addShould(['match' => ['title' => $movieSearch->getKeyWords()]]);
-    		$bool->addShould(['match' => ['director' => $movieSearch->getKeyWords()]]);
-    		$bool->addShould(['match' => ['actors' => $movieSearch->getKeyWords()]]);
+    	    $should = new ShouldBuilder();
+    	    $should->addTerm(['title' => $movieSearch->getKeyWords()]);
+    	    $should->addTerm(['director' => $movieSearch->getKeyWords()]);
+    	    $should->addTerm(['actors' => $movieSearch->getKeyWords()]);
+    	    $bool->addShould($should);
     	}
     	
     	$today = new \DateTime();
@@ -85,7 +91,7 @@ class SearchController extends Controller
     	$query->addBool($bool);    	
     	$builder->addSize(10);
     	$builder->addQuery($query);
-    	
+    	    	
     	$result = $etlClient->search($builder->getParams());    	
         
     	$ids = [];    	
