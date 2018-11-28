@@ -72,7 +72,7 @@ class SearchController extends Controller
     	$currentYear = $today->format('Y');
     	$yearFrom = $movieSearch->getYearFrom()->format('Y') ?? 1900;
     	$yearTo = $movieSearch->getYearTo()->format('Y') ?? $currentYear;
-    	$bool->addMust(['range' => ['year' => ['gt' => $yearFrom, 'lt' => $yearTo]]]);
+    	$bool->addMust(['range' => ['year' => ['gt' => $yearFrom, 'lte' => $yearTo]]]);
     	
     	$durationFrom = $movieSearch->getDurationFrom() ?? 0;
     	$durationTo = $movieSearch->getDurationTo() ?? 600;
@@ -80,7 +80,7 @@ class SearchController extends Controller
     	
     	$ratingMin = $movieSearch->getRatedMin() ?? 1;
     	$ratingMax = $movieSearch->getRatedMax() ?? 5;
-    	$bool->addMust(['range' => ['rating' => ['gt' => $ratingMin, 'lt' => $ratingMax]]]);
+    	$bool->addMust(['range' => ['rating' => ['gte' => $ratingMin, 'lte' => $ratingMax]]]);
     	
     	$query->addBool($bool);    	
     	$builder->addSize(10);

@@ -99,6 +99,18 @@
 
 		<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
 		<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+		
+		<script>
+			// pour fermer le menu sur mobile	
+			$(function() {
+				$("#menu-list-container ul li:last-of-type").click(function() {					
+   					$("#menu-list-container ul li:not(:first-of-type)").hide();   					
+   					setTimeout(function() {
+   						$("#menu-list-container ul li").removeAttr('style');
+   					}, 500);
+				});		
+			});
+		</script>
 
 		{% block javascripts %}{% endblock %}
 	</body>
