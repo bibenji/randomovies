@@ -7,7 +7,7 @@ class BaseETLParamsBuilder
 	protected $params = [];
 	
 	public function getParams($json = FALSE)
-	{	
+	{	    
 		if ($json) {
 			return json_encode($this->params);
 		}
@@ -45,15 +45,10 @@ class ETLParamsBuilder extends BaseETLParamsBuilder
 }
 
 class Query extends BaseETLParamsBuilder
-{
-	public function addTerms(array $terms)
+{	
+	public function addBool(BoolBuilder $boolBuilder)
 	{
-		$this->params['terms'] = $terms;
-	}
-	
-	public function addBool(BoolBuilder $bool)
-	{
-		$this->params['bool'] = $bool->getParams();		
+	    $this->params['bool'] = $boolBuilder->getParams();		
 	}
 }
 
@@ -69,8 +64,16 @@ class BoolBuilder extends BaseETLParamsBuilder
 		$this->params['must_not'][] = $mustNot;
 	}
 	
-	public function addShould(array $should)
+	public function addShould(ShouldBuilder $shouldBuilder)
 	{
-		$this->params['should'][] = $should;
+	    $this->params['must'][]['bool']['should'] = $shouldBuilder->getParams();
 	}
+}
+
+class ShouldBuilder extends BaseETLParamsBuilder
+{
+    public function addTerm(array $term)
+    {
+        $this->params[]['term'] = $term;
+    }
 }

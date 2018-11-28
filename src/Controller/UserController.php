@@ -63,7 +63,7 @@ class UserController extends Controller
 
             if ($file = $request->files->get('account')['avatar']) {
 
-                if (null != $user->getPhoto()) {
+                if (null != $user->getPhoto() && file_exists($user->getPhoto())) {
                     unlink($this->getParameter('users_photos_directory').'/'.$user->getPhoto());
                     unlink($this->getParameter('users_photos_directory').'/medium/'.$user->getPhoto());
                     unlink($this->getParameter('users_photos_directory').'/small/'.$user->getPhoto());
