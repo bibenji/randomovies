@@ -17,13 +17,15 @@ class PasswordForgottenType extends AbstractType
             ->add('email', EmailType::class)
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-success',
-                ]
+                    'class' => 'btn btn-primary',
+                ],
+                'label' => 'Soumettre',
             ])
             ->add('reset', ResetType::class, [
                 'attr' => [
                     'class' => 'btn btn-warning',
-                ]
+                ],
+                'label' => 'Réinitialiser',
             ])
         ;
     }

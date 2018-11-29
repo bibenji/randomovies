@@ -1,6 +1,10 @@
 @import 'colors';
 @import 'fonts';
 
+body {
+	overflow-x: hidden;
+}
+
 // flash messages
 
 #layout-alert-container {

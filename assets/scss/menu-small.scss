@@ -1,4 +1,77 @@
-@media screen and (max-width: 1200px) {
+@import 'colors';
+
+#small-menu {
+	display: none;
+}
+
+@media screen and (max-width: 576px) {
+	#menu, #my-account-menu {
+		display: none;
+	}
+	
+	#small-menu {
+		display: block;
+		width: 100%;
+		
+		img {
+			height: 40px;
+			width: 40px;
+			border-radius: 50%;
+		}
+		
+		ul {
+			margin: 0px;
+			padding: 0px;
+			
+			li {
+				display: none;			
+				text-align: center;			
+				padding: 0px;	
+				line-height: 75px;
+				padding: 0px;
+				margin-right: 0px;
+				
+				&:hover {
+					background-color: lighten($primaryColor, 10%);
+					cursor: pointer;
+				}
+				
+				a {
+					display: block;
+					text-decoration: none;
+					color: white;
+				}
+				
+				&.active {			
+					background-color: lighten($primaryColor, 10%); 
+				}
+				
+				&:first-of-type {
+					border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+					display: block;
+				}
+				
+				&:last-of-type {
+					border-top: 1px solid rgba(255, 255, 255, 0.5);
+					line-height: 40px;			
+				}
+				
+				&.separator {
+					border-top: 1px solid rgba(255, 255, 255, 0.5);
+					border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+					padding: 5px 0px;
+					background-color: $tertiaryColor;
+				}
+			}
+			
+			&.hovered li {
+				display: block;
+			}			
+		}
+	}
+}
+
+@media screen and (min-width: 577px) and (max-width: 1200px) {
 	nav {
 		#menu {
 			#menu-list-container {
