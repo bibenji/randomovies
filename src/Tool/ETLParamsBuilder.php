@@ -46,6 +46,11 @@ class ETLParamsBuilder extends BaseETLParamsBuilder
 
 class Query extends BaseETLParamsBuilder
 {	
+    public function addTerms(array $terms)
+    {
+        $this->params['terms'] = $terms;
+    }
+    
 	public function addBool(BoolBuilder $boolBuilder)
 	{
 	    $this->params['bool'] = $boolBuilder->getParams();		
