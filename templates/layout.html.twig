@@ -102,13 +102,18 @@
 		
 		<script>
 			// pour fermer le menu sur mobile	
-			$(function() {
-				$("#menu-list-container ul li:last-of-type").click(function() {					
-   					$("#menu-list-container ul li:not(:first-of-type)").hide();   					
-   					setTimeout(function() {
-   						$("#menu-list-container ul li").removeAttr('style');
-   					}, 500);
-				});		
+			$(function() {				
+				function addHovered() {					
+					$('#small-menu ul').addClass('hovered');
+				}
+				
+				function removeHovered() {
+					$('#small-menu ul').removeClass('hovered');
+				}
+			
+				$("#small-menu ul").mouseover(addHovered).mouseout(removeHovered);				
+				$("#small-menu ul li:first-of-type").click(addHovered);
+				$("#small-menu ul li:last-of-type").click(removeHovered);
 			});
 		</script>
 

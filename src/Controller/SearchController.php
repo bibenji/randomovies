@@ -59,7 +59,7 @@ class SearchController extends Controller
     	$bool = new BoolBuilder();
     	
     	if (null !== $movieSearch->getTitle()) {
-    	    $bool->addMust(['term' => ['title' => $movieSearch->getTitle()]]);    		
+    	    $bool->addMust(['term' => ['title' => strtolower($movieSearch->getTitle())]]);    		
     	}
     	
     	if (null !== $movieSearch->getGenre() && '' !== $movieSearch->getGenre()) {
@@ -68,9 +68,9 @@ class SearchController extends Controller
     	
     	if (null !== $movieSearch->getKeyWords()) {
     	    $should = new ShouldBuilder();
-    	    $should->addTerm(['title' => $movieSearch->getKeyWords()]);
-    	    $should->addTerm(['director' => $movieSearch->getKeyWords()]);
-    	    $should->addTerm(['actors' => $movieSearch->getKeyWords()]);
+    	    $should->addTerm(['title' => strtolower($movieSearch->getKeyWords())]);
+    	    $should->addTerm(['director' => strtolower($movieSearch->getKeyWords())]);
+    	    $should->addTerm(['actors' => strtolower($movieSearch->getKeyWords())]);
     	    $bool->addShould($should);
     	}
     	
