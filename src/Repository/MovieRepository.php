@@ -51,11 +51,13 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
                 ->setParameter('users_rating_inf', (int) $params['users_rating'] + 0.5)
             ;
         }
-
+        
         if (isset($params['rating'])) {
             $select
-                ->andWhere('m.rating = :rating')
-                ->setParameter('rating', $params['rating'])
+            ->leftJoin('m.reviews', 'review')
+            ->andWhere('review.main = 1')
+            ->andWhere('review.rating = :rating')
+            ->setParameter('rating', $params['rating'])
             ;
         }
 
@@ -152,7 +154,9 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
 
         if (isset($params['rating'])) {
             $select
-                ->andWhere('m.rating = :rating')
+                ->leftJoin('m.reviews', 'review')
+                ->andWhere('review.main = 1')
+                ->andWhere('review.rating = :rating')
                 ->setParameter('rating', $params['rating'])
             ;
         }
