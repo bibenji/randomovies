@@ -116,7 +116,7 @@ class MovieController extends Controller
      * @Route("/show/{id}", name="show")     
      */
     public function showAction(Request $request, Movie $movie)
-    {        
+    {  
         $commentsData = $this->indexAndShowAction($request, $movie);        
         
         $comment = new Comment();
@@ -207,13 +207,17 @@ class MovieController extends Controller
     {
         $categoriesConversion = [
             'action' => 'Action',
-            'science-fiction' => 'Science-fiction',
-            'drame' => 'Drame',
-            'comedie-dramatique' => 'Comédie dramatique',
-            'comedie' => 'Comédie',
+            'animation' => 'Animation',
             'anticipation' => 'Anticipation',
-            'thriller' => 'Thriller',
+            'aventure' => 'Aventure',
+            'comedie' => 'Comédie',
+            'comedie-dramatique' => 'Comédie dramatique',
+            'drame' => 'Drame',
+            'grec' => 'Grec',
+            'horreur' => 'Horreur',
             'policier' => 'Policier',                
+            'science-fiction' => 'Science-fiction',
+            'thriller' => 'Thriller',                            
         ];
 
         return $categoriesConversion[$category];
