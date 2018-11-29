@@ -586,3 +586,7 @@ nav {
       nav #menu #menu-list-container ul li:first-of-type {
         border-bottom: 1px solid rgba(255, 255, 255, 0.5);
         display: block; } }
+
+@media screen and (min-width: 1200px) {
+  #submenu {
+    min-height: 1000px; } }
