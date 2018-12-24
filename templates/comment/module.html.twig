@@ -26,7 +26,7 @@
             <div id="commentId{{ comment.id }}" class="comment">
                 <div class="float-right">Le {{ comment.updatedAt|date('d/m/Y à H:m') }}</div>
                 <p class="comment-pseudo">
-                    <img src="{{ comment.user.photo ? asset('images/users/photos/small/' ~ app.user.photo) : "/images/my-profile.png" }}" />{{ comment.user.username }} {% if app.user == comment.user %}[<a href="{{ path('comment-edit', {'id': comment.id}) }}">modifier le commentaire</a>]{% endif %}
+                    <img src="{{ comment.user.photo ? asset('images/users/photos/small/' ~ comment.user.photo) : "/images/my-profile.png" }}" />{{ comment.user.username }} {% if app.user == comment.user %}[<a href="{{ path('comment-edit', {'id': comment.id}) }}">modifier le commentaire</a>]{% endif %}
                 </p>
                 {% if comment.note %}
                     <p class="comment-note float-right">La note de {{ comment.user.username }} : {{ comment.note }} / 5</p>

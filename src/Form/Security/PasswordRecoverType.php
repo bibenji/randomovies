@@ -35,11 +35,13 @@ class PasswordRecoverType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success',
+                    'label' => 'Soumettre',
                 ]
             ])
             ->add('reset', ResetType::class, [
                 'attr' => [
                     'class' => 'btn btn-warning',
+                    'label' => 'Remettre à zéro',
                 ]
             ])
         ;

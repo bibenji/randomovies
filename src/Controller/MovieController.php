@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 class MovieController extends Controller
 {
     private function indexAndShowAction(Request $request, Movie $movie)
-    {        
+    {   
         $commentsData = $this->getDoctrine()->getRepository(Comment::class)->getCommentsData($movie->getId());
         $totalComments = $commentsData[0]['totalComments'];
         $usersNote = round($commentsData[0]['usersNote']);

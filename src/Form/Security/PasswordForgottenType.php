@@ -25,7 +25,7 @@ class PasswordForgottenType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-warning',
                 ],
-                'label' => 'Réinitialiser',
+                'label' => 'Remettre à zéro',
             ])
         ;
     }

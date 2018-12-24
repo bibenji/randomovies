@@ -45,17 +45,17 @@
 					<a href="{{ path('user-account') }}"> Mes données</a>
 				</li>
 				<li>
-					<a href="{{ path('logout') }}">Logout</a>
+					<a href="{{ path('logout') }}">Déconnection</a>
 				</li>
 			{% else %}
 				<li class="separator">
 					<img src="/images/my-profile.png" /> &nbsp;Zone membre &nbsp;<i class="fas fa-chevron-circle-down"></i>
 				</li>
 				<li>
-					<a href="{{ path('login') }}">Login</a>
+					<a href="{{ path('login') }}">Connection</a>
 				</li>
 				<li>
-					<a href="{{ path('user_registration') }}">Register</a>
+					<a href="{{ path('user_registration') }}">Inscription</a>
 				</li>
 			{% endif %}
 			<li>

@@ -19,3 +19,5 @@ parameters:
     elastic_port: '%env(ELASTIC_PORT)%'
     
     secret: '%env(SECRET)%'
+
+    randomovies_domain: 'http://randomovies.fr'
