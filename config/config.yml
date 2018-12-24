@@ -50,6 +50,8 @@ framework:
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
+    globals:
+        randomovies_domain: '%randomovies_domain%'
     strict_variables: '%kernel.debug%'
 
 # Doctrine Configuration

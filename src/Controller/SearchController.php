@@ -59,7 +59,10 @@ class SearchController extends Controller
     	$bool = new BoolBuilder();
     	
     	if (null !== $movieSearch->getTitle()) {
-    	    $bool->addMust(['term' => ['title' => strtolower($movieSearch->getTitle())]]);    		
+			$explodedTitle = explode(' ', $movieSearch->getTitle());
+			foreach ($explodedTitle as $partOfExplodedTitle) {
+				$bool->addMust(['term' => ['title' => strtolower($partOfExplodedTitle)]]);
+			}
     	}
     	
     	if (null !== $movieSearch->getGenre() && '' !== $movieSearch->getGenre()) {
@@ -67,10 +70,13 @@ class SearchController extends Controller
     	}
     	
     	if (null !== $movieSearch->getKeyWords()) {
-    	    $should = new ShouldBuilder();
-    	    $should->addTerm(['title' => strtolower($movieSearch->getKeyWords())]);
-    	    $should->addTerm(['director' => strtolower($movieSearch->getKeyWords())]);
-    	    $should->addTerm(['actors' => strtolower($movieSearch->getKeyWords())]);
+			$should = new ShouldBuilder();
+			$explodedKeyWords = explode(' ', $movieSearch->getKeyWords());
+			foreach ($explodedKeyWords as $keyWord) {
+				$should->addTerm(['title' => strtolower($keyWord)]);
+    	    	$should->addTerm(['director' => strtolower($keyWord)]);
+    	    	$should->addTerm(['actors' => strtolower($keyWord)]);
+			}    	    
     	    $bool->addShould($should);
     	}
     	
@@ -91,7 +97,7 @@ class SearchController extends Controller
     	$query->addBool($bool);    	
     	$builder->addSize(10);
     	$builder->addQuery($query);
-    	    	
+		
     	$result = $etlClient->search($builder->getParams());    	
         
     	$ids = [];    	

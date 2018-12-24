@@ -58,8 +58,7 @@ class SecurityController extends Controller
                 $user->getEmail()
             );
 
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
+            $this->addFlash('success', 'Merci, un mail de confirmation va vous être envoyé. Vous pouvez d\'ores et déjà vous connecter.');
 
             return $this->redirectToRoute('login');
         }
@@ -125,6 +124,8 @@ class SecurityController extends Controller
                     ['token' => $token]
                 );
 
+                $this->addFlash('success', 'Merci, un mail contenant les instructions de ré-initialisation de votre mot de passe va vous être envoyé.');
+
                 return $this->redirectToRoute('homepage');
             }
         }
@@ -167,6 +168,8 @@ class SecurityController extends Controller
             $this->get('app.randomovies_mailer')->sendConfirmationPasswordRecoverMail(
                 $user->getEmail()
             );
+
+            $this->addFlash('success', 'Merci, un mail de confirmation va vous être envoyé. Vous pouvez d\'ores et déjà vous connecter avec votre nouveau mot de passe.');
 
             return $this->redirectToRoute('login');
         }
