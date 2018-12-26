@@ -67,7 +67,7 @@
 	<div id="menu" class="col-xl-7 col-lg-4 col-md-6 col-sm-6 col-12">
 		<div class="row">
 			<div id="menu-list-container" class="col-sm-12">
-				<ul>
+				<ul class="hovered">
 					<li>
 						Menu&nbsp;&nbsp;<i class="fas fa-angle-double-down"></i>
 					</li>
@@ -105,11 +105,12 @@
 			</div>
 		</div>
 	</div>
-	<div id="my-account-menu" class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12">
+
+	<div id="my-account-menu" class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12 hovered">
 		{% if app.user %}
-			<a id="link-for-account-menu" href="">
+			<div id="link-for-account-menu">
 				<img src="{{ app.user.photo ? asset('images/users/photos/small/' ~ app.user.photo) : "/images/my-profile.png" }}" /> &nbsp;{{ app.user.username }} &nbsp;<i class="fas fa-chevron-circle-down"></i>
-			</a>
+			</div>
 			<div id="account-menu" class="">
 				<ul>
 					<li>
@@ -121,9 +122,9 @@
 				</ul>
 			</div>
 		{% else %}
-			<a id="link-for-account-menu" href="">
+			<div id="link-for-account-menu">
 				<img src="/images/my-profile.png" /> &nbsp;Zone membre &nbsp;<i class="fas fa-chevron-circle-down"></i>
-			</a>
+			</div>
 			<div id="account-menu" class="">
 				<ul>
 					<li>
@@ -131,6 +132,9 @@
 					</li>
 					<li>
 						<a href="{{ path('user_registration') }}">Inscription</a>
+					</li>
+					<li class="menu-closer">
+						<i class="fas fa-angle-double-up"></i>
 					</li>
 				</ul>
 			</div>

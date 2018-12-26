@@ -73,10 +73,14 @@
 
 @media screen and (min-width: 577px) and (max-width: 1200px) {
 	nav {
-		#menu {
+		#menu {			
 			#menu-list-container {
 				position: relative;
 				
+				ul.hovered:hover li {
+					display: block;
+				}
+
 				ul {
 					position: absolute;
 					top: 0;
@@ -84,12 +88,6 @@
 					z-index: 1000;
 					background-color: $primaryColor;
 					width: 100%;
-					
-					&:hover {
-						li {					
-							display: block;
-						}
-					}
 					
 					li {
 						display: block;
