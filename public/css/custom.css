@@ -396,8 +396,11 @@ nav {
             background-color: #409ad5; }
         nav #my-account-menu #account-menu ul li:first-of-type {
           border-top: 1px solid rgba(255, 255, 255, 0.5); }
-    nav #my-account-menu:hover #account-menu {
-      display: block; }
+        nav #my-account-menu #account-menu ul li:last-of-type {
+          border-top: 1px solid rgba(255, 255, 255, 0.5);
+          line-height: 40px; }
+  nav #my-account-menu.hovered:hover #account-menu {
+    display: block; }
 
 #site-title {
   background-color: #409ad5;
@@ -565,6 +568,8 @@ nav {
 @media screen and (min-width: 577px) and (max-width: 1200px) {
   nav #menu #menu-list-container {
     position: relative; }
+    nav #menu #menu-list-container ul.hovered:hover li {
+      display: block; }
     nav #menu #menu-list-container ul {
       position: absolute;
       top: 0;
@@ -572,8 +577,6 @@ nav {
       z-index: 1000;
       background-color: #2980b9;
       width: 100%; }
-      nav #menu #menu-list-container ul:hover li {
-        display: block; }
       nav #menu #menu-list-container ul li {
         display: block;
         margin-right: 0px;

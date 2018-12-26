@@ -102,18 +102,60 @@
 		
 		<script>
 			// pour fermer le menu sur mobile	
-			$(function() {				
-				function addHovered() {					
-					$('#small-menu ul').addClass('hovered');
+			$(function() {
+				
+				function addHovered(target) {				
+					target.addClass('hovered');	
 				}
 				
-				function removeHovered() {
-					$('#small-menu ul').removeClass('hovered');
+				function removeHovered(target) {					
+					target.removeClass('hovered');
 				}
-			
-				$("#small-menu ul").mouseover(addHovered).mouseout(removeHovered);				
-				$("#small-menu ul li:first-of-type").click(addHovered);
-				$("#small-menu ul li:last-of-type").click(removeHovered);
+				
+				$('#menu ul li:last-of-type').click(function(event) {										
+					removeHovered($('#menu ul'));
+				});
+				$('#menu ul li:first-of-type').click(function() {					
+					addHovered($('#menu ul'));
+				});	
+
+				$("#menu")
+					.mouseover(function() {
+						addHovered($('#menu ul'));
+					})
+					.mouseout(function() {
+						removeHovered($('#menu ul'));
+					});	
+
+				$('#account-menu li:last-of-type').click(function() {
+					removeHovered($('#my-account-menu'));		
+				});
+				$('#link-for-account-menu').click(function() {	
+					addHovered($('#my-account-menu'));
+				});	
+
+				$("#my-account-menu")
+					.mouseover(function() {
+						addHovered($('#my-account-menu'));
+					})
+					.mouseout(function() {
+						removeHovered($('#my-account-menu'));
+					});				
+								
+				$("#small-menu ul li:first-of-type").click(function() {
+					addHovered($('#small-menu ul'));		
+				});
+				$("#small-menu ul li:last-of-type").click(function() {
+					removeHovered($('#small-menu ul'));		
+				});
+
+				$("#small-menu ul")
+					.mouseover(function() {
+						addHovered($('#small-menu ul'));	
+					})
+					.mouseout(function() {
+						removeHovered($('#small-menu ul'));		
+					});				
 			});
 		</script>
 
