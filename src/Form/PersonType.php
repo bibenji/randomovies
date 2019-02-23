@@ -69,6 +69,4 @@ class PersonType extends AbstractType
     {
         return 'randomovies_person';
     }
-
-
 }

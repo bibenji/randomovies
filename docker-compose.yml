@@ -24,7 +24,7 @@ services:
         build:
             context: ./docker/php/
         depends_on:
-            - randomovies_database
+            - randomovies_database_prod
         env_file: ./.env
         volumes:
             - ./:/opt/project/
@@ -39,11 +39,25 @@ services:
         labels:
             - "traefik.enable=false"
 
-    randomovies_database:
+#    randomovies_database:
+#        image: mariadb:latest
+#        # image: mariadb:10.1.21
+#        volumes:
+#            - ./docker/database/data:/var/lib/mysql
+#            # marche pas sous windows en NTFS
+#        env_file: ./.env
+#        environment:
+#            - MYSQL_PORT=${DATABASE_PORT}
+#            - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+#            - MYSQL_DATABASE=${DATABASE_NAME}
+#            - MYSQL_USER=${DATABASE_USER}
+#            - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+
+    randomovies_database_prod:
         image: mariadb:latest
         # image: mariadb:10.1.21
         volumes:
-            - ./docker/database/data:/var/lib/mysql
+            - ./docker/database_prod/data:/var/lib/mysql
             # marche pas sous windows en NTFS
         env_file: ./.env
         environment:
@@ -57,7 +71,7 @@ services:
         image: phpmyadmin/phpmyadmin
         env_file: ./.env
         links:
-            - randomovies_database
+            - randomovies_database_prod
         environment:
             - PMA_HOST=${DATABASE_HOST}
         labels:

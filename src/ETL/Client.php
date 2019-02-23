@@ -31,9 +31,10 @@ class Client
         $this->indexes = $config['indexes'];
         $this->logger = $logger;
         $this->client = ClientBuilder::create()
-                            ->setHosts($config['hosts'])
-                            ->setLogger($logger)
-                            ->build();
+            ->setHosts($config['hosts'])
+            ->setLogger($logger)
+            ->build()
+        ;
     }
     
     public function getIndex(): string

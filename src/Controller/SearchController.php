@@ -47,8 +47,6 @@ class SearchController extends Controller
 
     private function getResultsForSearch(MovieSearch $movieSearch)
     {
-//     	$baseJson = '{"index":"randomovies_movies","type":"movie","body":{"size":10,"query":{"bool":{"must":[{"term":{"title":"sit"}},{"range":{"year":{"gt":"1900","lt":"2018"}}},{"range":{"duration":{"gt":0,"lt":600}}},{"range":{"rating":{"gt":1,"lt":5}}}]}}}}';
-    	
     	$etlClient = $this->get('elasticsearch_client');
     	
     	$builder = new ETLParamsBuilder();

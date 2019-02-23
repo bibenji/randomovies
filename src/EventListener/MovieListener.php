@@ -62,7 +62,6 @@ class MovieListener
     private function createDirectorAndActors(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-//        $entityManager = $args->getEntityManager();
 
         if (!$entity instanceof Movie) {
             return;

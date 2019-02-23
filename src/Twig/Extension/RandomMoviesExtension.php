@@ -51,6 +51,4 @@ class RandomMoviesExtension extends \Twig_Extension implements \Twig_Extension_G
 
         return implode('-', $lowered);
     }
-
-
 }

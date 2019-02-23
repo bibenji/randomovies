@@ -18,23 +18,19 @@ class MovieRepository extends Repository
     {
         $boolQuery = new BoolQuery();
 
-//        if (null !== $movieSearch->getTitle()) {
-            $fieldTitle = new Match();
-            $fieldTitle->setField(
-                'title',
-                $movieSearch->getTitle() ?? ""
-            );
-            $boolQuery->addShould($fieldTitle);
-//        }
+        $fieldTitle = new Match();
+        $fieldTitle->setField(
+            'title',
+            $movieSearch->getTitle() ?? ""
+        );
+        $boolQuery->addShould($fieldTitle);
 
-//        if (null !== $movieSearch->getSynopsis()) {
-            $fieldSynopsis = new Match();
-            $fieldSynopsis->setField(
-                'synopsis',
-                $movieSearch->getSynopsis() ?? ""
-            );
-            $boolQuery->addShould($fieldSynopsis);
-//        }
+        $fieldSynopsis = new Match();
+        $fieldSynopsis->setField(
+            'synopsis',
+            $movieSearch->getSynopsis() ?? ""
+        );
+        $boolQuery->addShould($fieldSynopsis);
 
         if (null !== $movieSearch->getGenre() && "" !== $movieSearch->getGenre()) {
             $genreQuery = new Match();

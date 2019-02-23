@@ -33,7 +33,7 @@ class AdminTagController extends Controller
             [],
             ['name' => 'ASC'],
             $perPage,
-            ($currentPage-1)*$perPage
+            ($currentPage - 1) * $perPage
         );
         
         return $this->render('admin/tag/index.html.twig', [
@@ -58,13 +58,13 @@ class AdminTagController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->persist($tag);
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('admin_tag_index', array('id' => $tag->getId()));
+            return $this->redirectToRoute('admin_tag_index', ['id' => $tag->getId()]);
         }
 
-        return $this->render('admin/tag/new.html.twig', array(
+        return $this->render('admin/tag/new.html.twig', [
             'tag' => $tag,
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
@@ -85,11 +85,11 @@ class AdminTagController extends Controller
             return $this->redirectToRoute('admin_tag_index');
         }
 
-        return $this->render('admin/tag/edit.html.twig', array(
+        return $this->render('admin/tag/edit.html.twig', [
             'tag' => $tag,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        ]);
     }
 
     /**

@@ -22,8 +22,6 @@ class RecommendationController extends Controller
 
     private function getResultsForRecommendations()    
     {
-//     	$baseJson = '{"query":{"terms":{"likes":[]}},"size":0,"aggs":{"movies_like_likes":{"significant_terms":{"field":"likes","min_doc_count":1,"size":10,"exclude":[]}}}}';
-
     	$likes = [];
     	foreach ($this->getUser()->getComments() as $comment) {
     		if ($comment->getNote() >= 4) {
