@@ -26,7 +26,6 @@ class AdminController extends BaseAdminController
 	private function encryptPlainPassword(User $user)
 	{
 		return $this->get('security.password_encoder')->encodePassword($user, $user->getPlainPassword());		
-		
 	}
 	
 	public function createAction()

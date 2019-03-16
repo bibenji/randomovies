@@ -20,20 +20,12 @@ services:
         arguments:
             - '%elasticsearch%'
             - '@Randomovies\ETL\ElasticsearchLogger'
-
-#    app.user_repository:
-#        class: Doctrine\ORM\EntityRepository
-#        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-#        arguments:
-#            - Randomovies\Entity\User
             
     app_etl_extract:
         public: true
         class: Randomovies\ETL\Extract
         arguments:
-#            - '@doctrine.orm.default_entity_manager'
             -  '@doctrine.orm.entity_manager'
-#            - '@doctrine'
 
     app_etl_transform:
         public: true

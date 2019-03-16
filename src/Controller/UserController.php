@@ -25,7 +25,7 @@ class UserController extends Controller
             ['user' => $this->getUser()],
             ['createdAt' => 'DESC'],
             $commentsByPage,
-            ($currentPage-1)*$commentsByPage
+            ($currentPage - 1) * $commentsByPage
         );
         
         return [

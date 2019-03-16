@@ -30,7 +30,7 @@ class Extract
     /**
      * With s for reusability in ETL.php
      * 
-     * @return unknown
+     * @return
      */
     public function getMaxMoviesId()
     {
@@ -50,7 +50,7 @@ class Extract
     /**
      * With s for reusability in ETL.php
      * 
-     * @return unknown
+     * @return
      */
     public function getMaxUsersId()
     {

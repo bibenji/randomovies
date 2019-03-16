@@ -19,19 +19,9 @@ class RoleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('movie')
             ->add('person', EntityType::class, [
                 'class' => 'Randomovies:Person',
                 'choice_label' => 'fullname',
-
-//                'class' => Person::class,
-//                'query_builder' => function (PersonRepository $pr) {
-//                    return $pr
-//                        ->createQueryBuilder('p')
-//                        ->orderBy('p.lastname', 'ASC')
-//                    ;
-//                },
-//                'choice_label' => 'lastname',
             ])
             ->add('role', ChoiceType::class, [
                 'choices' => [
@@ -61,6 +51,4 @@ class RoleType extends AbstractType
     {
         return 'randomovies_role';
     }
-
-
 }

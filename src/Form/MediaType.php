@@ -26,7 +26,6 @@ class MediaType extends AbstractType
             ])
             ->add('path', FileType::class, [
                 'required' => false,
-//                'mapped' => false,
             ])
         ;
 

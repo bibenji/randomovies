@@ -77,8 +77,6 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult()
         ;
-
-            
         
         $fourMovies = [];
         
@@ -170,8 +168,8 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
     /**
      * Used for ETL
      * 
-     * @param unknown $min
-     * @param unknown $max
+     * @param $min
+     * @param $max
      * @return mixed|\Doctrine\DBAL\Driver\Statement|array|NULL
      */
     public function getMoviesForETL($min, $max)

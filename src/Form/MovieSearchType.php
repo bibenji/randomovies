@@ -25,14 +25,6 @@ class MovieSearchType extends AbstractType
                 'label' => 'Mots clés',
                 'required' => false,
             ))
-//            ->add('yearFrom', ChoiceType::class, [
-//                'choices' => [1920, 1921, 1922],
-//                'required' => false
-//            ])
-//            ->add('yearTo', ChoiceType::class, [
-//                'choices' => [2020, 2019, 2018],
-//                'required' => false
-//            ])
             ->add('yearFrom', DateType::class, array(
                  'required' => false,
                  'widget' => 'single_text',
@@ -59,19 +51,11 @@ class MovieSearchType extends AbstractType
                 'required' => false,
                 'choices' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5],
             ])
-//			->add('actors', null, array(
-//                'required' => false,
-//            ))
-//			->add('director', null, array(
-//                'required' => false,
-//            ))
-//            ->add('search', SubmitType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-//         parent::setDefaultOptions($resolver);
         $resolver->setDefaults([
             // avoid to pass the csrf token in the url (but it's not protected anymore)
             'csrf_protection' => false,

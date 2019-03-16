@@ -70,27 +70,6 @@ class SecurityController extends Controller
     }
 
     /**
-     * TODO : supprimer cette route
-     *
-     * @Route("/login-user", name="user-login")
-     */
-    public function loginUserAction(Request $request)
-    {
-        $authenticationUtils = $this->get('security.authentication_utils');
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('user/login.html.twig', array(
-            'last_username' => $lastUsername,
-            'error'         => $error,
-        ));
-    }
-
-    /**
      * @Route("/password/forgotten", name="password_forgotten")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -110,7 +89,6 @@ class SecurityController extends Controller
             if (null !== $user) {
                 $user->setIsActive(false);
 
-//                $token = random_bytes(10);
                 $token = Uuid::uuid4()->toString();
                 $user->setToken($token);
 

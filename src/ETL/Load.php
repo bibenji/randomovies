@@ -118,7 +118,7 @@ class Load
     	$params = [
 			'index' => $this->client->getIndexForUsers(),
 			'type' => self::USER_TYPE,
-			'id' => $userType,
+			'id' => $userId,
     	];
     	
     	$this->client->delete($params);

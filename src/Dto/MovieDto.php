@@ -50,7 +50,7 @@ class MovieDto
     /**
      * @var string
      */
-    public $review;
+    public $critique;
 
     /**
      * @var string

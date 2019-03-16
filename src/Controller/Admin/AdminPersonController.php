@@ -33,7 +33,7 @@ class AdminPersonController extends Controller
             [],
             ['lastname' => 'ASC'],
             $perPage,
-            ($currentPage-1)*$perPage
+            ($currentPage - 1) * $perPage
         );
         
         return $this->render('admin/person/index.html.twig', [
@@ -60,13 +60,13 @@ class AdminPersonController extends Controller
             $em->persist($person);
             $em->flush();
 
-            return $this->redirectToRoute('admin_person_show', array('id' => $person->getId()));
+            return $this->redirectToRoute('admin_person_show', ['id' => $person->getId()]);
         }
 
-        return $this->render('admin/person/new.html.twig', array(
+        return $this->render('admin/person/new.html.twig', [
             'person' => $person,
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
@@ -91,11 +91,11 @@ class AdminPersonController extends Controller
                 }
                 elseif ($media->getPath() instanceof File) {
                     $file = $media->getPath();
-                    if (null === $media->getName() || $media->getName() === '') {
+                    if (null === $media->getName() || '' === $media->getName()) {
                         $media->setName($file->getClientOriginalName());
                     }
 
-                    $newPath = md5(uniqid()).'.'.$file->guessExtension();
+                    $newPath = md5(uniqid()) . '.' . $file->guessExtension();
                     $file->move(
                         $this->getParameter('medias_directory'),
                         $newPath
@@ -107,14 +107,14 @@ class AdminPersonController extends Controller
             }
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_person_edit', array('id' => $person->getId()));
+            return $this->redirectToRoute('admin_person_edit', ['id' => $person->getId()]);
         }
 
-        return $this->render('admin/person/edit.html.twig', array(
+        return $this->render('admin/person/edit.html.twig', [
             'person' => $person,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        ]);
     }
 
     /**

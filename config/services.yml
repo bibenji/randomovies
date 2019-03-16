@@ -6,14 +6,6 @@ services:
 
     Randomovies\Command\:
         resource: '../src/Command'
-
-#    app.doctrine_poster_listener:
-#        class: Randomovies\EventListener\PosterUploadListener
-#        arguments: ['%posters_directory%']
-#        tags:
-##            - { name: doctrine.event_listener, event: prePersist }
-##            - { name: doctrine.event_listener, event: preUpdate }
-#            - { name: doctrine.event_listener, event: postLoad }
     
     randomovies.listener.movie:
         class: Randomovies\EventListener\MovieListener

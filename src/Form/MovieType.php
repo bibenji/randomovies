@@ -20,8 +20,6 @@ class MovieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-//        $posterRequired = (null === $options['data']->getPoster()) ?? false;
-
         $builder
         	->add('hooverLink', TextType::class, [
         			'label' => 'Récupérer les informations à partir de Wikipedia, lien :',
@@ -63,9 +61,7 @@ class MovieType extends AbstractType
 				'prototype' => false,
 				'required' => false,					
 			])
-			
 			->add('genre', TextType::class, ['required' => false])
-
             ->add('tags', EntityType::class, [
                 'class' => 'Randomovies:Tag',
                 'choice_label' => 'name',
@@ -73,13 +69,6 @@ class MovieType extends AbstractType
                 'multiple' => true,
             	'required' => false,
             ])
-//            ->add('tags', CollectionType::class, [
-//                'allow_add' => true,
-//                'allow_delete' => true,
-//                'by_reference' => false,
-//                'entry_type' => TagType::class,
-//                'prototype' => true,
-//            ])
 		;
 
         if ($options['edit']) {

@@ -64,6 +64,5 @@ class CommentRepository extends \Doctrine\ORM\EntityRepository
 	       ->getQuery()
 	       ->getSingleScalarResult()
 	    ;
-	    
 	}
 }

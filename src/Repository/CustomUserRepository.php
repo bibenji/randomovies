@@ -20,8 +20,8 @@ class CustomUserRepository extends EntityRepository implements UserLoaderInterfa
     /**
      * Used for ETL
      *
-     * @param unknown $min
-     * @param unknown $max
+     * @param $min
+     * @param $max
      * @return mixed|\Doctrine\DBAL\Driver\Statement|array|NULL
      */
     public function getUsersForETL($min, $max)
