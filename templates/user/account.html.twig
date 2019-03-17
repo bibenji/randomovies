@@ -3,41 +3,74 @@
 {% block title %}Randomovies - Mon compte{% endblock %}
 {% block main_id %}main-container-private{% endblock %}
 
+{% block body_class %}private{% endblock %}
+
 {% block body %}
 
-    <div id="my-account" class="row">
-
-        <div class="col-xl-4 col-lg-12">
-            <h2>Mon compte</h2>
+	<div id="contenu" class="container">
+		
+		<div id="mon-compte">
+		
+			<h2>Mon Compte</h2>
 			<hr />
-            <p>Nom d'utilisateur : {{ app.user.username }}</p>
-            <p>Description : {{ app.user.description }}</p>
-            <p>Email : {{ app.user.email }}</p>
-            <p>Nom : </p>
-            <p>Prénom : </p>
-            <p>Date de naissance : </p>
-            <a href="{{ path('user-edit') }}" class="btn randomovies-btn-confirm">Modifier mes informations</a>            
-        </div>
-
-        <div class="col-xl-8 col-lg-12">
-            <h2>Mes commentaires / Mes notes</h2>
+			<div class="row">
+				<div class="col-xl-4">Nom d'utilisateur</div>
+				<div class="col-xl-8">{{ app.user.username }}</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-4">Adresse e-mail</div>
+				<div class="col-xl-8">{{ app.user.email }}</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-4">Mot de passe</div>
+				<div class="col-xl-8">*******</div>
+			</div>
 			<hr />
-            <ul class="list-group">
-                {% for comment in userComments %}
-                    <li id="commentId{{ comment.id }}" class="list-group-item">
-                        <div class="float-right">&nbsp;
-                            <a href="{{ path('comment-edit', { 'id': comment.id }) }}" class="btn btn-warning">Editer</a>
-                            <a href="{{ path('comment-delete', { 'id': comment.id }) }}" class="btn btn-danger">Supprimer</a>
-                        </div>
-                        {{ comment.updatedAt|date('d/m/Y à H:m') }}<br />
-                        <a href="{{ path('show', {'id': comment.movie.id}) }}">
-                            <strong>{{ comment.movie.title }}</strong> ({{ comment.note }}/5)
-                        </a>
-                        <br />
-                        {{ comment.comment }}
-                    </li>
-                {% endfor %}
-            </ul>
+			{# <div class="row">
+				<div class="col-xl-4">Sexe</div>
+				<div class="col-xl-8">Homme</div>
+			</div> #}
+			<div class="row">
+				<div class="col-xl-4">Date de naissance</div>
+				<div class="col-xl-8"></div>
+			</div>
+			<div class="row">
+				<div class="col-xl-4">Description</div>
+				<div class="col-xl-8">{{ app.user.description }}</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-xl-12">
+					<a href="{{ path('user-edit') }}">Modifier mes informations, ma photo, mon mot de passe...</a>				
+				</div>
+			</div>						
+
+			<h2>Mes Commentaires / Mes Notes</h2>			
+			{% for comment in userComments %}
+				<div class="row mb-1">				
+					<div class="col-lg-1 col-md-2">
+						{% if comment.movie.poster != "" %}
+							<a href="/images/posters/{{ comment.movie.poster }}" target="_blank">
+								<img src="{{ asset('images/posters/medium/' ~ comment.movie.poster) }}" width="100%" />
+							</a>
+						{% endif %}						
+					</div>
+					<div class="col-lg-9 col-md-8">
+						<div class="float-right">{{ comment.note }}/5</div>
+						<a href="{{ path('show', { 'id' : comment.movie.id }) }}"><strong>{{ comment.movie.title }}</strong></a><br />
+						{{ comment.comment }}<br />
+						{{ comment.updatedAt|date('d/m/Y à H:m') }}
+					</div>
+					<div class="col-md-2">
+							<a href="{{ path('comment-edit', { 'id': comment.id }) }}">
+								<button><i class="far fa-edit"></i></button>
+							</a>
+							<a href="{{ path('comment-delete', { 'id': comment.id }) }}">
+								<button><i class="far fa-trash-alt"></i></button>
+							</a>
+					</div>						
+				</div>	
+			{% endfor %}
             
             {% if totalPages > 1 %}
 	            <div class="text-center">
@@ -46,9 +79,7 @@
 					{% endfor %}
 				</div>
 			{% endif %}
-            
-        </div>
-
-    </div>
+			
+	</div>		
 
 {% endblock %}

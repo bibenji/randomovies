@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 class CommentController extends Controller
 {
     /**
-     * @Route("/comment/delete/{id}", name="comment-delete")
+     * @Route("/commentaire/supprimer/{id}", name="comment-delete")
      */
     public function deleteAction(Request $request, Comment $comment)
     {
@@ -28,7 +28,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @Route("/comment/edit/{id}", name="comment-edit")
+     * @Route("/commentaire/{id}", name="comment-edit")
      */
     public function editAction(Request $request, Comment $comment)
     {

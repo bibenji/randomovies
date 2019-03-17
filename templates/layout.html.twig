@@ -9,13 +9,15 @@
 
 		<title>{% block title %}Randomovies - {% endblock %}</title>
 
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+				
 		<link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
-		<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+		
         {% block stylesheets %}{% endblock %}
 	</head>
 
-	<body id="{% block body_id %}home-body{% endblock %}">		
+	<body class="{% block body_class %}public{% endblock %}">		
 		
 		{% for label, messages in app.flashes(['danger', 'success', 'warning']) %}
 			<div id="layout-alert-container">
@@ -32,133 +34,38 @@
 
     	{% include 'menu.html.twig' %}
 
-		<main class="row">
-			<div id="submenu" class="col-xl-3 col-lg-4">
-				<div class="row">
-					<div id="submenu-search" class="col-lg-12">
-						<form method="post" action="{{ path('search') }}">
-							<input name="title" type="text" placeholder="Recherche rapide" /><i class="fas fa-search"></i>
-							<input type="submit" value="Go !"/>
-						</form>
-					</div>
-					<div id="submenu-categories" class="col-md-12">
-						<div class="row">
-							<div class="col-lg-12 col-md-6">
-								Catégories
-								<ul>
-		                            {% for category in distinctCategories %}
-										<li>
-											<a href="{{ path('homepage') }}?category={{ category.genre|camelize }}">
-		                                        {{ category.genre }}
-											</a>
-										</li>
-		                            {% endfor %}
-								</ul>
-							</div>
-							<div class="col-lg-12 col-md-6">
-								{% if is_granted('ROLE_CONTRIBUTOR') %}
-									Admin
-									<ul>
-										<li>
-											<a href="{{ path('admin_movie_index') }}">Admin Movie Index</a>
-										</li>
-										<li>
-											<a href="{{ path('admin_person_index') }}">Admin Person Index</a>
-										</li>
-										<li>
-											<a href="{{ path('admin_tag_index') }}">Admin Tag Index</a>
-										</li>
-										{% if is_granted('ROLE_ADMIN') %}
-										<li>
-											<a href="{{ path('admin-import') }}">Admin Import</a>
-										</li>
-										<li>
-											<a href="{{ path('easyadmin') }}">Easyadmin</a>
-										</li>
-										{% endif %}
-									</ul>
-								{% endif %}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+		{% block body %}{% endblock %}
 
-			<div id="{% block main_id %}main-container{% endblock %}" class="col-xl-9 col-lg-8">
-
-                {% block body %}{% endblock %}
-
-			</div>
-		</main>
-
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-		{#<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>#}
-		{#<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/popper.min.js"></script>#}
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-		{#<script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.4/holder.min.js"></script>#}
-
-		<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
-		<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js" integrity="sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp" crossorigin="anonymous"></script>
 		
 		<script>
-			// pour fermer le menu sur mobile	
-			$(function() {
+			
+			$(function(){
 				
-				function addHovered(target) {				
-					target.addClass('hovered');	
-				}
+				// inside minimal menu open submenus
+				$('#sub-minimal-menu .with-subsubmenu .clickable').on('click', function() {
+					var subsubmenu = $(this).parent().find('.subsubmenu');
+					var iDown = $(this).parent().find('i.fas.fa-angle-down');
+					var iUp = $(this).parent().find('i.fas.fa-angle-up');
+					subsubmenu.toggle();
+					iDown.toggle();
+					iUp.toggle();
+				});  
 				
-				function removeHovered(target) {					
-					target.removeClass('hovered');
-				}
+				// main menu adaptation for mobile and no hover
+				$('#minimal-menu-btn-hoverable').on('click', function() {						
+					$('#menu li#minimal-menu-btn #sub-minimal-menu').toggleClass('hoverable');
+				});
 				
-				$('#menu ul li:last-of-type').click(function(event) {										
-					removeHovered($('#menu ul'));
-				});
-				$('#menu ul li:first-of-type').click(function() {					
-					addHovered($('#menu ul'));
-				});	
-
-				$("#menu")
-					.mouseover(function() {
-						addHovered($('#menu ul'));
-					})
-					.mouseout(function() {
-						removeHovered($('#menu ul'));
-					});	
-
-				$('#account-menu li:last-of-type').click(function() {
-					removeHovered($('#my-account-menu'));		
-				});
-				$('#link-for-account-menu').click(function() {	
-					addHovered($('#my-account-menu'));
-				});	
-
-				$("#my-account-menu")
-					.mouseover(function() {
-						addHovered($('#my-account-menu'));
-					})
-					.mouseout(function() {
-						removeHovered($('#my-account-menu'));
-					});				
-								
-				$("#small-menu ul li:first-of-type").click(function() {
-					addHovered($('#small-menu ul'));		
-				});
-				$("#small-menu ul li:last-of-type").click(function() {
-					removeHovered($('#small-menu ul'));		
-				});
-
-				$("#small-menu ul")
-					.mouseover(function() {
-						addHovered($('#small-menu ul'));	
-					})
-					.mouseout(function() {
-						removeHovered($('#small-menu ul'));		
-					});				
-			});
+			}); 
+		
 		</script>
 
-		{% block javascripts %}{% endblock %}
+		{% block javascripts %}
+		
+		{% endblock %}
+
 	</body>
 </html>

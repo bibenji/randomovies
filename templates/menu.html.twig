@@ -1,143 +1,130 @@
-<nav class="row">
-	<div id="site-title" class="col-xl-3 col-lg-4 col-md-12">
-        <h1>Randomovies</h1>
-	</div>	
-	
-	<div id="small-menu">
-		<ul>
+<ul id="menu">
+	<li id="title" class="minimal-menu">
+		<i class="fas fa-film"></i> Randomovies
+	</li>
+	<li class="{{ app.request.get('_route') == 'homepage' ? 'accent' : 'mono' }}">
+		<a href="{{ path('homepage') }}">Au hasard</a>
+	</li>
+	<li>
+		Genres <i class="fas fa-angle-down"></i>
+		<ul class="submenu">
+			{% for category in distinctCategories %}
+				<li>
+					<a href="{{ path('homepage') }}?category={{ category.genre|camelize }}">
+						{{ category.genre }}
+					</a>
+				</li>
+			{% endfor %}			
+		</ul>
+	</li>
+	<li class="{{ app.request.get('_route') == 'list_movies' ? 'accent' : 'mono' }}">
+		<a href="{{ path('list_movies') }}">Films</a>
+	</li>
+	<li class="{{ app.request.get('_route') == 'list_actors' ? 'accent' : 'mono' }}">
+		<a href="{{ path('list_actors') }}">Acteurs</a>
+	</li>
+	<li class="{{ app.request.get('_route') == 'search' ? 'accent' : 'mono' }}">
+		<a href="{{ path('search') }}">Recherche</a>
+	</li>
+	<li class="{{ app.request.get('_route') == 'recommendations' ? 'accent' : 'mono' }}">
+		<a href="{{ path('recommendations') }}">Suggestions</a>
+	</li>
+	<li class="{{ app.request.get('_route') == 'create-suggestion' ? 'accent' : 'mono' }}">
+		<a href="{{ path('create-suggestion') }}">Proposer</a>
+	</li>
+	<li>
+		{% if app.user %}
+			<img class="main-user-photo" src="{{ app.user.photo ? asset('images/users/photos/small/' ~ app.user.photo) : "/images/my-profile.png" }}" /> {{ app.user.username }} <i class="fas fa-angle-down"></i>
+			<ul class="submenu">
+				<li>
+					<a href="{{ path('user-account') }}">Mon Compte</a>
+				</li>
+				<li>
+					<a href="{{ path('logout') }}">Déconnexion</a>
+				</li>	
+			</ul>
+		{% else %}
+			<img class="main-user-photo" src="/images/my-profile.png" /> Zone membre <i class="fas fa-angle-down"></i>
+			<ul class="submenu">
+				<li>
+					<a href="{{ path('login') }}">Se connecter</a>					
+				</li>
+				<li>
+					<a href="{{ path('user_registration') }}">S'inscrire</a>					
+				</li>						
+			</ul>
+		{% endif %}
+	</li>
+	<li id="minimal-menu-btn" class="minimal-menu">		
+		<div id="minimal-menu-btn-hoverable">
+			<i class="fas fa-bars"></i>
+		</div>
+		<ul id="sub-minimal-menu" class="hoverable">
+
+			{% if app.user %}
+				<li class="with-subsubmenu">
+					<div class="clickable"><img class="main-user-photo" src="{{ app.user.photo ? asset('images/users/photos/small/' ~ app.user.photo) : "/images/my-profile.png" }}" /> {{ app.user.username }} <i class="fas fa-angle-down"></i><i class="fas fa-angle-up"></i></div>
+					<ul class="subsubmenu">
+						<li>
+							<a href="{{ path('user-account') }}">
+								<i class="fas fa-arrow-right"></i> Mon Compte
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('logout') }}">
+								<i class="fas fa-arrow-right"></i> Déconnexion
+							</a>
+						</li>
+					</ul>
+				</li>			
+			{% else %}
+				<li class="with-subsubmenu">
+					<div class="clickable"><img class="main-user-photo" src="/images/my-profile.png" /> Zone membre <i class="fas fa-angle-down"></i><i class="fas fa-angle-up"></i></div>
+					<ul class="subsubmenu">
+						<li>
+							<a href="{{ path('user_registration') }}">
+								<i class="fas fa-arrow-right"></i> S'inscrire</li>
+							</a>
+						</li>						
+						<li>
+							<a href="{{ path('login') }}">
+								<i class="fas fa-arrow-right"></i> Se connecter
+							</a>
+						</li>
+					</ul>
+				</li>			
+			{% endif %}
+
 			<li>
-				Menu&nbsp;&nbsp;<i class="fas fa-angle-double-down"></i>
-			</li>
-			<li class="{{ app.request.get('_route') == 'homepage' ? 'active' : '' }}">
 				<a href="{{ path('homepage') }}">Au hasard</a>
 			</li>
-			<li class="{{ app.request.get('_route') == 'list_movies' ? 'active' : '' }}">
+			<li class="with-subsubmenu">
+				<div class="clickable">Genres <i class="fas fa-angle-down"></i><i class="fas fa-angle-up"></i></div>
+				<ul class="subsubmenu">
+					{% for category in distinctCategories %}
+						<li>
+							<a href="{{ path('homepage') }}?category={{ category.genre|camelize }}">
+								<i class="fas fa-arrow-right"></i> {{ category.genre }}
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</li>
+			<li>
 				<a href="{{ path('list_movies') }}">Films</a>
 			</li>
-			<li class="{{ app.request.get('_route') == 'list_actors' ? 'active' : '' }}">
+			<li>
 				<a href="{{ path('list_actors') }}">Acteurs</a>
 			</li>
-			<li class="{{ app.request.get('_route') == 'search' ? 'active' : '' }}">
+			<li>
 				<a href="{{ path('search') }}">Recherche</a>
 			</li>
-			{% if is_granted('ROLE_USER') %}
-				<li class="{{ app.request.get('_route') == 'recommendations' ? 'active' : '' }}">
-					<a href="{{ path('recommendations') }}">Recommandations</a>
-				</li>
-				<li class="{{ app.request.get('_route') == 'create-suggestion' ? 'active' : '' }}">
-					<a href="{{ path('create-suggestion') }}">Suggestions</a>
-				</li>
-			{% endif %}
-			{#
-			{% if is_granted('ROLE_CONTRIBUTOR') %}
-				<li class="{{ app.request.get('_route') == 'admin_movie_index' ? 'active' : '' }}">
-					<a href="{{ path('admin_movie_index') }}">Admin</a>
-				</li>
-			{% endif %}
-			#}
-
-			
-			{% if app.user %}
-				<li class="separator">
-					<img src="{{ app.user.photo ? asset('images/users/photos/small/' ~ app.user.photo) : "/images/my-profile.png" }}" /> &nbsp;{{ app.user.username }} &nbsp;<i class="fas fa-chevron-circle-down"></i>
-				</li>				
-				<li>
-					<a href="{{ path('user-account') }}"> Mes données</a>
-				</li>
-				<li>
-					<a href="{{ path('logout') }}">Déconnection</a>
-				</li>
-			{% else %}
-				<li class="separator">
-					<img src="/images/my-profile.png" /> &nbsp;Zone membre &nbsp;<i class="fas fa-chevron-circle-down"></i>
-				</li>
-				<li>
-					<a href="{{ path('login') }}">Connection</a>
-				</li>
-				<li>
-					<a href="{{ path('user_registration') }}">Inscription</a>
-				</li>
-			{% endif %}
 			<li>
-				<i class="fas fa-angle-double-up"></i>
+				<a href="{{ path('recommendations') }}">Suggestions</a>
 			</li>
-		</ul>	
-	</div>
-	
-	<div id="menu" class="col-xl-7 col-lg-4 col-md-6 col-sm-6 col-12">
-		<div class="row">
-			<div id="menu-list-container" class="col-sm-12">
-				<ul class="hovered">
-					<li>
-						Menu&nbsp;&nbsp;<i class="fas fa-angle-double-down"></i>
-					</li>
-					<li class="{{ app.request.get('_route') == 'homepage' ? 'active' : '' }}">
-						<a href="{{ path('homepage') }}">Au hasard</a>
-					</li>
-					<li class="{{ app.request.get('_route') == 'list_movies' ? 'active' : '' }}">
-						<a href="{{ path('list_movies') }}">Films</a>
-					</li>
-					<li class="{{ app.request.get('_route') == 'list_actors' ? 'active' : '' }}">
-						<a href="{{ path('list_actors') }}">Acteurs</a>
-					</li>
-					<li class="{{ app.request.get('_route') == 'search' ? 'active' : '' }}">
-						<a href="{{ path('search') }}">Recherche</a>
-					</li>
-					{% if is_granted('ROLE_USER') %}
-						<li class="{{ app.request.get('_route') == 'recommendations' ? 'active' : '' }}">
-							<a href="{{ path('recommendations') }}">Recommandations</a>
-						</li>
-						<li class="{{ app.request.get('_route') == 'create-suggestion' ? 'active' : '' }}">
-							<a href="{{ path('create-suggestion') }}">Suggestions</a>
-						</li>
-					{% endif %}
-					{#
-					{% if is_granted('ROLE_CONTRIBUTOR') %}
-						<li class="{{ app.request.get('_route') == 'admin_movie_index' ? 'active' : '' }}">
-							<a href="{{ path('admin_movie_index') }}">Admin</a>
-						</li>
-					{% endif %}
-					#}
-					<li>
-						<i class="fas fa-angle-double-up"></i>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div id="my-account-menu" class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12 hovered">
-		{% if app.user %}
-			<div id="link-for-account-menu">
-				<img src="{{ app.user.photo ? asset('images/users/photos/small/' ~ app.user.photo) : "/images/my-profile.png" }}" /> &nbsp;{{ app.user.username }} &nbsp;<i class="fas fa-chevron-circle-down"></i>
-			</div>
-			<div id="account-menu" class="">
-				<ul>
-					<li>
-						<a href="{{ path('user-account') }}"> Mes données</a>
-					</li>
-					<li>
-						<a href="{{ path('logout') }}">Logout</a>
-					</li>
-				</ul>
-			</div>
-		{% else %}
-			<div id="link-for-account-menu">
-				<img src="/images/my-profile.png" /> &nbsp;Zone membre &nbsp;<i class="fas fa-chevron-circle-down"></i>
-			</div>
-			<div id="account-menu" class="">
-				<ul>
-					<li>
-						<a href="{{ path('login') }}">Connection</a>
-					</li>
-					<li>
-						<a href="{{ path('user_registration') }}">Inscription</a>
-					</li>
-					<li class="menu-closer">
-						<i class="fas fa-angle-double-up"></i>
-					</li>
-				</ul>
-			</div>
-		{% endif %}
-	</div>	
-</nav>
+			<li>
+				<a href="{{ path('create-suggestion') }}">Proposer</a>
+			</li>
+		</ul>
+	</li>
+</ul>

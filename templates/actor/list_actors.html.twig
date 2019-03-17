@@ -4,29 +4,37 @@
 
 {% block body %}
 
-	
-		<div id="all-movies" class="row main-row">
-			<div class="col-md-12 col-sm-12">
-				<div class="col-zone">
+	<div id="contenu" class="container">
+		<div id="acteurs">				
+			
+			{% set lettre = '' %}
 
-					<ul>
-
-					{% set lettre = '' %}
-						{% for actor in actors %}
-							{% if actor.lastname|slice(0,1) != lettre %}
-								{% set lettre = actor.lastname|slice(0,1) %}
-									</ul><h3>{{ lettre }}</h3><ul>
-						{% endif %}
-						<li>
-							<a href="{{ path('show_actor', { 'id' : actor.id }) }}">{{ actor.getFullName() }}</a><br/>
-						</li>
-					{% endfor %}
-
-					</ul>
+			<div class="row">			
+				<div class="col-xl-6 text-right">										
+					<h4>{{ lettre }}</h4>
+				</div>							
+				<div class="col-xl-6 text-left">
+				
+				{% for actor in actors %}
+					{% if actor.lastname|slice(0,1) != lettre %}
+						{% set lettre = actor.lastname|slice(0,1) %}
 
 				</div>
 			</div>
-		</div>
-	</div>
+			<div class="row">			
+				<div class="col-xl-6 text-right">										
+					<h4>{{ lettre }}</h4>
+				</div>							
+				<div class="col-xl-6 text-left">
+
+					{% endif %}					
+						<a href="{{ path('show_actor', { 'id' : actor.id }) }}">{{ actor.getFullName() }}</a><br/>					
+				{% endfor %}			
+			
+				</div>		
+			</div>
+			
+		</div>		
+	</div>		
 
 {% endblock %}

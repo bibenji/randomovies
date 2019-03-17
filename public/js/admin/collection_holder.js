@@ -19,8 +19,6 @@ $(function(){
         // instead be a number based on how many items we have
         newForm = newForm.replace(/__name__label__/g, index);
 
-        console.log(index);
-
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
         newForm = newForm.replace(/__name__/g, index);
@@ -41,7 +39,5 @@ $(function(){
 
         addItemToCollection($collectionHolder);
     });
-
-
-
+    
 });

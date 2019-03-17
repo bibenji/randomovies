@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\File;
 
 class AccountType extends AbstractType
 {
@@ -48,6 +49,12 @@ class AccountType extends AbstractType
             ->add('avatar', FileType::class, [
                 'mapped' => false,
                 'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'maxSizeMessage' => 'Votre photo doit faire moins de 5 Mo.'
+                    ])
+                ],
             ])
         ;
     }

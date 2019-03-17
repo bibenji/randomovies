@@ -1,24 +1,26 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}RandoMovies - Suggestion{% endblock %}
+{% block title %}RandoMovies - Proposition{% endblock %}
 
 {% block body %}
 
-	<div class="row main-row">
-		<div class="col-md-12">
-		
-			<h2>Faire une suggestion</h2>
-			
-			<p>Retrouvez (peut-être) les films que vous avez particulièrement adorés sur Randomovies en faisant une suggestion! Celle-ci sera traitée dans les plus brefs délais!</p>
-			
-			{{ form_start(form) }}
-				<label>Titre du film que vous souhaitez suggérer</label>
-				{{ form_widget(form.movieTitle, {'attr': {'class': 'form-control mb-4'}}) }}
-				<input type="submit" class="btn btn-success" value="Suggérer" />
-			{{ form_end(form) }}
-			
-			<br />
-			
+	<div id="contenu" class="container">
+		<div id="proposer" class="row">			
+			<div class="col-lg-12">
+				<p>Proposez-ici des films que vous avez aimés et que vous aimeriez retrouver sur Randomovies !</p>
+				<p>Vous pouvez également nous envoyer un petit message si vous souhaitez vous aussi devenir contributeur...</p>
+				<p>Nous vous réponderons dès que possible ! ;-)</p>
+
+				{% if not app.user %}
+					<p>Veuillez-vous connecter afin de pouvoir faire une proposition.</p>
+				{% else %}
+					{{ form_start(form) }}
+						<label>Titre du film que vous souhaitez proposer :</label>
+						{{ form_widget(form.movieTitle, {'attr': {'class': 'form-control mb-4'}}) }}
+						<input type="submit" class="btn btn-success float-right" value="Proposer" />
+					{{ form_end(form) }}
+				{% endif %}
+			</div>			
 		</div>
 	</div>
 

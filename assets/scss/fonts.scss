@@ -1,4 +1,12 @@
 @font-face {
+    font-family: 'chunkfiveroman';
+    src: url('./fonts/chunkfive/chunkfive-webfont.woff2') format('woff2'),
+         url('./fonts/chunkfive/chunkfive-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
 	font-family: "Raleway";
 	src:
 		url("./fonts/raleway/raleway_thin-webfont.woff") format("woff"),		
