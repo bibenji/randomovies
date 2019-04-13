@@ -39,6 +39,19 @@
 				<li>
 					<a href="{{ path('user-account') }}">Mon Compte</a>
 				</li>
+				{% if is_granted('ROLE_CONTRIBUTOR') %}
+							<li>
+								<a href="{{ path('admin_movie_index') }}">Admin</a>
+							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+							<li>
+								<a href="{{ path('admin-import') }}">Import</a>
+							</li>
+							<li>
+								<a href="{{ path('easyadmin') }}">Easyadmin</a>
+							</li>
+							{% endif %}
+						{% endif %}
 				<li>
 					<a href="{{ path('logout') }}">Déconnexion</a>
 				</li>	
@@ -70,6 +83,25 @@
 								<i class="fas fa-arrow-right"></i> Mon Compte
 							</a>
 						</li>
+						{% if is_granted('ROLE_CONTRIBUTOR') %}
+							<li>
+								<a href="{{ path('admin_movie_index') }}">
+									<i class="fas fa-arrow-right"></i> Admin
+								</a>
+							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+							<li>
+								<a href="{{ path('admin-import') }}">
+									<i class="fas fa-arrow-right"></i> Import
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('easyadmin') }}">
+									<i class="fas fa-arrow-right"></i> Easyadmin
+								</a>
+							</li>
+							{% endif %}
+						{% endif %}
 						<li>
 							<a href="{{ path('logout') }}">
 								<i class="fas fa-arrow-right"></i> Déconnexion

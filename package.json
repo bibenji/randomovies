@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "buildCss": "gulp css",
     "watchCss": "gulp css:watch",
+    "buildBackCss": "gulp back:css",
     "buildFonts": "gulp fonts"
   },
   "author": "bibenji",
