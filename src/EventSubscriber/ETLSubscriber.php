@@ -103,7 +103,7 @@ class ETLSubscriber implements EventSubscriber
         }
         
         if ($args->getObject() instanceof Comment) {
-            $this->index($args->getObject()->getUser(), self::ETL_INDEX_USERS);
+            $this->index($args, self::ETL_INDEX_USERS);
         }
     }
 }
