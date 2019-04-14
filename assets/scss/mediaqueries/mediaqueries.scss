@@ -18,15 +18,7 @@
 		display: flex;		
 		justify-content: space-between;
 	}	
-	#menu li #sub-minimal-menu {
-		position: absolute;
-		top: 60px;
-		right: 20px;				
-		z-index: 1000;				
-		background-color: rgba(48,48,48,1);
-		color: #ebebeb;		
-		padding: 0px;
-	}
+
 	#menu li #sub-minimal-menu li {
 		display: block;
 		line-height: 40px;
@@ -38,21 +30,34 @@
 			color: white;
 		}		
 	}
-	#menu li#minimal-menu-btn #sub-minimal-menu {		
-		width: 50%;
-		text-align: center;
-	}	
-	#menu li#minimal-menu-btn #sub-minimal-menu.hoverable {
-		display: none;
-	}
-	#menu li#minimal-menu-btn #sub-minimal-menu {
-		display: block;
-	}
+
 	#menu li#minimal-menu-btn #minimal-menu-btn-hoverable {
 		display: inline-block;
 	}
+
+
+	#menu li #sub-minimal-menu {
+		position: absolute;
+		top: 60px;
+		right: 20px;				
+		z-index: 1000;				
+		background-color: rgba(48,48,48,1);
+		color: #ebebeb;		
+		padding: 0px;		
+		width: auto;
+		text-align: center;
+	}
+	
+	
+
+	#menu li#minimal-menu-btn #sub-minimal-menu.hoverable {
+		display: none;
+	}	
 	#menu li#minimal-menu-btn #minimal-menu-btn-hoverable:hover + #sub-minimal-menu,
-	#menu li#minimal-menu-btn #sub-minimal-menu:hover {
+	#menu li#minimal-menu-btn #sub-minimal-menu.hoverable:hover {
+		display: block;		
+	}
+	#menu li#minimal-menu-btn #sub-minimal-menu:not(.hoverable) {
 		display: block;
 	}
 	

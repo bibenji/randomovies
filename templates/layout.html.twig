@@ -17,10 +17,7 @@
 		{% endblock %}
 	</head>
 
-	<body
-		id="{% block body_id %}home-body{% endblock %}"
-		class="{% block body_class %}public{% endblock %}"
-	>
+	<body class="{% block body_class %}public{% endblock %}">
 		
 		{% for label, messages in app.flashes(['danger', 'success', 'warning']) %}
 			<div id="layout-alert-container">
@@ -58,7 +55,7 @@
 				});  
 				
 				// main menu adaptation for mobile and no hover
-				$('#minimal-menu-btn-hoverable').on('click', function() {						
+				$('#minimal-menu-btn-hoverable').on('click', function() {
 					$('#menu li#minimal-menu-btn #sub-minimal-menu').toggleClass('hoverable');
 				});
 				

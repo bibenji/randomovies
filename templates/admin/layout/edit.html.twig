@@ -1,16 +1,15 @@
 {% extends 'layout.html.twig' %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/back_custom.css') }}" />
-{% endblock %}
-
-{% block body_id %}admin-body{% endblock %}
+{% block body_class %}admin{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-md-11 m-3">
+            <div class="col-md-12 mt-3">
+                [ <a href="{{ path('admin_movie_index') }}">Liste des films</a> | <a href="{{ path('admin_person_index') }}">Liste des personnes</a> | <a href="{{ path('admin_tag_index') }}">Liste des tags</a> ]
+            </div>
+
+            <div class="col-md-12 mt-3">
 
                 <div class="row">
                     <div class="col-md-6">

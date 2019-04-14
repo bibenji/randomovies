@@ -32,9 +32,9 @@
 				<p>Avec {% for index, role in actors %}<a href="{{ path('show_actor', {'id': role.person.id}) }}">{{ role.person.fullname }}</a>{% if index+1 < actors|length %},&nbsp{% endif %}{% endfor %}
 				</p>
 				<div class="row">
-					<div class="col-md-4"><span class="randomovies-grey-label">{{ movie.genre }}</label></div>
-					<div class="col-md-4">{{ movie.duration }} min</div>
-					<div class="col-md-4">2006</div>
+					<div class="col-4"><span class="randomovies-grey-label">{{ movie.genre }}</label></div>
+					<div class="col-4">{{ movie.duration }} min</div>
+					<div class="col-4">{{ movie.year }}</div>
 				</div>
 				<p>
 					{% if movie.tags|length > 0 %}
@@ -52,10 +52,10 @@
 				<div id="notes" class="d-flex flex-column">
 					
 					<div class="row p-2">
-						<div class="col-xl-7 col-md-5">
+						<div class="col-xl-7 col-md-5 col-sm-6 col-6">
 							Note Randomovies
 						</div>
-						<div class="col-xl-5 col-md-7 text-right">
+						<div class="col-xl-5 col-md-7 col-sm-6 col-6 text-right">
 							{% for i in 1..5 %}								
 								{% if i <= movie.rating %}
 									<i class="fas fa-star"></i>
@@ -67,10 +67,10 @@
 					</div>
 					
 					<div class="row p-2">
-						<div class="col-xl-7 col-md-5">
+						<div class="col-xl-7 col-md-5 col-sm-6 col-6">
 							Note Randowatchers
 						</div>
-						<div class="col-xl-5 col-md-7 text-right">
+						<div class="col-xl-5 col-md-7 col-sm-6 col-6 text-right">
 							{% for i in 1..5 %}
 								{% if i <= comments_data.usersNote %}
 									<i class="fas fa-star"></i>
@@ -196,6 +196,9 @@
 				
 				<br />
 				<h4 class="mb-3">Critiques Randowatchers</h4>
+				{% if movie_comments|length < 1 %}
+					<p>Aucune critique.</p>
+				{% endif %}
 				{% for comment in movie_comments %}
 					<div id="commentId{{ comment.id }}" class="critique">
 						<div class="d-flex">
