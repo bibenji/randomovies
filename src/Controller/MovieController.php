@@ -213,6 +213,7 @@ class MovieController extends Controller
             'comedie' => 'Comédie',
             'comedie-dramatique' => 'Comédie dramatique',
             'drame' => 'Drame',
+            'documentaire' => 'Documentaire',
             'grec' => 'Grec',
             'horreur' => 'Horreur',
             'policier' => 'Policier',                
