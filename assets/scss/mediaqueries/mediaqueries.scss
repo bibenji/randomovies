@@ -1,0 +1,94 @@
+#menu {
+	display: block;
+}
+#menu li#minimal-menu-btn {
+	display: none;
+	flex: 1;
+	text-align: right;
+}
+
+@media screen and (max-width: 1200px) {	
+	#menu li:not(.minimal-menu) {
+		display: none;
+	}
+	#menu li#minimal-menu-btn {
+		display: block;
+	}
+	#menu {
+		display: flex;		
+		justify-content: space-between;
+	}	
+
+	#menu li #sub-minimal-menu li {
+		display: block;
+		line-height: 40px;
+		min-width: 200px;
+	}
+	#menu li #sub-minimal-menu li:hover:not(.with-subsubmenu) {
+		background-color: #299fd1;
+		a:hover {
+			color: white;
+		}		
+	}
+
+	#menu li#minimal-menu-btn #minimal-menu-btn-hoverable {
+		display: inline-block;
+	}
+
+
+	#menu li #sub-minimal-menu {
+		position: absolute;
+		top: 60px;
+		right: 20px;				
+		z-index: 1000;				
+		background-color: rgba(48,48,48,1);
+		color: #ebebeb;		
+		padding: 0px;		
+		width: auto;
+		text-align: center;
+	}
+	
+	
+
+	#menu li#minimal-menu-btn #sub-minimal-menu.hoverable {
+		display: none;
+	}	
+	#menu li#minimal-menu-btn #minimal-menu-btn-hoverable:hover + #sub-minimal-menu,
+	#menu li#minimal-menu-btn #sub-minimal-menu.hoverable:hover {
+		display: block;		
+	}
+	#menu li#minimal-menu-btn #sub-minimal-menu:not(.hoverable) {
+		display: block;
+	}
+	
+	.subsubmenu {
+		padding: 0px;
+		text-align: left;			
+		width: 100%;		
+	}
+	.subsubmenu {
+		display: none;
+		background-color: rgba(16,16,16,0.5);
+		
+	}
+	#menu li #sub-minimal-menu li .subsubmenu li {
+		line-height: 30px;	
+		width: 100%;
+		padding: 0px 20px;
+	}
+	#menu li #sub-minimal-menu li .subsubmenu li:hover {
+		background-color: rgba(0,0,0,0);
+	}
+	#menu li #sub-minimal-menu li .subsubmenu li i {
+		display: none;
+		position: relative;
+		left: 0px;
+	}
+	#menu li #sub-minimal-menu li .subsubmenu li:hover i {
+		display: inline-block;
+	}	
+	.with-subsubmenu i.fas.fa-angle-up {
+		display: none;
+	}
+	
+}

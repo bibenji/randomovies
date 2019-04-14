@@ -11,7 +11,7 @@ use Randomovies\Entity\Suggestion;
 class SuggestionController extends Controller
 {
     /**
-     * @Route("/suggestion", name="create-suggestion")
+     * @Route("/proposer", name="create-suggestion")
      */
     public function createAction(Request $request)
     {

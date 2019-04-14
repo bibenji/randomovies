@@ -9,11 +9,16 @@ use Randomovies\Tool\{ETLParamsBuilder, Query};
 class RecommendationController extends Controller
 {
     /**
-     * @Route("/recommandations", name="recommendations")
+     * @Route("/suggestions", name="recommendations")
      */
     public function RecommendationAction()
     {	
-		$recommendations = $this->getResultsForRecommendations();
+		if ($this->getUser()) {
+			$recommendations = $this->getResultsForRecommendations();
+		} else {
+			$recommendations = [];
+		}
+		
 
         return $this->render('recommendation/recommendation.html.twig', [
             'recommendations' => $recommendations,

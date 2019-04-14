@@ -26,4 +26,11 @@ gulp.task('css:watch', function () {
   gulp.watch('assets/scss/*.scss', ['css']);
 });
 
-gulp.task('default', ['css']);
+gulp.task('back:css', function() {
+	console.log('Recompiling back css...');
+	return gulp.src('assets/scss/back/back_custom.scss')
+		.pipe(sass().on('error', sass.logError))
+		.pipe(gulp.dest('public/css'))
+});
+
+gulp.task('default', ['css', 'back:css']);

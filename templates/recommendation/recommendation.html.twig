@@ -1,40 +1,38 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}RandoMovies - Recommandations{% endblock %}
+{% block title %}RandoMovies - Suggestions{% endblock %}
 
 {% block body %}
-	
-	<div id="recommendations" class="row main-row">
 
-		<div class="col-md-12">
-		
-			<div class="row">
-			
-				<div class="col-md-12">
-					<h2>Recommandations</h2>			
-					<p>Sur Randomovies, plus vous notez de films, plus vous aurez de chances d'avoir de recommandations qui coincident avec vos goûts !</p>			
-					<p>Voici, en exclu pour vous, les recommandations du moment :</p>
-				</div>			
-			
-				{% for movie in recommendations %}
-					<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">					
-						<a href="{{ path('show', { 'id' : movie.id }) }}">
-							<div class="grey-bg">
-								<img class="" src="{{ asset('images/posters/small/' ~ movie.poster) }}" />
+	<div id="contenu" class="container">		
+		<div id="suggestions" class="row">			
+
+			<div class="col-lg-12">					
+				<p>Sur Randomovies, plus vous notez de films, plus vous obtenez de suggestions précises.</p>
+				<p>Nous considérons qu'un film noté correspond à un film vu. Par conséquent, une fois noté, un film n'apparaîtra plus dans la liste des suggestions.</p>
+
+				{% if not app.user %}
+					<p>Connectez-vous afin d'obtenir des suggestions de films personnalisées !</p>
+				{% else %}
+					<div class="row">
+						{% for movie in recommendations %}
+							<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">					
+								<a href="{{ path('show', { 'id' : movie.id }) }}">
+									<div class="grey-bg">
+										<img class="" src="{{ asset('images/posters/small/' ~ movie.poster) }}" />
+									</div>
+									{{ movie.title }}
+								</a>
 							</div>
-							{{ movie.title }}
-						</a>
+						{% endfor %}						
 					</div>
-				{% endfor %}
-				
-				<div class="col-md-12">
-					<p class="mt-3">Pour faire disparaitre un film de ces recommandations, il vous suffit de le noter...</p>				
-				</div>
-				
+					{% if recommendations|length == 0 %}						
+						<p>Nous n'avons pas de suggestions à vous faire pour le moment. Essayez de noter plus de films et revenez un peu plus tard...</p>
+					{% endif %}
+				{% endif %}
 			</div>
-			
+
 		</div>
-		
-	</div>
+	</div>			
 
 {% endblock %}

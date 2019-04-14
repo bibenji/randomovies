@@ -4,76 +4,79 @@
 
 {% block body %}
 
-	<div class="row main-row">
+	<div id="contenu" class="container">			
+			
+		<div id="recherche">				
 
-		<div class="col-md-12 search-zone">
-
-			<div class="row">
-
-				<div class="col-md-5">
-
-                    {{ form_start(movieSearchForm, {'attr': {'id': 'search-form'}}) }}
-
-                    {{ form_row(movieSearchForm.title) }}
-
-                    {{ form_row(movieSearchForm.genre) }}
-
-                    {{ form_row(movieSearchForm.keyWords) }}
-
-					<div class="row">
-						<div class="col-md-6">
-                            {{ form_row(movieSearchForm.yearFrom) }}
-						</div>
-						<div class="col-md-6">
-                            {{ form_row(movieSearchForm.yearTo) }}
-						</div>
+			{{ form_start(movieSearchForm, {'attr': {'id': 'search-form'}}) }}
+			
+				<div class="row">
+					<div class="col-xl-2">Titre du film</div>
+					<div class="col-xl-6">
+						{{ form_widget(movieSearchForm.title) }}
 					</div>
-
-					<div class="row">
-						<div class="col-md-6">
-                            {{ form_row(movieSearchForm.durationFrom) }}
-						</div>
-						<div class="col-md-6">
-                            {{ form_row(movieSearchForm.durationTo) }}
-						</div>
+					<div class="col-xl-4">
+						{{ form_widget(movieSearchForm.genre, {'attr': {'class': 'randomovies-form-select-fixer'}}) }}
 					</div>
-
-					<div class="row">
-						<div class="col-md-6">
-                            {{ form_row(movieSearchForm.ratedMin) }}
-						</div>
-						<div class="col-md-6">
-                            {{ form_row(movieSearchForm.ratedMax) }}
-						</div>
+					<div class="col-xl-2">Mots clés</div>
+					<div class="col-xl-10">
+						{{ form_widget(movieSearchForm.keyWords) }}
 					</div>
-
-					<input class="btn randomovies-btn-confirm mt-2 mb-3" type="submit" value="Chercher" />
-
-                    {{ form_end(movieSearchForm) }}
-
 				</div>
+				<div class="row">				
+					<div class="col-xl-10 offset-xl-2 d-flex flex-md-row flex-column justify-content-between">
+						<div class="recherche-widget">
+							Date min<br />
+							{{ form_widget(movieSearchForm.yearFrom) }}
+						</div>
+						<div class="recherche-widget">
+							Date max<br />
+							{{ form_widget(movieSearchForm.yearTo) }}
+						</div>
+						<div class="recherche-widget">
+							Durée min<br />
+							{{ form_widget(movieSearchForm.durationFrom) }}
+						</div>
+						<div class="recherche-widget">
+							Durée max<br />
+							{{ form_widget(movieSearchForm.durationTo) }}
+						</div>
+						<div class="recherche-widget">
+							Note min<br />
+							{{ form_widget(movieSearchForm.ratedMin, {'attr': {'class': 'randomovies-form-select-fixer'}}) }}
+						</div>
+						<div class="recherche-widget">
+							Note max<br />
+							{{ form_widget(movieSearchForm.ratedMax, {'attr': {'class': 'randomovies-form-select-fixer'}}) }}
+						</div>
+					</div>
+				</div>
+				<div class="row">				
+					<div class="col-xl-10 offset-xl-2">
+						<button class="basic-btn mt-1">Rechercher</button>					
+					</div>
+				</div>
+			</div>
 
-				<div class="col-md-7">
+			{{ form_end(movieSearchForm) }}
 
-
-
+			<div class="row">	
+				<div class="col-xl-10 offset-xl-2 mt-5">
 					<div class="row">
-                        {% for movie in results %}
-							<div class="col-md-3 search-result">
-								<a href="{{ path('show', { 'id' : movie.id }) }}">
-									<div class="grey-bg">
-										<img class="" src="{{ asset('images/posters/small/' ~ movie.poster) }}" />
-									</div>
-                                    {{ movie.title }}
+						{% for movie in results %}
+							<div class="recherche-movie col-xl-3 col-lg-4 col-md-6">
+								<a href="{{ path('show', { 'id' : movie.id }) }}">						
+									<img src="{{ asset('images/posters/small/' ~ movie.poster) }}" width="100%"  />								
+									{{ movie.title }}
 								</a>
 							</div>
-                        {% endfor %}
-					</div>
-
+						{% endfor %}
+					</div>				
 				</div>
-
 			</div>
-		</div>
+
+		</div>	
+
 	</div>
 
 {% endblock %}

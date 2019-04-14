@@ -3,48 +3,43 @@
 {% block title %}Randomovies - Modification du commentaire{% endblock %}
 {% block main_id %}main-container-private{% endblock %}
 
-{% form_theme comment_form 'bootstrap_4_layout.html.twig' %}
+{% block body_class %}private{% endblock %}
 
 {% block body %}
 
-    <div id="my-account" class="row">
-        <div class="col-md-10 mt-3">
+	<div id="contenu" class="container">		
+		<div id="mon-compte">
 
-            <h2>Editer un commentaire</h2>
+            <h3 class="mt-4">Editer un commentaire</h3>
 
             {{ form_start(comment_form, {'attr': {'class': 'comment-form'}}) }}
 
-            <div class="row mb-3">
-                <div class="col-md-12">
-                    {{ form_errors(comment_form) }}
-                </div>
-
-                <div class="col-md-12">
-                    {{ form_row(comment_form.comment) }}
-                </div>
-                {#<div class="col-md-8">#}
-                    {#{{ form_widget(comment_form.comment, {'attr': {'class': 'form-control'}}) }}#}
-                {#</div>#}
-                <div class="col-md-1">
-                    {{ form_label(comment_form.note) }}
-                </div>
-                <div class="col-md-2">
-                    <div id="note-input-zone">
-                        {{ form_widget(comment_form.note, {'attr': {'class': 'form-control'}}) }}
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_errors(comment_form) }}
                     </div>
-                    <div id="note-stars-zone">
-                        <span><i class="fas fa-star"></i></span>
-                        <span><i class="fas fa-star"></i></span>
-                        <span><i class="fas fa-star"></i></span>
-                        <span><i class="fas fa-star"></i></span>
-                        <span><i class="far fa-star"></i></span>
+                    <div class="col-md-4">
+                        {{ form_label(comment_form.note) }}
+                    </div>
+                    <div class="col-md-8">                        
+                        {{ form_widget(comment_form.note, {'attr': {'class': 'randomovies-default-field'}}) }}
+                        <div id="stars-zone">						
+                            <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_label(comment_form.comment) }}
+                    </div>
+                    <div class="col-md-8">
+                        {{ form_widget(comment_form.comment, {'attr': {'class': 'randomovies-default-field'}}) }}
+                    </div>
+                    <div class="offset-md-4 col-md-8">
+                        <a href="{{ back_path }}" class="randomovies-default-btn">Retour</a>
+                        <input class="randomovies-default-btn" type="submit" value="Enregistrer"/>
                     </div>
                 </div>
-            </div>
 
-            <a href="{{ back_path }}" class="btn btn-warning">Retour</a>
-
-            <input class="btn btn-success" type="submit" value="Enregistrer"/>
+                
 
             {{ form_end(comment_form) }}
 

@@ -1,32 +1,36 @@
 {% extends 'layout.html.twig' %}
 
-{% block body_id %}admin-body{% endblock %}
+{% block body_class %}admin{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                [ <a href="{{ path('admin_movie_index') }}">Liste des films</a> | <a href="{{ path('admin_person_index') }}">Liste des personnes</a> | <a href="{{ path('admin_tag_index') }}">Liste des tags</a> ]
+            </div>
 
-    <div class="row">
-        <div class="col-md-11 m-3">
+            <div class="col-md-12 mt-3">
 
-            <div class="row">
-                <div class="col-md-6">
-                    <h2 class="mb-4">
-                        {% block new_title %}{% endblock %}
-                    </h2>
-                </div>
-                <div class="col-md-6">
-                    <div class="float-right">
-                        {% block new_top_buttons %}{% endblock %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="mb-4">
+                            {% block new_title %}{% endblock %}
+                        </h2>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="float-right">
+                            {% block new_top_buttons %}{% endblock %}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    {% block new_content %}{% endblock %}
+                <div class="row">
+                    <div class="col-md-12">
+                        {% block new_content %}{% endblock %}
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-
 {% endblock %}

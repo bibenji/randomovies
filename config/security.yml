@@ -85,8 +85,7 @@ security:
             - ROLE_COMMENT_FULL            
         
     access_control:
-        - { path: ^/user, roles: [ ROLE_USER ] }
-        - { path: ^/suggestion, roles: [ ROLE_USER ] }
+        - { path: ^/compte, roles: [ ROLE_USER ] }
         - { path: ^/admin/import, roles: [ ROLE_ADMIN ] }        
         - { path: ^/easyadmin, roles: [ ROLE_ADMIN ] }
         - { path: ^/admin, roles: [ ROLE_CONTRIBUTOR ] }

@@ -1,0 +1,26 @@
+@import './../colors.scss';
+
+#acteurs {
+    a {
+        color: white;	
+        &:hover {
+            color: $newPrimaryColor;
+        }
+    }
+}
+
+.acteur-main-pic {
+	width: 100%;
+}
+.acteur-pic {
+	width: 100%;	
+}
+
+#acteur {
+    .filmographie {
+        padding: 0px;
+        li {
+            display: block;
+        }
+    }
+}

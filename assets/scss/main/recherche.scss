@@ -1,0 +1,32 @@
+#recherche input[type=text], #recherche input[type=date], #recherche input[type=number] {
+	border: solid 1px #9f9f9f;
+	color: #ebebeb;
+	background-color: rgba(0,0,0,0);
+	padding: 2px;	
+	margin-bottom: 10px;
+}
+#recherche input[type=text] {
+	width: 100%;	
+}
+#recherche input[type=date], #recherche input[type=number] {
+	width: 90%;
+}
+#recherche select {
+	border: solid 1px #9f9f9f;
+	color: #ebebeb;
+	background-color: rgba(0,0,0,0);
+	padding: 2px;
+	width: 100%;
+}
+.recherche-widget {
+	display: inline-block;
+}
+.recherche-movie {
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 125%;
+}
+#recherche form select.randomovies-form-select-fixer {
+    padding: 4px;
+    background-color: #101010;
+}

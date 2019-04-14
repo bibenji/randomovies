@@ -3,54 +3,115 @@
 {% block title %}Randomovies - Modifier mes informations personnelles{% endblock %}
 {% block main_id %}main-container-private{% endblock %}
 
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body_class %}private{% endblock %}
 
 {% block body %}
 
-	{{ form_start(form) }}
-	
-		<div id="my-account" class="row">
-
-			<div class="col-xl-6 col-lg-12">
-				
-				<h3>Paramètres du compte</h3>
-				<hr />
-				{{ form_row(form.username) }}
-				{{ form_row(form.description) }}
-                {{ form_row(form.email) }}                
-                {{ form_row(form.plainPassword) }}						
-				
-				<h3>Informations personnelles</h3>
-				<hr />
-				
-				{{ form_row(form.firstname) }}
-                {{ form_row(form.lastname) }}
-                {{ form_row(form.birthdate) }}
-
-			</div>
-
-			<div class="col-xl-6 col-lg-12">			
-				<h3>Avatar</h3>
-				<hr />
-				<p>Photo actuellement liée à votre profil :</p>				
-				{% if app.user.photo is not null %}
-					<img class="img-thumbnail" src="{{ asset('images/users/photos/medium/' ~ app.user.photo) }}" />
-				{% else %}
-					<br /><br /><br />
-				{% endif %}
-				
-				<p>Changer la photo de votre profil :</p>
-				{{ form_widget(form.avatar) }}
-				<br />
-			</div>
+	<div id="contenu" class="container">
+		<div id="mon-compte">
 			
-			<div class="col-xl-12 text-center">
-                <a href="{{ path('user-account') }}" class="btn btn-outline-secondary">Retour</a>
-				<input type="submit" class="btn btn-outline-primary" value="Enregistrer les modifications" />				
-			</div>
+			<br />
 
+			{{ form_start(form) }}
+			
+				<div id="my-account" class="row">
+
+					<div class="col-xl-8 col-lg-12">
+						
+						<h3>Paramètres du compte</h3>
+						<hr />
+
+						<div class="row">
+							<div class="col-lg-4">Nom d'utilisateur</div>
+							<div class="col-lg-8">{{ form_widget(form.username, {'attr': {'class': 'randomovies-default-field'}}) }}</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-4">Description</div>
+							<div class="col-lg-8">{{ form_widget(form.description, {'attr': {'class': 'randomovies-default-field'}}) }}</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-4">Email</div>
+							<div class="col-lg-8">{{ form_widget(form.email, {'attr': {'class': 'randomovies-default-field'}}) }}</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-4">Mot de passe</div>
+							<div class="col-lg-8">{{ form_widget(form.plainPassword.first, {'attr': {'class': 'randomovies-default-field'}}) }}</div>
+						</div>	
+						<div class="row">
+							<div class="col-lg-4">Confirmation mot de passe</div>
+							<div class="col-lg-8">{{ form_widget(form.plainPassword.second, {'attr': {'class': 'randomovies-default-field'}}) }}</div>
+						</div>									
+						
+						<h3>Informations personnelles</h3>
+						<hr />
+						
+						<div class="row">
+							<div class="col-lg-4">Prénom</div>
+							<div class="col-lg-8">{{ form_widget(form.firstname, {'attr': {'class': 'randomovies-default-field'}}) }}</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-4">Nom</div>
+							<div class="col-lg-8">{{ form_widget(form.lastname, {'attr': {'class': 'randomovies-default-field'}}) }}</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-4">Date de naissance</div>
+							<div class="col-lg-8">{{ form_widget(form.birthdate, {'attr': {'class': 'randomovies-default-field'}}) }}</div>
+						</div>
+						{# <div class="row">
+							<div class="col-lg-4">Sexe</div>
+							<div class="col-lg-8">To come...</div>
+						</div> #}
+					</div>
+
+					<div class="col-xl-4 col-lg-12">			
+						<h3>Avatar</h3>
+						<hr />
+						<p>Photo actuellement liée à votre profil :</p>				
+						{% if app.user.photo is not null %}
+							<img class="img-thumbnail" src="{{ asset('images/users/photos/medium/' ~ app.user.photo) }}" />
+						{% else %}
+							<br /><br /><br />
+						{% endif %}
+						
+						<p>Changer la photo de votre profil :</p>
+						{{ form_widget(form.avatar) }}
+						<p id="error_avatar_message">Attention, votre photo ne doit pas dépasser plus de 5 Mo.</p>
+						<br />
+					</div>
+					
+					<div class="col-xl-12 text-center">
+						<a href="{{ path('user-account') }}" class="randomovies-default-btn">Retour</a>
+						<input type="submit" class="randomovies-default-btn" value="Enregistrer les modifications" />				
+					</div>
+
+				</div>
+					
+			{{ form_end(form) }}
+			
 		</div>
-			
-	{{ form_end(form) }}
+	</div>
 
+
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script>		
+		$(function() {
+			var uploadField = document.getElementById("account_avatar");			
+			var uploadFieldErrorMessage = $("#error_avatar_message");
+			uploadFieldErrorMessage.hide();						
+
+			uploadField.onchange = function() {					
+				if (this.files[0].size > 5000000) {											
+					uploadFieldErrorMessage.show();
+					this.value = "";
+				} else {					
+					uploadFieldErrorMessage.hide();
+				}
+			};
+		});
+	</script>
 {% endblock %}

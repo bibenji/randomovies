@@ -1,10 +1,10 @@
 {% extends 'admin/layout/list.html.twig' %}
 
 {% block title %}Admin - Movies List{% endblock %}
-{% block list_title %}Admin - Movies List{% endblock %}
+{% block list_title %}Liste des films{% endblock %}
 
 {% block list_top_buttons %}
-    <a class="btn btn-success" href="{{ path('admin_movie_new') }}">Enregistrer un nouveau film</a>
+    <a class="btn btn-success" href="{{ path('admin_movie_new') }}">Ajouter un nouveau film</a>
 {% endblock %}
 
 {% block list_content %}

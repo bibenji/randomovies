@@ -5,6 +5,7 @@ namespace Randomovies\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class SuggestionType extends AbstractType
 {
@@ -14,7 +15,7 @@ class SuggestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {	
         $builder            
-            ->add('movieTitle')
+            ->add('movieTitle', TextareaType::class)
         ;
     }
     

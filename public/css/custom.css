@@ -1,3 +1,34 @@
+#acteurs a {
+  color: white; }
+  #acteurs a:hover {
+    color: #299fd1; }
+
+.acteur-main-pic {
+  width: 100%; }
+
+.acteur-pic {
+  width: 100%; }
+
+#acteur .filmographie {
+  padding: 0px; }
+  #acteur .filmographie li {
+    display: block; }
+
+.admin .form-control {
+  height: unset; }
+
+#error_avatar_message {
+  color: #c0392b; }
+
+#mon-compte h2 {
+  margin: 20px 0px; }
+
+@font-face {
+  font-family: 'chunkfiveroman';
+  src: url("./fonts/chunkfive/chunkfive-webfont.woff2") format("woff2"), url("./fonts/chunkfive/chunkfive-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
 @font-face {
   font-family: "Raleway";
   src: url("./fonts/raleway/raleway_thin-webfont.woff") format("woff"), url("./fonts/raleway/raleway_thin-webfont.svg") format("svg"), url("./fonts/raleway/raleway_thin-webfont.ttf") format("truetype"), url("./fonts/raleway/raleway_thin-webfont.eot") format("eot"); }
@@ -52,544 +83,327 @@
   font-weight: normal;
   font-style: normal; }
 
-body {
-  overflow-x: hidden; }
-
-#layout-alert-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 100000; }
-
-#main-container {
-  /*background-color: lighten(black, 10%);*/
-  background-image: url("../images/bg3.png");
-  background-repeat: no-repeat;
+#movie {
+  background-image: url("./bgtest.jpg");
   background-size: 100% 100%;
-  color: gray;
-  padding: 0px; }
+  background-color: #ebebeb;
+  color: #101010;
+  padding: 20px;
+  margin-bottom: 40px; }
+  #movie img {
+    width: 100%; }
 
-#main-container-private {
-  background-color: white; }
+#notes {
+  height: 100%; }
 
-#main-container .main-row {
-  margin: 0px;
-  padding: 20px 20px 0px 10px; }
+#next {
+  border: solid 1px #101010;
+  cursor: pointer; }
 
-a {
-  color: #2980b9;
-  text-decoration: none; }
-  a:hover {
-    color: #6ab0de; }
+#next:hover {
+  background-color: #101010;
+  color: #ebebeb; }
 
-main {
-  margin: 0px; }
-
-#suggestions-bar {
-  margin: 0px auto 30px;
-  width: 90%;
-  box-shadow: 3px 3px 5px #1a1a1a;
-  background-color: gray;
-  color: #1a1a1a; }
-  #suggestions-bar h3 {
-    margin: 20px auto 10px;
-    color: white; }
-  #suggestions-bar .one-suggestion {
-    text-align: center;
-    margin: 10px auto 20px; }
-    #suggestions-bar .one-suggestion p {
-      margin-bottom: 0px;
-      font-size: 125%; }
-    #suggestions-bar .one-suggestion small {
-      color: white;
-      background-color: #ed7669;
-      border: solid 1px #ed7669;
-      padding: 5px; }
-    #suggestions-bar .one-suggestion a {
-      text-decoration: none;
-      color: white; }
-      #suggestions-bar .one-suggestion a a:hover {
-        color: #bfbfbf; }
-
-.randomovies-btn-reset {
-  background-color: #ff793f;
-  border: solid 1px #ff793f;
-  color: white; }
-  .randomovies-btn-reset:hover {
-    background-color: rgba(0, 0, 0, 0);
-    color: #ff793f; }
-
-.randomovies-btn-confirm {
-  background-color: #2980b9;
-  border: solid 1px #2980b9;
-  color: white; }
-  .randomovies-btn-confirm:hover {
-    background-color: rgba(0, 0, 0, 0);
-    color: #2980b9; }
-
-.another-random-movie-button {
-  border: solid 1px #e74c3c;
-  background-color: rgba(255, 255, 255, 0);
-  color: #e74c3c;
+#title {
   font-size: 125%;
-  padding: 10px 20px;
-  border-radius: 5px;
-  display: block;
-  margin: 0px auto 20px;
-  text-align: center;
-  width: 90%;
-  transition: all 250ms linear; }
-  .another-random-movie-button:hover {
-    background-color: #e74c3c;
-    color: white;
-    text-decoration: none; }
+  font-family: chunkfiveroman; }
 
-#all-movies h2 {
-  margin: 20px 0px 20px 10px;
-  color: #409ad5;
-  line-height: 40px;
-  text-align: center; }
+.critique-randomovies,
+.critique {
+  background-color: rgba(41, 159, 209, 0.5);
+  color: #fff;
+  margin-bottom: 20px;
+  border-radius: 2px; }
 
-#all-movies .all-movies-one {
+.critique-randomovies .photo,
+.critique .photo {
+  border-radius: 50%;
+  height: 90px;
+  width: 90px;
+  margin: 10px 10px 0px 10px; }
+
+.critique-randomovies {
+  background-color: rgba(159, 159, 159, 0.5);
+  color: #ebebeb; }
+
+.commentaire-contenu {
+  margin-top: 10px; }
+
+.others {
   text-align: center;
   margin-bottom: 20px; }
-  #all-movies .all-movies-one a:hover {
-    text-decoration: none; }
-  #all-movies .all-movies-one img {
-    width: 90%; }
-  #all-movies .all-movies-one .movie-title {
-    font-size: 150%; }
-  #all-movies .all-movies-one .movie-genre {
-    color: #7f8c8d; }
-  #all-movies .all-movies-one .movie-year {
-    color: #7f8c8d;
-    font-size: 90%; }
+  .others img {
+    width: 75%;
+    height: auto; }
 
-#comments {
-  background-color: #9aa4a5;
-  color: black;
-  margin: 0px auto 30px;
-  width: 90%;
-  box-shadow: 3px 3px 5px #1a1a1a; }
-  #comments .comment-form textarea {
-    background-color: white;
-    border: solid 0px #7f8c8d;
-    border-radius: 3px;
-    display: block;
-    width: 100%;
-    padding: 10px; }
-  #comments .comment {
-    margin: 0px auto 20px;
-    padding: 25px;
-    background-color: rgba(255, 255, 255, 0.25);
-    border: solid 1px rgba(255, 255, 255, 0.5);
-    border-radius: 3px;
-    display: block;
+#commenter {
+  border: solid 1px #ebebeb;
+  padding: 20px; }
+
+#films .a-movie {
+  margin-bottom: 20px; }
+  #films .a-movie img {
     width: 100%; }
-    #comments .comment .comment-pseudo {
-      font-weight: bold;
-      color: #060707; }
-    #comments .comment .comment-comment {
-      color: #424a4a;
-      margin-left: 25px; }
-    #comments .comment .comment-note {
-      background-color: #ff793f;
-      color: white;
-      padding: 5px 10px;
-      text-align: center;
-      display: inline-block;
-      margin: 0px auto;
-      border-radius: 5px; }
-  #comments .comment-form textarea {
-    margin: 5px auto 0px; }
-  #comments hr {
-    background-color: #7f8c8d; }
+  #films .a-movie a, #films .a-movie a:hover {
+    text-decoration: none; }
+  #films .a-movie a {
+    color: #9f9f9f;
+    text-align: center; }
+  #films .a-movie .a-movie-title {
+    font-size: 110%;
+    color: #299fd1; }
+  #films .a-movie .a-movie-genre, #films .a-movie .a-movie-infos {
+    font-size: 90%; }
+  #films .a-movie .a-movie-randomovies-note i {
+    color: #9f9f9f; }
+  #films .a-movie .a-movie-randowatchers-note i {
+    color: #299fd1; }
 
-.comment-pseudo {
-  font-size: 125%; }
-  .comment-pseudo img {
+body {
+  font-family: Arial; }
+
+body.public {
+  background-color: #101010;
+  padding-bottom: 20px;
+  color: #ebebeb; }
+
+body.private {
+  background-color: #ebebeb;
+  color: #101010;
+  padding-bottom: 20px; }
+
+i.fas.fa-star,
+i.far.fa-star {
+  color: #f1c40f; }
+
+.label {
+  padding: 4px 8px;
+  background-color: #9f9f9f;
+  color: #ebebeb;
+  border-radius: 1px; }
+
+a {
+  color: #299fd1; }
+
+a:hover {
+  color: #299fd1; }
+
+.basic-btn {
+  border: solid 1px #299fd1;
+  color: #299fd1;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 5px 10px; }
+  .basic-btn:hover {
+    background-color: #299fd1;
+    color: #d2dae2; }
+
+#menu {
+  color: #ebebeb;
+  margin: 0px 0px;
+  padding: 0px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 100;
+  background-color: #101010;
+  width: 100%;
+  top: 0; }
+  #menu > li {
+    display: inline-block;
+    padding: 0px 20px;
+    position: relative;
+    text-align: center;
+    line-height: 80px; }
+  #menu > li.accent a {
+    color: #299fd1; }
+  #menu > li.mono:hover {
+    color: #299fd1; }
+  #menu img {
+    width: 150px; }
+  #menu img.main-user-photo {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    height: 50px;
-    width: 50px;
-    margin-right: 15px; }
+    margin: 10px auto; }
+  #menu a {
+    color: #ebebeb; }
+    #menu a:hover {
+      text-decoration: none;
+      color: #299fd1; }
 
-#note-stars-zone {
-  color: #ff793f;
-  font-size: 125%; }
+.submenu {
+  padding: 0px;
+  position: absolute;
+  background-color: rgba(48, 48, 48, 0.95);
+  color: #ebebeb;
+  z-index: 1000;
+  width: 100%;
+  left: 0;
+  top: 65px;
+  display: none; }
+  .submenu li {
+    display: block;
+    padding: 5px;
+    line-height: 30px; }
+    .submenu li:hover {
+      background-color: #299fd1; }
 
-#new-comment-form label {
-  line-height: 36px; }
-
-#search-form div {
-  margin-bottom: 10px; }
-
-#search-form label {
-  color: #8995a2;
+#menu > li:hover .submenu {
   display: block; }
 
-#search-form input[type=text] {
-  color: white;
-  border: #8995a2 1px solid;
+#menu ul.submenu a:hover {
+  color: white; }
+
+#movie a#next {
+  color: #101010; }
+  #movie a#next:hover {
+    color: white;
+    text-decoration: none; }
+
+.pagination-conteneur {
+  text-align: center; }
+  .pagination-conteneur .pagination {
+    display: inline-block;
+    border: solid 1px #299fd1;
+    color: #299fd1;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 5px 10px;
+    border-radius: 0px;
+    cursor: pointer; }
+    .pagination-conteneur .pagination:hover, .pagination-conteneur .pagination.active {
+      background-color: #299fd1;
+      color: #101010; }
+    .pagination-conteneur .pagination:hover {
+      text-decoration: none; }
+    .pagination-conteneur .pagination.disabled {
+      border: solid 1px #9f9f9f;
+      color: #9f9f9f;
+      cursor: initial; }
+      .pagination-conteneur .pagination.disabled:hover {
+        background-color: rgba(0, 0, 0, 0); }
+
+.randomovies-grey-label {
+  padding: 4px 8px;
+  background-color: #9f9f9f;
+  color: #ebebeb;
+  border-radius: 1px;
+  display: inline-block;
+  text-align: center; }
+
+.randomovies-default-btn {
+  display: inline-block;
   background-color: rgba(0, 0, 0, 0);
-  border-radius: 5px;
+  border: solid 1px #299fd1;
+  border-radius: 2px;
+  color: #299fd1;
+  padding: 5px 10px; }
+  .randomovies-default-btn:hover {
+    background-color: #299fd1;
+    color: white;
+    text-decoration: none; }
+
+.randomovies-default-field {
+  width: 100%;
+  margin-bottom: 20px;
+  border: solid 1px #9f9f9f;
   padding: 5px 10px;
-  display: block;
+  border-radius: 2px; }
+
+#recherche input[type=text], #recherche input[type=date], #recherche input[type=number] {
+  border: solid 1px #9f9f9f;
+  color: #ebebeb;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 2px;
+  margin-bottom: 10px; }
+
+#recherche input[type=text] {
   width: 100%; }
 
-#search-form select {
-  color: white;
-  border: #8995a2 1px solid;
+#recherche input[type=date], #recherche input[type=number] {
+  width: 90%; }
+
+#recherche select {
+  border: solid 1px #9f9f9f;
+  color: #ebebeb;
   background-color: rgba(0, 0, 0, 0);
-  border-radius: 5px;
-  padding: 5px 10px;
+  padding: 2px;
+  width: 100%; }
+
+.recherche-widget {
   display: inline-block; }
 
-.search-zone h5 {
-  border-top: solid 1px #8995a2;
-  border-bottom: solid 1px #8995a2;
-  margin: 0px 0px 30px;
-  padding: 20px 10px;
-  color: white;
-  background-color: rgba(137, 149, 162, 0.25); }
-
-.search-result {
+.recherche-movie {
   margin-bottom: 20px;
   text-align: center;
-  color: white; }
+  font-size: 125%; }
 
-.search-result img {
-  width: 100%; }
+#recherche form select.randomovies-form-select-fixer {
+  padding: 4px;
+  background-color: #101010; }
 
-.search-result:hover {
-  cursor: pointer;
-  opacity: 0.50; }
+#connexion, #inscription, #motdepasseoublie {
+  color: #101010; }
 
-.grey-bg {
-  display: block;
-  margin: 0px auto 5px;
-  padding: 0px;
-  width: 90%; }
+#menu {
+  display: block; }
 
-.col-zone {
-  column-count: 3; }
+#menu li#minimal-menu-btn {
+  display: none;
+  flex: 1;
+  text-align: right; }
 
-.main-photo {
-  width: 99%; }
-
-.other-photo {
-  width: 49%;
-  margin-top: 5px;
-  margin-left: 1px; }
-
-#actor-card h2, #actor-card h4 {
-  color: #2980b9; }
-
-#actor-card h4 {
-  margin-top: 20px; }
-
-.main-movie-cover {
-  width: 80%;
-  margin: 0px auto;
-  display: block;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5); }
-
-.main-movie-title {
-  margin-bottom: 40px; }
-
-.main-movie-tags, .main-movie-synopsis, .main-movie-details, .main-movie-actors, .main-movie-critique {
-  margin-bottom: 40px; }
-  .main-movie-tags i, .main-movie-synopsis i, .main-movie-details i, .main-movie-actors i, .main-movie-critique i {
-    margin-right: 5px; }
-
-.main-movie-infos {
-  color: gray;
-  margin-left: 20px; }
-
-.main-movie-title h2 {
-  font-size: 300%; }
-
-.main-movie-stars img {
-  width: 30px;
-  height: 30px;
-  display: inline-block; }
-
-.review {
-  border: solid 1px rgba(255, 255, 255, 0.05);
-  border-radius: 3px;
-  padding: 10px 20px;
-  width: 90%;
-  margin: 20px auto 0px;
-  box-sizing: border-box;
-  font-size: 110%;
-  background-color: rgba(255, 255, 255, 0.025);
-  color: white; }
-  .review .reviewer {
-    font-size: 85%;
-    margin-top: 15px;
-    width: 90%; }
-    .review .reviewer img {
-      width: 100%;
-      border-radius: 50%; }
-
-.suggestion-cover {
-  width: 90%; }
-
-#my-account {
-  background-color: white;
-  color: #2980b9;
-  padding: 40px; }
-  #my-account h2 {
-    color: #e74c3c; }
-
-#register-form-errors {
-  color: #e74c3c; }
-  #register-form-errors ul {
-    margin-bottom: 0px; }
-  #register-form-errors ul:first-of-type {
-    margin-top: 10px; }
-
-#login-form-errors {
-  color: #e74c3c; }
-
-.media-preview {
-  width: 100%; }
-
-.media-delete-btn {
-  position: absolute;
-  bottom: 0px;
-  right: 15px; }
-
-nav {
-  background-color: #2980b9;
-  color: white;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
-  nav #my-account-menu {
-    position: relative;
-    line-height: 75px;
-    background-color: #409ad5;
-    text-align: center; }
-    nav #my-account-menu img {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%; }
-    nav #my-account-menu a {
-      text-decoration: none;
-      color: white;
-      display: block; }
-    nav #my-account-menu #account-menu {
-      display: none;
-      position: absolute;
-      top: 75px;
-      left: 0;
-      background-color: #ff793f;
-      z-index: 1000;
-      width: 100%; }
-      nav #my-account-menu #account-menu ul {
-        margin: 0px;
-        padding: 0px; }
-        nav #my-account-menu #account-menu ul li {
-          line-height: 50px;
-          margin: 0px;
-          padding: 0px;
-          display: block; }
-          nav #my-account-menu #account-menu ul li:hover {
-            background-color: #409ad5; }
-        nav #my-account-menu #account-menu ul li:first-of-type {
-          border-top: 1px solid rgba(255, 255, 255, 0.5); }
-        nav #my-account-menu #account-menu ul li:last-of-type {
-          border-top: 1px solid rgba(255, 255, 255, 0.5);
-          line-height: 40px; }
-  nav #my-account-menu.hovered:hover #account-menu {
+@media screen and (max-width: 1200px) {
+  #menu li:not(.minimal-menu) {
+    display: none; }
+  #menu li#minimal-menu-btn {
     display: block; }
-
-#site-title {
-  background-color: #409ad5;
-  text-align: center; }
-  #site-title h1 {
-    line-height: 75px;
-    margin: 0px; }
-
-#menu-list-container {
-  padding-left: 0px; }
-
-#menu ul {
-  margin: 0px;
-  padding: 0px; }
-  #menu ul li {
-    display: inline-block;
-    line-height: 75px;
-    padding: 0px 20px;
-    margin-right: -5px; }
-    #menu ul li:hover {
-      background-color: #409ad5;
-      cursor: pointer; }
-    #menu ul li a {
-      display: block;
-      text-decoration: none;
-      color: white; }
-    #menu ul li.active {
-      background-color: #409ad5; }
-  #menu ul li:first-of-type, #menu ul li:last-of-type {
-    display: none; }
-
-#submenu {
-  background-color: #4e5758;
-  color: white;
-  z-index: 1; }
-
-#submenu-search {
-  background-color: #667273;
-  text-align: center;
-  padding: 25px 0px 20px 25px; }
-  #submenu-search input[type=text] {
-    border-radius: 10px 0px 0px 10px;
-    padding: 5px 45px 5px 10px;
-    border: none;
-    width: 65%; }
-  #submenu-search i.fas.fa-search {
-    position: relative;
-    left: -35px;
-    color: #667273; }
-  #submenu-search input[type=submit] {
-    position: relative;
-    left: -30px;
-    padding: 5px;
-    top: 0px;
-    border: none;
-    border-radius: 0px 10px 10px 0px;
-    background-color: #e74c3c;
-    color: white;
-    width: 25%; }
-    #submenu-search input[type=submit]:hover {
-      background-color: #ed7669;
-      cursor: pointer; }
-
-#submenu-categories {
-  padding: 25px 0px 20px 35px; }
-  #submenu-categories ul {
-    padding: 0px 0px 0px 15px;
-    margin-top: 10px; }
-    #submenu-categories ul li a {
-      text-decoration: none;
-      color: #bfbfbf; }
-      #submenu-categories ul li a:hover {
-        text-decoration: underline; }
-
-#admin-body nav {
-  background-color: #a55eea; }
-  #admin-body nav #my-account-menu {
-    background-color: #8c31e4; }
-    #admin-body nav #my-account-menu #account-menu ul li:hover {
-      background-color: #8c31e4; }
-  #admin-body nav #site-title {
-    background-color: #8c31e4; }
-  #admin-body nav #menu ul li:hover {
-    background-color: #8c31e4; }
-
-.custom-pagination {
-  display: block;
-  text-align: center; }
-  .custom-pagination li {
-    display: inline-block; }
-    .custom-pagination li a {
-      border: solid 1px #2980b9;
-      color: #2980b9;
-      display: block;
-      padding: 5px 10px;
-      border-radius: 3px;
-      margin: 0px 1px;
-      line-height: 30px; }
-      .custom-pagination li a:hover {
-        color: white;
-        text-decoration: none;
-        background-color: #2980b9; }
-    .custom-pagination li a.disabled {
-      border: solid 1px #7f8c8d;
-      color: #7f8c8d;
-      cursor: default; }
-      .custom-pagination li a.disabled:hover {
-        background-color: rgba(0, 0, 0, 0); }
-    .custom-pagination li a.active {
-      color: white;
-      cursor: default;
-      background-color: #2980b9; }
-      .custom-pagination li a.active:hover {
-        color: white; }
-
-#recommendations img {
-  max-width: 90%; }
-
-#small-menu {
-  display: none; }
-
-@media screen and (max-width: 576px) {
-  #menu, #my-account-menu {
-    display: none; }
-  #small-menu {
+  #menu {
+    display: flex;
+    justify-content: space-between; }
+  #menu li #sub-minimal-menu li {
     display: block;
+    line-height: 40px;
+    min-width: 200px; }
+  #menu li #sub-minimal-menu li:hover:not(.with-subsubmenu) {
+    background-color: #299fd1; }
+    #menu li #sub-minimal-menu li:hover:not(.with-subsubmenu) a:hover {
+      color: white; }
+  #menu li#minimal-menu-btn #minimal-menu-btn-hoverable {
+    display: inline-block; }
+  #menu li #sub-minimal-menu {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #303030;
+    color: #ebebeb;
+    padding: 0px;
+    width: auto;
+    text-align: center; }
+  #menu li#minimal-menu-btn #sub-minimal-menu.hoverable {
+    display: none; }
+  #menu li#minimal-menu-btn #minimal-menu-btn-hoverable:hover + #sub-minimal-menu,
+  #menu li#minimal-menu-btn #sub-minimal-menu.hoverable:hover {
+    display: block; }
+  #menu li#minimal-menu-btn #sub-minimal-menu:not(.hoverable) {
+    display: block; }
+  .subsubmenu {
+    padding: 0px;
+    text-align: left;
     width: 100%; }
-    #small-menu img {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%; }
-    #small-menu ul {
-      margin: 0px;
-      padding: 0px; }
-      #small-menu ul li {
-        display: none;
-        text-align: center;
-        padding: 0px;
-        line-height: 75px;
-        padding: 0px;
-        margin-right: 0px; }
-        #small-menu ul li:hover {
-          background-color: #409ad5;
-          cursor: pointer; }
-        #small-menu ul li a {
-          display: block;
-          text-decoration: none;
-          color: white; }
-        #small-menu ul li.active {
-          background-color: #409ad5; }
-        #small-menu ul li:first-of-type {
-          border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-          display: block; }
-        #small-menu ul li:last-of-type {
-          border-top: 1px solid rgba(255, 255, 255, 0.5);
-          line-height: 40px; }
-        #small-menu ul li.separator {
-          border-top: 1px solid rgba(255, 255, 255, 0.5);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-          padding: 5px 0px;
-          background-color: #ff793f; }
-      #small-menu ul.hovered li {
-        display: block; } }
-
-@media screen and (min-width: 577px) and (max-width: 1200px) {
-  nav #menu #menu-list-container {
-    position: relative; }
-    nav #menu #menu-list-container ul.hovered:hover li {
-      display: block; }
-    nav #menu #menu-list-container ul {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-      background-color: #2980b9;
-      width: 100%; }
-      nav #menu #menu-list-container ul li {
-        display: block;
-        margin-right: 0px;
-        text-align: center;
-        display: none;
-        padding: 0px; }
-      nav #menu #menu-list-container ul li:last-of-type {
-        border-top: 1px solid rgba(255, 255, 255, 0.5);
-        line-height: 40px; }
-      nav #menu #menu-list-container ul li:first-of-type {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-        display: block; } }
-
-@media screen and (min-width: 1200px) {
-  #submenu {
-    min-height: 1000px; } }
+  .subsubmenu {
+    display: none;
+    background-color: rgba(16, 16, 16, 0.5); }
+  #menu li #sub-minimal-menu li .subsubmenu li {
+    line-height: 30px;
+    width: 100%;
+    padding: 0px 20px; }
+  #menu li #sub-minimal-menu li .subsubmenu li:hover {
+    background-color: rgba(0, 0, 0, 0); }
+  #menu li #sub-minimal-menu li .subsubmenu li i {
+    display: none;
+    position: relative;
+    left: 0px; }
+  #menu li #sub-minimal-menu li .subsubmenu li:hover i {
+    display: inline-block; }
+  .with-subsubmenu i.fas.fa-angle-up {
+    display: none; } }

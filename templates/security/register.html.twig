@@ -4,69 +4,56 @@
 
 {% block body %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3 mt-5">
+	<div id="contenu" class="container">		
+		<div id="connexion" class="row">			
+			<div class="offset-lg-3 col-lg-6 mt-3">
+				<div class="card">
+					<img class="card-img-top" src="/images/inscription-card-header.jpg" />
+					<div class="card-body">
 
-                {{ form_start(form) }}
+						<h3 class="mb-1">Inscription</h3>
+                        <small>Profitez pleinement des fonctionnalités de Randomovies, zone membre, commentez les films que vous avez aimé, recommandations personnalisées...</small>
+						<br /><br />
+                        
+                        {{ form_start(form) }}
 
-                <div id="card-login" class="card mt-3 mb-5">
-                    <div class="card-header">
-                        <h3 class="text-center mt-2 mb-1">Inscription</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row m-1">
-                            <div class="col">
-                                Profitez pleinement des fonctionnalités de Randomovies, zone membre, commentez les films que vous avez aimé, recommandations personnalisées...
-                            </div>
-                        </div>
-                        <div class="row m-1">
-                            <div id="register-form-errors" class="col">
+						<div class="row">
+                            <div class="col-md-12">
                                 {{ form_errors(form.username) }}
                             </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-md-4 text-right">
-                                {{ form_label(form.username) }}
-                            </div>
-                            <div class="col-md-8">
-                                {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-4 text-right">
-                                {{ form_label(form.email) }}
-                            </div>
-                            <div class="col-md-8">
-                                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-4 text-right">
-                                {{ form_label(form.plainPassword.first) }}
-                            </div>
-                            <div class="col-md-8">
-                                {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-4 text-right">
-                                {{ form_label(form.plainPassword.second) }}
-                            </div>
-                            <div class="col-md-8">
-                                {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-outline-secondary" type="reset">Remettre à zéro</button>
-                        <button class="btn btn-outline-primary" type="submit">S'inscrire</button>
-                    </div>
-                </div>
-                {{ form_end(form) }}
-
-            </div>
-        </div>
-    </div>
+							<div class="col-md-4">
+								Nom d'utilisateur
+							</div>
+							<div class="col-md-8">
+                                {{ form_widget(form.username, {'attr': {'class': 'randomovies-default-field'}}) }}
+							</div>
+							<div class="col-md-4">
+								Adresse email
+							</div>
+							<div class="col-md-8">
+                                {{ form_widget(form.email, {'attr': {'class': 'randomovies-default-field'}}) }}								
+							</div>
+							<div class="col-md-4">
+								Mot de passe
+							</div>
+							<div class="col-md-8">
+								{{ form_widget(form.plainPassword.first, {'attr': {'class': 'randomovies-default-field'}}) }}
+							</div>
+							<div class="col-md-4">
+								Confirmation du mot de passe
+							</div>
+							<div class="col-md-8">
+								{{ form_widget(form.plainPassword.second, {'attr': {'class': 'randomovies-default-field'}}) }}
+							</div>
+							<div class="col-md-12">
+								<button type="reset" class="randomovies-default-btn">Remettre à zéro</button>
+								<button type="submit" class="randomovies-default-btn float-right">S'inscrire</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>		
 
 {% endblock %}

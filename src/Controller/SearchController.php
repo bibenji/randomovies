@@ -13,7 +13,7 @@ use Randomovies\Entity\Movie;
 class SearchController extends Controller
 {
     /**
-     * @Route("/search", name="search")
+     * @Route("/recherche", name="search")
      */
     public function searchAction(Request $request)
     {

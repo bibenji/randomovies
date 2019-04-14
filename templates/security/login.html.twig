@@ -4,15 +4,14 @@
 
 {% block body %}
 
-	<div class="container">
-		<div class="row">
-
-			<div class="col-md-6 offset-md-3 mt-5">
-
-				<div id="card-login" class="card mt-3 mb-5">
-					<img class="card-img-top" src="/images/login-header.jpg" alt="Card image cap">
+	<div id="contenu" class="container">		
+		<div id="connexion" class="row">			
+			<div class="offset-lg-3 col-lg-6 mt-3">
+				<div class="card">
+					<img class="card-img-top" src="/images/connexion-card-header.jpg" />
 					<div class="card-body">
-						<h3 class="card-title text-center mt-1 mb-3">Connection</h3>
+
+						<h3 class="mb-4">Connexion</h3>
 
 						<div id="login-form-errors">
                             {% if error %}
@@ -21,8 +20,8 @@
 						</div>
 
 						<form action="{{ path('login') }}" method="post">
-							<input type="text"id="username" name="_username" value="{{ last_username }}" class="form-control mb-2" placeholder="Nom d'utilisateur" />
-							<input type="password" id="password" name="_password" class="form-control mb-2" placeholder="Mot de passe" />
+							<input type="text"id="username" name="_username" value="{{ last_username }}" class="randomovies-default-field" placeholder="Nom d'utilisateur" />
+							<input type="password" id="password" name="_password" class="randomovies-default-field" placeholder="Mot de passe" />
 
                             {#
                                 If you want to control the URL the user
@@ -30,10 +29,9 @@
                                 <input type="hidden" name="_target_path" value="/account" />
                             #}
 
-							<div class="text-left clearfix">
-								<input type="reset" value="Remettre à zéro" class="btn randomovies-btn-reset" />
-								<input type="submit" value="Envoyer" class="btn randomovies-btn-confirm float-right" />
-							</div>
+							<input type="reset" value="Remettre à zéro" class="randomovies-default-btn" />
+
+							<input type="submit" value="Envoyer" class="randomovies-default-btn float-right" />
 						</form>
 
 						<div class="text-center mt-3">
@@ -47,11 +45,11 @@
 							<p>Mot de passe oublié ?</p>
 							<a href="{{ path('password_forgotten') }}">Ré-initialiser mon mot de passe</a>
 						</div>
+
 					</div>
 				</div>
-
 			</div>
 		</div>
-	</div>
+	</div>		
 
 {% endblock %}

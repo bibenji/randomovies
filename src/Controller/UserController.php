@@ -36,7 +36,7 @@ class UserController extends Controller
     }
     
     /**
-     * @Route("/user", name="user-account")
+     * @Route("/compte", name="user-account")
      */
     public function accountAction(Request $request)
     {        
@@ -44,7 +44,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/user/edit", name="user-edit")
+     * @Route("/compte/modifier", name="user-edit")
      */
     public function editAction(Request $request)
     {
@@ -81,6 +81,8 @@ class UserController extends Controller
 
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('user-account');
         }
 
         return $this->render('user/edit.html.twig', [

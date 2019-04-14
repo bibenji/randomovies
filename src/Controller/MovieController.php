@@ -113,7 +113,7 @@ class MovieController extends Controller
     }
     
     /**
-     * @Route("/show/{id}", name="show")     
+     * @Route("/film/{id}", name="show")     
      */
     public function showAction(Request $request, Movie $movie)
     {  
@@ -162,7 +162,7 @@ class MovieController extends Controller
     }
 
     /**
-     * @Route("/all", name="list_movies")
+     * @Route("/films", name="list_movies")
      */
     public function listAction(Request $request)
     {
