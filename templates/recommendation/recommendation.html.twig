@@ -16,7 +16,7 @@
 				{% else %}
 					<div class="row">
 						{% for movie in recommendations %}
-							<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">					
+							<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 suggestion">
 								<a href="{{ path('show', { 'id' : movie.id }) }}">
 									<div class="grey-bg">
 										<img class="" src="{{ asset('images/posters/small/' ~ movie.poster) }}" />
