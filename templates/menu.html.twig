@@ -1,6 +1,8 @@
 <ul id="menu">
 	<li id="title" class="minimal-menu">
-		<i class="fas fa-film"></i> Randomovies
+		<a href="{{ path('homepage') }}">
+			<i class="fas fa-film"></i> Randomovies
+		</a>
 	</li>
 	<li class="{{ app.request.get('_route') == 'homepage' ? 'accent' : 'mono' }}">
 		<a href="{{ path('homepage') }}">Au hasard</a>
