@@ -17,6 +17,12 @@
 /var/logs/*
 !var/logs/.gitkeep
 
+/var/log
+/docker/elasticsearch/data
+/docker/database/data
+
+.idea/
+
 !/var/sessions
 /var/sessions/*
 !var/sessions/.gitkeep

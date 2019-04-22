@@ -17,6 +17,7 @@
 	background-color: rgba(0,0,0,0);
 	padding: 2px;
 	width: 100%;
+	margin-bottom: 10px;
 }
 .recherche-widget {
 	display: inline-block;
@@ -29,4 +30,8 @@
 #recherche form select.randomovies-form-select-fixer {
     padding: 4px;
     background-color: #101010;
+}
+#recherche form select.randomovies-form-select-fixer {
+	padding: 4px;
+	background-color: #101010;
 }

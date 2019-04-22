@@ -47,7 +47,7 @@
 
 			<h2>Mes Commentaires / Mes Notes</h2>			
 			{% for comment in userComments %}
-				<div class="row mb-1">				
+				<div class="row mb-1 comment">
 					<div class="col-lg-1 col-md-2">
 						{% if comment.movie.poster != "" %}
 							<a href="/images/posters/{{ comment.movie.poster }}" target="_blank">

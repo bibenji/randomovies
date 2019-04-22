@@ -32,7 +32,7 @@
 				<p>Avec {% for index, role in actors %}<a href="{{ path('show_actor', {'id': role.person.id}) }}">{{ role.person.fullname }}</a>{% if index+1 < actors|length %},&nbsp{% endif %}{% endfor %}
 				</p>
 				<div class="row">
-					<div class="col-4"><span class="randomovies-grey-label">{{ movie.genre }}</label></div>
+					<div class="col-4">{{ movie.genre }}</div>
 					<div class="col-4">{{ movie.duration }} min</div>
 					<div class="col-4">{{ movie.year }}</div>
 				</div>
@@ -52,10 +52,10 @@
 				<div id="notes" class="d-flex flex-column">
 					
 					<div class="row p-2">
-						<div class="col-xl-7 col-md-5 col-sm-6 col-6">
+						<div class="col-xl-7 col-md-5 col-sm-6 col-12 rating-randomovies">
 							Note Randomovies
 						</div>
-						<div class="col-xl-5 col-md-7 col-sm-6 col-6 text-right">
+						<div class="col-xl-5 col-md-7 col-sm-6 col-12 rating-randomovies-stars">
 							{% for i in 1..5 %}								
 								{% if i <= movie.rating %}
 									<i class="fas fa-star"></i>
@@ -67,10 +67,10 @@
 					</div>
 					
 					<div class="row p-2">
-						<div class="col-xl-7 col-md-5 col-sm-6 col-6">
+						<div class="col-xl-7 col-md-5 col-sm-6 col-12">
 							Note Randowatchers
 						</div>
-						<div class="col-xl-5 col-md-7 col-sm-6 col-6 text-right">
+						<div class="col-xl-5 col-md-7 col-sm-6 col-12 rating-randomovies-stars">
 							{% for i in 1..5 %}
 								{% if i <= comments_data.usersNote %}
 									<i class="fas fa-star"></i>
@@ -137,7 +137,7 @@
 								{% if movie is defined %}
 									{%  if rando.id != movie.id %}
 										<div class="mb-4 col-lg-6 col-md-6">										
-											<a href="{{ path('show', { 'id' : rando.id }) }}">												
+											<a href="{{ path('show', { 'id' : rando.id }) }}">
 												<img src="{{ asset('images/posters/small/' ~ rando.poster) }}" /><br />
 												{{ rando.title }}
 												{# <br /> #}

@@ -27,7 +27,14 @@ class MovieController extends Controller
             $commentsByPage,
             ($currentPage-1)*$commentsByPage
         );
-        
+//
+//        $context = $this->get('router')->getContext();
+//        $context->setHost('example.com');
+//        $context->setScheme('http');
+//        $context->setBaseUrl('http://randomovies.fr');
+//        $url = $this->get('router')->generate('homepage');
+//        dump($url);
+
         return [
             'movieComments' => $movieComments,
             'usersNote' => $usersNote,

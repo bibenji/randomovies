@@ -30,49 +30,47 @@
 		<div id="films" class="row">
 
 			<div class="col-xl-12">
-			<div class="row">
+				<div class="row">
 
-				{% set queryWithParams = path('list_movies')~'?' %}
-				{% for filter_name, filter_value in app.request.query.all %}
-					{% if filter_name != 'page' %}
-						{% set queryWithParams = queryWithParams~filter_name~'='~filter_value~'&' %}
-					{% endif %}
-				{% endfor %}
+					{% set queryWithParams = path('list_movies')~'?' %}
+					{% for filter_name, filter_value in app.request.query.all %}
+						{% if filter_name != 'page' %}
+							{% set queryWithParams = queryWithParams~filter_name~'='~filter_value~'&' %}
+						{% endif %}
+					{% endfor %}
 
-				<div class="col-xl-3 col-lg-6 col-md-12">
-					Note
-					{{ filter.rating('rating', queryWithParams) }}
+					<div class="col-xl-3 col-lg-4 col-md-12">
+						Note
+						{{ filter.rating('rating', queryWithParams) }}
+					</div>
+					<div class="col-xl-3 col-lg-4 col-md-12">
+						Note des utilisateurs
+						{{ filter.rating('users_rating', queryWithParams) }}
+					</div>
+					<div class="col-xl-3 col-lg-4 col-md-12">
+						Tags<br />
+						{% if app.request.query.all['tag'] is defined %}
+							{% set queryWithoutThatParam = path('list_movies')~'?' %}
+							{% for filter_name, filter_value in app.request.query.all %}
+								{% if filter_name != 'tag' and filter_name != 'page' %}
+									{% set queryWithoutThatParam = queryWithoutThatParam~filter_name~'='~filter_value~'&' %}
+								{% endif %}
+							{% endfor %}
+							<ul>
+								<li>{{ tags[app.request.query.all['tag']].name }} (<a href="{{ queryWithoutThatParam }}">retirer ce filtre</a>)</li>
+							</ul>
+						{% else %}
+							{% set index = 1 %}
+							{% set max_index = tags|length %}
+							{% for uuid, tag in tags %}
+								{% set index = index+1 %}
+								<a href="{{ queryWithParams }}tag={{ tag.id }}">{{ tag.name }}</a>{% if index < max_index %}, {% endif %}
+							{% endfor %}
+						{% endif %}
+					</div>
 				</div>
-				<div class="col-xl-3 col-lg-6 col-md-12">
-					Note des utilisateurs
-					{{ filter.rating('users_rating', queryWithParams) }}
-				</div>
-				<div class="col-xl-3 col-lg-12">
-					Tags<br />
-					{% if app.request.query.all['tag'] is defined %}
-						{% set queryWithoutThatParam = path('list_movies')~'?' %}
-						{% for filter_name, filter_value in app.request.query.all %}
-							{% if filter_name != 'tag' and filter_name != 'page' %}
-								{% set queryWithoutThatParam = queryWithoutThatParam~filter_name~'='~filter_value~'&' %}
-							{% endif %}
-						{% endfor %}
-						<ul>
-							<li>{{ tags[app.request.query.all['tag']].name }} (<a href="{{ queryWithoutThatParam }}">retirer ce filtre</a>)</li>
-						</ul>
-					{% else %}
-						{% set index = 1 %}
-						{% set max_index = tags|length %}
-						{% for uuid, tag in tags %}
-							{% set index = index+1 %}
-							<a href="{{ queryWithParams }}tag={{ tag.id }}">{{ tag.name }}</a>{% if index < max_index %}, {% endif %}
-						{% endfor %}
-					{% endif %}
-				</div>
-			
+				<br />
 			</div>
-			</div>
-			
-			<br />	
 
 			{% for movie in movies %}
 				<div class="a-movie col-lg-2 col-md-4 col-sm-6">
