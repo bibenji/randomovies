@@ -5,10 +5,11 @@ namespace Randomovies\Controller;
 use Randomovies\Form\AccountType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Randomovies\Entity\Comment;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -34,9 +35,11 @@ class UserController extends Controller
             'totalPages' => $totalPages,
         ];
     }
-    
+
     /**
      * @Route("/compte", name="user-account")
+     * @param Request $request
+     * @return Response
      */
     public function accountAction(Request $request)
     {        
@@ -45,6 +48,8 @@ class UserController extends Controller
 
     /**
      * @Route("/compte/modifier", name="user-edit")
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function editAction(Request $request)
     {
