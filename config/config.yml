@@ -12,7 +12,7 @@ parameters:
     users_photos_directory: '%kernel.project_dir%/public/images/users/photos'
     max_movies_per_page: 20
     max_comments_per_page: 20
-    admin_max_results_per_page: 30    
+    admin_max_results_per_page: 30
 
 framework:
     translator: { fallbacks: [ "fr" ] }
@@ -31,12 +31,13 @@ framework:
     trusted_proxies: ~
     session:
         handler_id:  session.handler.native_file
-        # save_path:   "%kernel.project_dir%/var/sessions/%kernel.environment%"
+        save_path:   "%kernel.project_dir%/var/sessions/%kernel.environment%"
         # pour que ça marche avec virtualbox
-        save_path:   /var/lib/php/sessions
+        # save_path:   /var/lib/php/sessions
     fragments: ~
     http_method_override: true
-    assets: ~
+    assets:
+        json_manifest_path: '%kernel.project_dir%/public/css/asset_manifest.json'
     php_errors:
         log: true
     serializer:

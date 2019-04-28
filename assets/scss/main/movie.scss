@@ -1,7 +1,13 @@
-#movie a#next {
-    color: #101010;				
-    &:hover {
-        color: white;
-        text-decoration: none;
+#movie {
+    a#next {
+        color: #101010;
+        &:hover {
+            color: white;
+            text-decoration: none;
+        }
+    }
+
+    .rating-randomovies-stars {
+        text-align: right;
     }
 }

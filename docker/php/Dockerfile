@@ -22,6 +22,8 @@ RUN apt-get install git -y
 RUN apt-get install zip -y
 RUN apt-get install unzip -y
 
+RUN chown www-data -R /opt/project/var
+
 RUN mkdir /var/lib/php && mkdir /var/lib/php/session && chown www-data -R /var/lib/php/
 RUN echo "php_admin_flag[log_errors] = On">>/usr/local/etc/php-fpm.conf
 

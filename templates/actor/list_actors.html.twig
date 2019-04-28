@@ -9,31 +9,32 @@
 			
 			{% set lettre = '' %}
 
-			<div class="row">			
-				<div class="col-xl-6 text-right">										
-					<h4>{{ lettre }}</h4>
-				</div>							
-				<div class="col-xl-6 text-left">
-				
-				{% for actor in actors %}
-					{% if actor.lastname|slice(0,1) != lettre %}
-						{% set lettre = actor.lastname|slice(0,1) %}
+			<div id="acteurs-columns">
+				<div class="row">
+					<div class="col-sm-4 col-4 text-right">
+						<h4>{{ lettre }}</h4>
+					</div>
+					<div class="col-sm-8 col-8 text-left">
 
+					{% for actor in actors %}
+						{% if actor.lastname|slice(0,1) != lettre %}
+							{% set lettre = actor.lastname|slice(0,1) %}
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 col-4 text-right">
+						<h4>{{ lettre }}</h4>
+					</div>
+					<div class="col-sm-8 col-8 text-left">
+
+						{% endif %}
+							<a href="{{ path('show_actor', { 'id' : actor.id }) }}">{{ actor.getFullName() }}</a><br/>
+					{% endfor %}
+
+					</div>
 				</div>
 			</div>
-			<div class="row">			
-				<div class="col-xl-6 text-right">										
-					<h4>{{ lettre }}</h4>
-				</div>							
-				<div class="col-xl-6 text-left">
-
-					{% endif %}					
-						<a href="{{ path('show_actor', { 'id' : actor.id }) }}">{{ actor.getFullName() }}</a><br/>					
-				{% endfor %}			
-			
-				</div>		
-			</div>
-			
 		</div>		
 	</div>		
 

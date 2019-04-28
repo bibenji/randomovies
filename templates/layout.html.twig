@@ -15,9 +15,16 @@
         {% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
 		{% endblock %}
+
+{#		hack for domain redirection#}
+		<script type="text/javascript">
+			function setDocumentTitle() {
+				window.top.document.title = "{{ block('title') }}";
+			}
+		</script>
 	</head>
 
-	<body class="{% block body_class %}public{% endblock %}">
+	<body onload="setDocumentTitle();" class="{% block body_class %}public{% endblock %}">
 		
 		{% for label, messages in app.flashes(['danger', 'success', 'warning']) %}
 			<div id="layout-alert-container">
@@ -56,8 +63,16 @@
 				
 				// main menu adaptation for mobile and no hover
 				$('#minimal-menu-btn-hoverable').on('click', function() {
-					$('#menu li#minimal-menu-btn #sub-minimal-menu').toggleClass('hoverable');
+					$('#menu li#minimal-menu-btn #sub-minimal-menu').addClass('clickable');
+					$('#menu li#minimal-menu-btn #sub-minimal-menu').toggleClass('clicked');
 				});
+				$('#minimal-menu-btn-hoverable').on('mouseleave', function() {
+					if (!$('#menu li#minimal-menu-btn #sub-minimal-menu').hasClass('clicked')) {
+						$('#menu li#minimal-menu-btn #sub-minimal-menu').removeClass('clickable');
+					}
+				});
+
+
 				
 			}); 
 		

@@ -1,3 +1,6 @@
+#acteurs #acteurs-columns {
+  column-count: 3; }
+
 #acteurs a {
   color: white; }
   #acteurs a:hover {
@@ -258,6 +261,9 @@ a:hover {
     color: white;
     text-decoration: none; }
 
+#movie .rating-randomovies-stars {
+  text-align: right; }
+
 .pagination-conteneur {
   text-align: center; }
   .pagination-conteneur .pagination {
@@ -267,7 +273,8 @@ a:hover {
     background-color: rgba(0, 0, 0, 0);
     padding: 5px 10px;
     border-radius: 0px;
-    cursor: pointer; }
+    cursor: pointer;
+    margin-bottom: 5px; }
     .pagination-conteneur .pagination:hover, .pagination-conteneur .pagination.active {
       background-color: #299fd1;
       color: #101010; }
@@ -325,7 +332,8 @@ a:hover {
   color: #ebebeb;
   background-color: rgba(0, 0, 0, 0);
   padding: 2px;
-  width: 100%; }
+  width: 100%;
+  margin-bottom: 10px; }
 
 .recherche-widget {
   display: inline-block; }
@@ -334,6 +342,10 @@ a:hover {
   margin-bottom: 20px;
   text-align: center;
   font-size: 125%; }
+
+#recherche form select.randomovies-form-select-fixer {
+  padding: 4px;
+  background-color: #101010; }
 
 #recherche form select.randomovies-form-select-fixer {
   padding: 4px;
@@ -388,8 +400,10 @@ a:hover {
   #menu li#minimal-menu-btn #minimal-menu-btn-hoverable:hover + #sub-minimal-menu,
   #menu li#minimal-menu-btn #sub-minimal-menu.hoverable:hover {
     display: block; }
-  #menu li#minimal-menu-btn #sub-minimal-menu:not(.hoverable) {
+  #menu li#minimal-menu-btn #minimal-menu-btn-hoverable + #sub-minimal-menu.clickable.clicked {
     display: block; }
+  #menu li#minimal-menu-btn #minimal-menu-btn-hoverable + #sub-minimal-menu.clickable:not(.clicked) {
+    display: none; }
   .subsubmenu {
     padding: 0px;
     text-align: left;
@@ -411,3 +425,24 @@ a:hover {
     display: inline-block; }
   .with-subsubmenu i.fas.fa-angle-up {
     display: none; } }
+
+@media screen and (max-width: 1200px) {
+  #movie .rating-randomovies-stars {
+    margin-top: 5px;
+    text-align: center; } }
+
+@media screen and (max-width: 1200px) {
+  #films .a-movie img {
+    margin: 0px auto;
+    max-width: 90%;
+    display: block;
+    max-height: 250px;
+    width: auto; } }
+
+@media screen and (max-width: 600px) {
+  #acteurs #acteurs-columns {
+    column-count: 1; } }
+
+@media screen and (max-width: 600px) {
+  #mon-compte .comment {
+    padding: 10px; } }

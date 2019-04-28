@@ -13,8 +13,13 @@
   "author": "bibenji",
   "license": "ISC",
   "dependencies": {
+    "del": "^4.1.0",
+    "glob": "^7.1.3",
     "gulp": "^3.9.1",
+    "gulp-asset-manifest-symfony": "0.0.6",
     "gulp-font": "^1.0.4",
+    "gulp-rev": "^9.0.0",
     "gulp-sass": "^4.0.1"
-  }
+  },
+  "devDependencies": {}
 }

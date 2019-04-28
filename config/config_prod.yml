@@ -1,5 +1,9 @@
 imports:
     - { resource: config.yml }
+    - { resource: services_prod.yml }
+
+parameters:
+    twig.extension.routing.class: Randomovies\Twig\Extension\PathExtension
 
 #doctrine:
 #    orm:
