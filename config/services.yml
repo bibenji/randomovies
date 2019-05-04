@@ -27,6 +27,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    app.twig.generate_a.extension:
+        class: Randomovies\Twig\Extension\GenerateAExtension
+        arguments: [ '@twig.extension.routing' ]
+        tags:
+            - { name: twig.extension }
+
     app.randomovies_mailer:
         public: true
         class: Randomovies\Service\Mailer
@@ -39,3 +45,4 @@ services:
         class: Randomovies\Extractor\MovieExtractor
         arguments:
             - "@validator"
+
