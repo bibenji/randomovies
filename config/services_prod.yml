@@ -1,7 +1,7 @@
-services:
-    twig.extension.routing:
-        class: '%twig.extension.routing.class%'
-        public: false
-        arguments:
-            - '@router'
-            - '%randomovies_domain%'
+#services:
+#    twig.extension.routing:
+#        class: '%twig.extension.routing.class%'
+#        public: false
+#        arguments:
+#            - '@router'
+#            - '%randomovies_domain%'
