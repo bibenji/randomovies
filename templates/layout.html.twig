@@ -15,16 +15,9 @@
         {% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
 		{% endblock %}
-
-{#		hack for domain redirection#}
-		<script type="text/javascript">
-			function setDocumentTitle() {
-				window.top.document.title = "{{ block('title') }}";
-			}
-		</script>
 	</head>
 
-	<body onload="setDocumentTitle();" class="{% block body_class %}public{% endblock %}">
+	<body class="{% block body_class %}public{% endblock %}">
 		
 		{% for label, messages in app.flashes(['danger', 'success', 'warning']) %}
 			<div id="layout-alert-container">
