@@ -36,6 +36,8 @@ class ActorController extends Controller
         } else {
             $finder = [];
         }
+
+
         
         return $this->render('actor/show_actor.html.twig', [
             'actor' => $person,

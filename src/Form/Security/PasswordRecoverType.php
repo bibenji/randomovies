@@ -20,10 +20,10 @@ class PasswordRecoverType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options'  => [
-                    'label' => 'Password'
+                    'label' => 'Mot de passe'
                 ],
                 'second_options' => [
-                    'label' => 'Repeat Password'
+                    'label' => 'Confirmation mot de passe'
                 ],
                 'constraints' => [
                     new NotBlank(),

@@ -27,7 +27,7 @@ class SuggestionController extends Controller
 			$this->getDoctrine()->getManager()->persist($suggestion);
 			$this->getDoctrine()->getManager()->flush();
 			
-			$this->addFlash('success', 'Félicitation! Votre suggestion a bien été enregistrée!');
+			$this->addFlash('success', 'Félicitation ! Votre suggestion a bien été enregistrée !');
 		}
         		
         return $this->render('suggestion/create.html.twig', [

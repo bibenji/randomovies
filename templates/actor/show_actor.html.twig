@@ -9,11 +9,13 @@
 		<div id="acteur">				
 			<div class="row">
 				<div class="col-xl-4">
-					{# {% for index, media in actor.medias %}
+					{% set firstCount = 0 %}
+					{% for index, media in actor.medias %}
 						<img class="{{ index == 0 ? 'acteur-main-pic' : 'acteur-pic' }}" alt="{{ media.name }}" src="{{ asset('images/medias/' ~ media.path) }}" />
-            		{% endfor %} #}
+						{% set firstCount = firstCount + 1 %}
+            		{% endfor %}
 					{% for index, file in finder %}											
-						<img class="{{ index == 0 ? 'acteur-main-pic' : 'acteur-pic' }}" alt="{{ file.getRelativePathname() }}" src="{{ asset(actor_dir ~ file.getRelativePathname()) }}" />
+						<img class="{{ index == 0 and firstCount == 0 ? 'acteur-main-pic' : 'acteur-pic' }}" alt="{{ file.getRelativePathname() }}" src="{{ asset(actor_dir ~ file.getRelativePathname()) }}" />
 					{% endfor %}
 				</div>
 				<div class="col-xl-4">
