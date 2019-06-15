@@ -82,7 +82,7 @@ class AdminMovieController extends Controller
         			$form = $this->createForm('Randomovies\Form\MovieType', $movie, [
         				'current_user' => $this->getUser(),
         			]);
-        		} catch (\Exception $e) {
+        		} catch (\Throwable $e) {
         			$this->addFlash('danger', 'Une erreur s\'est produite : '.$e->getMessage());        			
         		}
         	} elseif ($form->isValid()) {

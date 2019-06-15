@@ -1,0 +1,1 @@
+fos.Router.setData({"base_url":"","routes":{"tag_create":{"tokens":[["text","\/admin\/tag\/tag"]],"defaults":[],"requirements":[],"hosttokens":[],"methods":["POST"],"schemes":[]}},"prefix":"","host":"localhost","port":"","scheme":"http"});

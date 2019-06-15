@@ -76,6 +76,8 @@ services:
             - MYSQL_PASSWORD=${DATABASE_PASSWORD}
         networks:
           - randomovies
+        ports:
+            - 33006:3306
 
     phpmyadmin:
         container_name: randomovies_phpmyadmin_dev

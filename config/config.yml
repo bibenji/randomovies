@@ -6,7 +6,7 @@ imports:
     - { resource: easyadmin.yml }
 
 parameters:
-    locale: en
+    locale: fr_FR
     medias_directory: '%kernel.project_dir%/public/images/medias'
     posters_directory: '%kernel.project_dir%/public/images/posters'
     users_photos_directory: '%kernel.project_dir%/public/images/users/photos'

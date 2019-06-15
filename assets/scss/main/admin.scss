@@ -1,3 +1,18 @@
 .admin .form-control {
     height: unset;
 }
+
+.admin {
+    img.media-preview {
+        width: 100%;
+    }
+}
+
+div#randomovies_movie_tags {
+    input {
+        margin-right: 2px;
+    }
+    label {
+        margin-right: 5px;
+    }
+}

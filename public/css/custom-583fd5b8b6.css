@@ -20,6 +20,15 @@
 .admin .form-control {
   height: unset; }
 
+.admin img.media-preview {
+  width: 100%; }
+
+div#randomovies_movie_tags input {
+  margin-right: 2px; }
+
+div#randomovies_movie_tags label {
+  margin-right: 5px; }
+
 #error_avatar_message {
   color: #c0392b; }
 
@@ -199,6 +208,10 @@ a:hover {
     background-color: #299fd1;
     color: #d2dae2; }
 
+.error {
+  color: #c0392b;
+  font-weight: bold; }
+
 #menu {
   color: #ebebeb;
   margin: 0px 0px;
@@ -263,6 +276,9 @@ a:hover {
 
 #movie .rating-randomovies-stars {
   text-align: right; }
+
+#movie .movie-tags h5 {
+  display: inline-block; }
 
 .pagination-conteneur {
   text-align: center; }

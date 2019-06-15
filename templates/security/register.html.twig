@@ -17,40 +17,41 @@
                         
                         {{ form_start(form) }}
 
-						<div class="row">
-                            <div class="col-md-12">
-                                {{ form_errors(form.username) }}
-                            </div>
-							<div class="col-md-4">
-								Nom d'utilisateur
+							<div class="row">
+								<div class="col-md-12">
+									{{ form_errors(form.username) }}
+								</div>
+								<div class="col-md-4">
+									Nom d'utilisateur
+								</div>
+								<div class="col-md-8">
+									{{ form_widget(form.username, {'attr': {'class': 'randomovies-default-field'}}) }}
+								</div>
+								<div class="col-md-4">
+									Adresse email
+								</div>
+								<div class="col-md-8">
+									{{ form_widget(form.email, {'attr': {'class': 'randomovies-default-field'}}) }}
+								</div>
+								<div class="col-md-4">
+									Mot de passe
+								</div>
+								<div class="col-md-8">
+									{{ form_widget(form.plainPassword.first, {'attr': {'class': 'randomovies-default-field'}}) }}
+								</div>
+								<div class="col-md-4">
+									Confirmation du mot de passe
+								</div>
+								<div class="col-md-8">
+									{{ form_widget(form.plainPassword.second, {'attr': {'class': 'randomovies-default-field'}}) }}
+								</div>
+								<div class="col-md-12">
+									<button type="reset" class="randomovies-default-btn">Remettre à zéro</button>
+									<button type="submit" class="randomovies-default-btn float-right">S'inscrire</button>
+								</div>
 							</div>
-							<div class="col-md-8">
-                                {{ form_widget(form.username, {'attr': {'class': 'randomovies-default-field'}}) }}
-							</div>
-							<div class="col-md-4">
-								Adresse email
-							</div>
-							<div class="col-md-8">
-                                {{ form_widget(form.email, {'attr': {'class': 'randomovies-default-field'}}) }}								
-							</div>
-							<div class="col-md-4">
-								Mot de passe
-							</div>
-							<div class="col-md-8">
-								{{ form_widget(form.plainPassword.first, {'attr': {'class': 'randomovies-default-field'}}) }}
-							</div>
-							<div class="col-md-4">
-								Confirmation du mot de passe
-							</div>
-							<div class="col-md-8">
-								{{ form_widget(form.plainPassword.second, {'attr': {'class': 'randomovies-default-field'}}) }}
-							</div>
-							<div class="col-md-12">
-								<button type="reset" class="randomovies-default-btn">Remettre à zéro</button>
-								<button type="submit" class="randomovies-default-btn float-right">S'inscrire</button>
-							</div>
-						</form>
-					</div>
+
+						{{ form_end(form) }}
 				</div>
 			</div>
 		</div>
