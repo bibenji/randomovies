@@ -16,7 +16,7 @@
 			</div>
 			<div class="col-lg-4">
 				<h1>{{ movie.title }} {% if is_granted('ROLE_CONTRIBUTOR') %}<a class="btn btn-outline-secondary" href="{{ path('admin_movie_edit', { 'id': movie.id }) }}">edit</a>{% endif %}</h1>
-				{% if movie.suggestion %}Film suggéré par {{ movie.suggestion.user.username }}{% endif %}
+				{% if movie.suggestion %}<i>Film suggéré par {{ movie.suggestion.user.username }}</i><br /><br />{% endif %}
 				<p>
 					{{ movie.synopsis|length > 400 ? movie.synopsis|slice(0, 400) ~ '...' : movie.synopsis }}
 					{# {{ movie.synopsis|raw }} #}				
