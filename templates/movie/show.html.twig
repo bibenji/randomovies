@@ -29,7 +29,7 @@
 					{% endif %}					
 				</p>
 				{% set actors = movie.roles('actor') %}
-				<p>Avec {% for index, role in actors %}<a href="{{ path('show_actor', {'id': role.person.id}) }}">{{ role.person.fullname }}</a>{% if index+1 < actors|length %},&nbsp{% endif %}{% endfor %}
+				<p>Avec {% for index, role in actors %}<a href="{{ path('show_actor', {'id': role.person.id}) }}">{{ role.person.fullname }}</a>{% if role.personnage %} ({{ role.personnage }}){% endif %}{% if index+1 < actors|length %},&nbsp{% endif %}{% endfor %}
 				</p>
 				<div class="row">
 					<div class="col-4">{{ movie.genre }}</div>
@@ -162,7 +162,7 @@
 				
 				{% if not app.user %}
         			<div id="commenter">
-						Vous aussi, postez votre critique et accédez à des suggestions de films personnalisées ! <a href="./inscription.html">Inscrivez-vous</a>
+						Vous aussi, postez votre critique et accédez à des suggestions de films personnalisées ! <a href="{{ path('user_registration') }}">Inscrivez-vous</a>
 					</div>
 				{% else %}
 					{# {% include 'comment/module.html.twig' with {'comment_form': comment_form, 'comments': movie_comments, 'comments_data': comments_data} %} #}
@@ -174,6 +174,15 @@
 							<div class="col-xl-12 pb-3">
 								<h5>Ecrire un commentaire</h5>
 							</div>
+							{% if comment_form.vars.errors %}
+							<div class="col-12">
+								{% for error in comment_form.vars.errors %}
+									<div class="error">
+										{{ error.message }}
+									</div>
+								{% endfor %}
+							</div>
+							{% endif %}
 							<div class="col-xl-4">
 								Votre note
 							</div>
