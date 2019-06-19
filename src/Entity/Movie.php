@@ -5,6 +5,7 @@ namespace Randomovies\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Movie
@@ -29,6 +30,7 @@ class Movie
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $title;
 
@@ -36,6 +38,7 @@ class Movie
      * @var string
      *
      * @ORM\Column(name="director", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $director;
 
@@ -50,6 +53,7 @@ class Movie
      * @var int
      *
      * @ORM\Column(name="year", type="integer")
+     * @Assert\NotBlank
      */
     private $year;
 
@@ -57,6 +61,7 @@ class Movie
      * @var int
      *
      * @ORM\Column(name="duration", type="integer")
+     * @Assert\NotBlank
      */
     private $duration;
 
@@ -64,6 +69,7 @@ class Movie
      * @var string
      *
      * @ORM\Column(name="synopsis", type="text")
+     * @Assert\NotBlank
      */
     private $synopsis;
 
@@ -76,6 +82,7 @@ class Movie
      * @var string
      *
      * @ORM\Column(name="genre", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $genre;
 

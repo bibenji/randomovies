@@ -5,8 +5,10 @@
     
     	<div class="row">
     		<div class="col-md-10 offset-md-2">
-    			{{ form_errors(form) }}
-    		</div>    	
+				<div class="error">
+					{{ form_errors(form) }}
+				</div>
+    		</div>
     	</div>
 	
         {% form_theme form 'form/field.html.twig' %}
@@ -26,6 +28,7 @@
 		{% endif %}
         
         {{ form_row(form.title) }}
+		<div class="error">{{ form_errors(form.title) }}</div>
         {{ form_row(form.director) }}
         {{ form_row(form.actors) }}
 
@@ -46,12 +49,18 @@
         </div>
 
         {{ form_row(form.year) }}
+		<div class="error">{{ form_errors(form.title) }}</div>
+
         {{ form_row(form.duration) }}
-        {{ form_row(form.synopsis) }}        
+		<div class="error">{{ form_errors(form.title) }}</div>
+
+        {{ form_row(form.synopsis) }}
+		<div class="error">{{ form_errors(form.title) }}</div>
         
         {{ form_row(form.reviews) }}        
 
         {{ form_row(form.genre) }}
+		<div class="error">{{ form_errors(form.title) }}</div>
 
         <div class="row mb-3">
 			<div class="col-md-2">
@@ -82,9 +91,6 @@
                 
             </div>
         </div>
-
-
-
 
         {% if app.request.attributes.get('_route') == 'admin_movie_edit' %}
             {{ form_row(form.newPoster) }}
