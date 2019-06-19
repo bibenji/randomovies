@@ -58,10 +58,10 @@
     <br />
     {% for media in edit_form.medias %}
         <div class="row mb-2">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 {{ form_row(media) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 {% if media.vars.data.path is not null %}
                     <img class="media-preview" src="{{ asset('images/medias/' ~ media.vars.data.path) }}" />
                     <div class="media-delete-btn">

@@ -64,7 +64,7 @@
 							{% set max_index = tags|length %}
 							{% for uuid, tag in tags %}
 								{% set index = index+1 %}
-								<a href="{{ queryWithParams }}tag={{ tag.id }}">{{ tag.name }}</a>{% if index < max_index %}, {% endif %}
+								<a href="{{ queryWithParams }}tag={{ tag.id }}">{{ tag.name }}</a>{% if index <= max_index %}, {% endif %}
 							{% endfor %}
 						{% endif %}
 					</div>

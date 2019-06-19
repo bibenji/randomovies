@@ -8,7 +8,7 @@
 			
 		<div id="acteur">				
 			<div class="row">
-				<div class="col-xl-4">
+				<div class="col-4">
 					{% set firstCount = 0 %}
 					{% for index, media in actor.medias %}
 						<img class="{{ index == 0 ? 'acteur-main-pic' : 'acteur-pic' }}" alt="{{ media.name }}" src="{{ asset('images/medias/' ~ media.path) }}" />
@@ -18,7 +18,7 @@
 						<img class="{{ index == 0 and firstCount == 0 ? 'acteur-main-pic' : 'acteur-pic' }}" alt="{{ file.getRelativePathname() }}" src="{{ asset(actor_dir ~ file.getRelativePathname()) }}" />
 					{% endfor %}
 				</div>
-				<div class="col-xl-4">
+				<div class="col-8">
 					<h2>{{ actor.getFullName() }} {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-outline-secondary" href="{{ path('admin_person_edit', { 'id': actor.id }) }}">edit</a>{% endif %}</h2>
 					<h3>Infos</h3>
 					<p>Date de naissance : {{ actor.birthdate|date('d/m/Y') }}</p>

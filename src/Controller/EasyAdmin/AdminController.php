@@ -18,7 +18,9 @@ class AdminController extends BaseAdminController
 	public function updateEntity($entity)
 	{
 		if ($entity instanceof User) {
-			$entity->setPassword($this->encryptPlainPassword($entity));			
+		    if ($entity->getPlainPassword() !== '') {
+                $entity->setPassword($this->encryptPlainPassword($entity));
+            }
 		}
 		parent::updateEntity($entity);
 	}

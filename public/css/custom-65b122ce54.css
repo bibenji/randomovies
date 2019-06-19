@@ -371,7 +371,8 @@ a:hover {
   color: #101010; }
 
 #suggestions .suggestion {
-  text-align: center; }
+  text-align: center;
+  margin-bottom: 20px; }
   #suggestions .suggestion img {
     width: 90%; }
 
